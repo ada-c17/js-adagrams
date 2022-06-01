@@ -88,7 +88,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   }
 
   for (let char of inputUpper){
-    if (char in countLetter){
+    if (char in countLetter && countLetter[char] >= 1){
       countLetter[char] -= 1;
     }else{
       return false;
@@ -101,10 +101,11 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 export const scoreWord = (word) => {
   // Implement this method for wave 3
   let total = 0;
-  if (word === "") {
+
+  if (word.length === 0) {
     return 0;
   }
-  
+
   for (let w of word){
     total += POINT_SYSTEM[w.toUpperCase()];
   }
