@@ -101,6 +101,10 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 export const scoreWord = (word) => {
   // Implement this method for wave 3
   let total = 0;
+  if (word === "") {
+    return 0;
+  }
+  
   for (let w of word){
     total += POINT_SYSTEM[w.toUpperCase()];
   }
