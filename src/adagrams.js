@@ -27,7 +27,7 @@ const LETTER_POOL = {
   Z: 1,
 };
 
-POINT_SYSTEM = {
+const POINT_SYSTEM = {
   'A':1,
   'B':3,
   'C':3,
@@ -62,11 +62,12 @@ export const drawLetters = () => {
   const letterPoolCopy = Object.assign({}, LETTER_POOL);
   //const letter_pool_copy = {...LETTER_POOL} ; //spread syntax
   
-  const lettersDrawn = []
+  const lettersDrawn = [];
   const letterKeys = Object.keys(letterPoolCopy);
+
   while (lettersDrawn.length < 10){
-    let random_letter = Math.floor(Math.random()*lettersDrawn.length);
-    if (letterPoolCopy[random_letter] >= 1){
+    let random_letter = letterKeys[Math.floor(Math.random()*letterKeys.length)];
+    if(letterPoolCopy[random_letter] >= 1){
       lettersDrawn.push(random_letter);
       letterPoolCopy[random_letter] -= 1;
     }
@@ -99,10 +100,11 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
-  const total = 0;
+  let total = 0;
   for (let w of word){
     total += POINT_SYSTEM[w.toUpperCase()];
   }
+
   if (word.length > 6 && word.length < 11){
     total += 8;
   }
@@ -111,4 +113,10 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
+
+  //tie-breaking
+  //1. fewest letter
+  //2. 10 letter vs. fewer tiles -> 10 letter
+  //3. same score, same length -> choose first one
+
 };
