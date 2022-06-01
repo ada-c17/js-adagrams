@@ -1,3 +1,5 @@
+// ----- Wave 1 -----
+
 const letterPool = {
   A: { quantity: 9, score: 1 },
   B: { quantity: 2, score: 3 },
@@ -38,8 +40,8 @@ const generateLetters = (lettersData) => {
 };
 
 const getRandomLetter = (lettersArray) => {
+  // get a random letter and remove that letter from the original arrays
   let randomIndex = ~~(Math.random() * lettersArray.length);
-  // get a random letter and remove that letter from the original array
   let randomLetter = lettersArray.splice(randomIndex, 1)[0];
   return randomLetter;
 };
@@ -59,8 +61,20 @@ export const drawLetters = () => {
   return lettersInHand;
 };
 
+// ----- Wave 2 -----
+
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  if (input.length > lettersInHand.length) return false;
+
+  for (let i of input) {
+    const index = lettersInHand.findIndex((letter) => letter === i);
+    if (index === -1) {
+      return false;
+    } else {
+      lettersInHand.splice(index, 1);
+    }
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
