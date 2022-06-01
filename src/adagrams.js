@@ -102,7 +102,7 @@ export const scoreWord = (word) => {
   // Implement this method for wave 3
   let total = 0;
 
-  if (word.length === 0) {
+  if (word.length === 0 || word === null) {
     return 0;
   }
 
@@ -113,15 +113,33 @@ export const scoreWord = (word) => {
   if (word.length > 6 && word.length < 11){
     total += 8;
   }
+
   return total;
+
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+  /* Pseudocode 
+  1. iterate the array(words)
+  2. update the max_score
+  3. if score ties and max_word length is not 10:
+    - fewer letters or 10th length -> max_score
+  4. return highest object{"word": var, "score":var}
+  */
 
+  let max_score = 0;
+  let max_word = "";
   //tie-breaking
-  //1. fewest letter
-  //2. 10 letter vs. fewer tiles -> 10 letter
-  //3. same score, same length -> choose first one
-
+  for (const w of words){
+    let score = scoreWord(w);
+    if (score > max_score) {
+      max_score = score;
+      max_word = w;
+    }else if(score === max_score && max_word.length !== 10){
+      if(w.length < max_word.length || w.length === 10){
+        max_word = w;
+      }
+    }
+  }
+  return {"word":max_word, "score": max_score};
 };
