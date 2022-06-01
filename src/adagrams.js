@@ -31,8 +31,16 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   return true;
 };
 
+// ----- Wave 3 -----
+
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  if (!word) return 0;
+
+  word = word.toUpperCase();
+  let score = [...word].reduce((previousValue, currentValue) => {
+    return previousValue + letterPool[currentValue].score;
+  }, 0);
+  return word.length < 7 ? score : score + 8;
 };
 
 export const highestScoreFrom = (words) => {
