@@ -35,7 +35,7 @@ const LETTER_POOL = {
 };
 
 describe("Adagrams", () => {
-  describe("drawLetters", () => {
+  describe.only("drawLetters", () => {
     it("draws ten letters from the letter pool", () => {
       const drawn = drawLetters();
 
@@ -44,7 +44,7 @@ describe("Adagrams", () => {
 
     it("returns an array, and each item is a single-letter string", () => {
       const drawn = drawLetters();
-
+      //console.log(drawLetters());
       expect(Array.isArray(drawn)).toBe(true);
       drawn.forEach((l) => {
         expect(l).toMatch(/^[A-Z]$/);
