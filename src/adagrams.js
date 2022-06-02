@@ -1,10 +1,4 @@
 const createLetterPoolArray = () => {
-  // letter_pool_list = []
-  //   for letter, frequency in LETTER_POOL.items():
-  //       for i in range(frequency):
-  //           letter_pool_list.append(letter)
-
-  //   return letter_pool_list
   const letterQuantities = {
     A: 9,
     B: 2,
@@ -38,33 +32,36 @@ const createLetterPoolArray = () => {
     for (let i = 0; i < quantity; i++) {
       letterPoolArray.push(letter);
     }
-    console.log(letterPoolArray);
   }
   return letterPoolArray;
 };
 
-createLetterPoolArray();
+const getRandomIndex = (arrayLength) => {
+  return Math.floor(Math.random() * arrayLength);
+};
 
-// export const drawLetters = () => {
-//   // Implement this method for wave 1
-//   // letter_pool_list = create_letter_pool_list(LETTER_POOL)
-//   //   current_hand = []
-//   //   for i in range(10):
-//   //       pool_index = random.randint(0, len(letter_pool_list)-1)
-//   //       draw_letter = letter_pool_list[pool_index]
-//   //       current_hand.append(draw_letter)
-//   //       letter_pool_list.remove(draw_letter)
-//   //   return current_hand
-// };
+export const drawLetters = () => {
+  // Implement this method for wave 1
+  let letterPoolArray = createLetterPoolArray();
+  let currentHand = [];
+  for (let i = 0; i < 10; i++) {
+    const drawnIndex = getRandomIndex(letterPoolArray.length);
+    currentHand.push(letterPoolArray[drawnIndex]);
+    letterPoolArray.splice(drawnIndex, 1);
+  }
+  return currentHand;
+};
 
-// export const usesAvailableLetters = (input, lettersInHand) => {
-//   // Implement this method for wave 2
-// };
+drawLetters();
 
-// export const scoreWord = (word) => {
-//   // Implement this method for wave 3
-// };
+export const usesAvailableLetters = (input, lettersInHand) => {
+  // Implement this method for wave 2
+};
 
-// export const highestScoreFrom = (words) => {
-//   // Implement this method for wave 1
-// };
+export const scoreWord = (word) => {
+  // Implement this method for wave 3
+};
+
+export const highestScoreFrom = (words) => {
+  // Implement this method for wave 1
+};
