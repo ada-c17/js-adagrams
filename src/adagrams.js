@@ -176,9 +176,9 @@ export const scoreWord = (word) => {
   // Implement this method for wave 3
   let score = 0;
   word = word.toUpperCase();
-  if (!word) {
-    return score;
-  }
+  // if (!word) {
+  //   return score;
+  // }
   for (let letter of word) {
     score += LETTERSCORES[letter];
   }
@@ -190,4 +190,16 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
+  // let highestScoreWord = {
+  //   word: "",
+  //   score: 0
+  // }
+  // for word in words
+  // score word
+  // if score higher replace highestScoreWord
+  // if score equal
+  // case: len word is 10 -- replace highestScoreWord
+  // case: len highestScoreWord < 10 and len word < len highestScoreWord
+  // otherwise do nothing
+  // return highestScoreWord
 };
