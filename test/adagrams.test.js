@@ -35,7 +35,6 @@ const LETTER_POOL = {
 };
 
 describe("Adagrams", () => {
-  console.log("why not print?")
   describe("drawLetters", () => {
     it("draws ten letters from the letter pool", () => {
       const drawn = drawLetters();
@@ -121,7 +120,8 @@ describe("Adagrams", () => {
     });
 
     it("returns a score of 0 if given an empty input", () => {
-      throw "Complete test";
+      expect(scoreWord("")).toBe(0);
+      //throw "Complete test";
     });
 
     it("adds an extra 8 points if word is 7 or more characters long", () => {
@@ -147,7 +147,8 @@ describe("Adagrams", () => {
       const words = ["XXX", "XXXX", "X", "XX"];
       const correct = { word: "XXXX", score: scoreWord("XXXX") };
 
-      throw "Complete test by adding an assertion";
+      expect(highestScoreFrom(words)).toEqual(correct);
+      //throw "Complete test by adding an assertion";
     });
 
     describe("in case of tied score", () => {

@@ -95,7 +95,6 @@ export const usesAvailableLetters = (input, lettersInHand) => {
     }
   }
   return true;
-
 };
 
 export const scoreWord = (word) => {
@@ -105,7 +104,7 @@ export const scoreWord = (word) => {
   if (word.length === 0 || word === null) {
     return 0;
   }
-
+  
   for (let w of word){
     total += POINT_SYSTEM[w.toUpperCase()];
   }
@@ -113,12 +112,12 @@ export const scoreWord = (word) => {
   if (word.length > 6 && word.length < 11){
     total += 8;
   }
-
   return total;
 
 };
 
 export const highestScoreFrom = (words) => {
+    // Implement this method for wave 4
   /* Pseudocode 
   1. iterate the array(words)
   2. update the max_score
@@ -127,19 +126,20 @@ export const highestScoreFrom = (words) => {
   4. return highest object{"word": var, "score":var}
   */
 
-  let max_score = 0;
-  let max_word = "";
-  //tie-breaking
-  for (const w of words){
+  let maxScore = 0;
+  let maxWord = "";
+  
+  for (let w of words){
     let score = scoreWord(w);
-    if (score > max_score) {
-      max_score = score;
-      max_word = w;
-    }else if(score === max_score && max_word.length !== 10){
-      if(w.length < max_word.length || w.length === 10){
-        max_word = w;
+    if (score > maxScore) {
+      maxScore = score;
+      maxWord = w;
+    //tie-breaking rules
+    }else if(score === maxScore && maxWord.length !== 10){
+      if(w.length < maxWord.length || w.length === 10){
+        maxWord = w;
       }
     }
   }
-  return {"word":max_word, "score": max_score};
+  return {"word":maxWord, "score": maxScore};
 };
