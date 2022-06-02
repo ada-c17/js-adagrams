@@ -27,6 +27,35 @@ const LETTER_POOL = {
   Z: 1,
 };
 
+const LETTER_SCORES = {
+  'A': 1, 
+  'B': 3, 
+  'C': 3, 
+  'D': 2, 
+  'E': 1, 
+  'F': 4, 
+  'G': 2, 
+  'H': 4, 
+  'I': 1, 
+  'J': 8, 
+  'K': 5, 
+  'L': 1, 
+  'M': 3, 
+  'N': 1, 
+  'O': 1, 
+  'P': 3, 
+  'Q': 10, 
+  'R': 1, 
+  'S': 1, 
+  'T': 1, 
+  'U': 1, 
+  'V': 4, 
+  'W': 4, 
+  'X': 8, 
+  'Y': 4, 
+  'Z': 10
+};
+
 export const drawLetters = () => {
   /**
     parameters: none
@@ -92,7 +121,31 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  /**
+      parameters:
+    --string (word)
+
+    this function scores the user word by:
+    --sets a running total variable to 0
+    --capitalizes the word
+    --checks if the word is 7 characters or longer
+        --if so, adds 8 points total score
+    --for each letter, gets the associated points from LETTER_SCORES and adds it to total
+
+    returns: integer (total)
+   */
+
+  let total = 0;
+  word = word.toUpperCase();
+
+  if (word.length >= 7){
+    total += 8;
+  }
+
+  for (const letter of word){
+    total +=LETTER_SCORES[letter]
+  }
+  return total;
 };
 
 export const highestScoreFrom = (words) => {
