@@ -147,12 +147,13 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
+  const letters = [...lettersInHand];
   for (let letter of input) {
-    const index = lettersInHand.findIndex((i) => i === letter);
+    const index = letters.findIndex((i) => i === letter);
     if (index < 0) {
       return false;
     } else {
-      lettersInHand.splice(index, 1);
+      letters.splice(index, 1);
     }
   }
   return true;
