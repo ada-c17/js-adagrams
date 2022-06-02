@@ -101,10 +101,13 @@ const letterPool = [
 
 export const drawLetters = () => {
   // Implement this method for wave 1
-
+  // create a copy of letter pool so we don't alter original array
   const letterPoolCopy = [...letterPool];
   const drawnLetters = [];
 
+  // until the length of drawnLetters is 10
+  // keep generating a random index to remove from the pool
+  // and add that element to drawnLetters
   while (drawnLetters.length < 10) {
     const randIndex = Math.floor(Math.random() * letterPoolCopy.length);
     drawnLetters.push(letterPoolCopy[randIndex]);
@@ -116,9 +119,11 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
+  // create a copy of lettersInHand so we don't alter original array
   const lettersInHandCopy = [...lettersInHand];
   input = input.toUpperCase();
   let validInput = true;
+  // check all letters in input are available in correct quantity
   for (const letter of input) {
     if (lettersInHandCopy.includes(letter) === false) {
       validInput = false;
@@ -177,4 +182,31 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
+  let bestWord = {
+    word: "",
+    score: 0,
+  };
+  for (const word of words) {
+    let score = scoreWord(word);
+    if (score > bestWord["score"]) {
+      updateBestWord(bestWord, word, score);
+      // check for ties using word length guidelines
+    } else if (score === bestWord["score"]) {
+      if (word.length === 10 && bestWord["word"].length !== 10) {
+        updateBestWord(bestWord, word, score);
+      } else if (
+        word.length < bestWord["word"].length &&
+        bestWord["word"].length !== 10
+      ) {
+        updateBestWord(bestWord, word, score);
+      }
+    }
+  }
+  return bestWord;
+};
+// helper method for highestScoreFrom
+const updateBestWord = (bestWord, word, score) => {
+  bestWord["word"] = word;
+  bestWord["score"] = score;
+  return bestWord;
 };
