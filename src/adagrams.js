@@ -214,7 +214,7 @@ class Adagrams {
   static scoreWord(word) {
     let score = 0;
     if (word.length >= 7 && word.length <= 10) {
-      score = 8;
+      score += 8;
     }
     for (let i = 0; i < word.length; i++) {
       score += Adagrams.SCORE_CHART[word[i].toUpperCase()];
@@ -235,7 +235,11 @@ class Adagrams {
         if (maxWord.length !== 10 && words[i].length === 10) {
           maxWord = words[i];
         }
-        if (words[i].length < maxWord.length) {
+        if (
+          maxWord.length !== 10 &&
+          words[i].length !== 10 &&
+          words[i].length < maxWord.length
+        ) {
           maxWord = words[i];
         }
       }
