@@ -37,12 +37,36 @@ export const scoreWord = (word) => {
   if (!word) return 0;
 
   word = word.toUpperCase();
-  let score = [...word].reduce((previousValue, currentValue) => {
-    return previousValue + letterPool[currentValue].score;
+
+  let score = [...word].reduce((prev, current) => {
+    return prev + letterPool[current].score;
   }, 0);
+
   return word.length < 7 ? score : score + 8;
 };
 
+// ----- Wave 4 -----
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+  const wordScores = words.map((word) => ({
+    word: word,
+    score: scoreWord(word),
+  }));
+  let result = wordScores.reduce((prev, current) => {
+    if (prev.score > current.score) {
+      return prev;
+    } else if (prev.score == current.score) {
+      if (prev.word.length === 10) {
+        return prev;
+      } else if (current.word.length === 10) {
+        return current;
+      } else if (prev.word.length <= current.word.length) {
+        return prev;
+      } else {
+        return current;
+      }
+    } else {
+      return current;
+    }
+  });
+  return result;
 };
