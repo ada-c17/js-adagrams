@@ -71,6 +71,15 @@ describe("Adagrams", () => {
   });
 
   describe("usesAvailableLetters", () => {
+    // add test to achieve 100% coverage
+    it("returns false when length of word is longer than the total of drawn letters", () => {
+      const drawn = ["D", "O", "G", "X", "X", "X", "X", "X", "X", "X"];
+      const word = "DOGXXXXXXXXXX";
+
+      const isValid = usesAvailableLetters(word, drawn);
+      expect(isValid).toBe(false);
+    });
+
     it("returns true if the submitted letters are valid against the drawn letters", () => {
       const drawn = ["D", "O", "G", "X", "X", "X", "X", "X", "X", "X"];
       const word = "DOG";
@@ -120,9 +129,8 @@ describe("Adagrams", () => {
     });
 
     it("returns a score of 0 if given an empty input", () => {
-      expectScores({
-        "": 0,
-      });
+      const word = "";
+      expect(scoreWord(word)).toBe(0);
     });
 
     it("adds an extra 8 points if word is 7 or more characters long", () => {
