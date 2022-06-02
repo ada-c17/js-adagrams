@@ -47,7 +47,6 @@ export const drawLetters = () => {
   }
   return listOfstrings;
 };
-//console.log(drawLetters());
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
