@@ -42,9 +42,8 @@ export const drawLetters = () => {
   const copyObject = {...LETTER_POOL};
 
   let letterPoolList = [];
-
   for (const [letter, count] of Object.entries(copyObject)){
-    const subArray = Array(count).fill(letter)
+    const subArray = Array(count).fill(letter);
     letterPoolList = letterPoolList.concat(subArray);
   }
   
@@ -55,11 +54,41 @@ export const drawLetters = () => {
     letterPoolList.splice(randomIndex, 1);
     letterArray.push(letter);
   }
-  return letterArray
+  return letterArray;
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  /**
+    parameters:
+    --a string (word)
+    --a list (letter_bank) of 10 letters
+
+    this function checks if user word's letters are in our letter bank by:
+    --makes a copy of letter_bank
+    --for each character of the word, capitalizes it and checks to see if it is in the letter_bank copy
+        --if the character is in the letter_bank copy, then we remove that character from the letter_bank copy 
+        --if not, return False
+    --return True indicating all letters in our word were in the letter_bank list
+
+    returns: Boolean
+   */
+    console.log('The hand:', lettersInHand, '\nLetters guessed:',input)
+    const copyArray = [...lettersInHand];
+    let result = true
+
+    const lettersInHandObject = {}
+    copyArray.forEach(letter => lettersInHandObject[letter] = (lettersInHandObject[letter] || 0) + 1);
+
+    for(let character of input){
+      character = character.toUpperCase();
+      if (character in lettersInHandObject && lettersInHandObject[character] > 0){
+        lettersInHandObject[character]--;
+        console.log(lettersInHandObject);
+      }else{
+        result = false;
+      }
+    }
+    return result
 };
 
 export const scoreWord = (word) => {
