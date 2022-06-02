@@ -55,56 +55,60 @@ const SCORE_CHART = {
   Z: 10,
 };
 
-export const drawLetters = () => {
-  const _ = require("underscore");
-  let arr = [];
-  Object.keys(LETTER_POOL).forEach((key) => {
-    arr.push(...Array(LETTER_POOL[key]).fill(key));
-  });
-  var randomTenLetters = _.sample(arr, 10);
-  return randomTenLetters;
-};
+class Adagrams {
+  static drawLetters = () => {
+    const _ = require("underscore");
+    let arr = [];
+    Object.keys(LETTER_POOL).forEach((key) => {
+      arr.push(...Array(LETTER_POOL[key]).fill(key));
+    });
+    let randomTenLetters = _.sample(arr, 10);
+    return randomTenLetters;
+  };
 
-export const usesAvailableLetters = (input, lettersInHand) => {
-  lettersInHand.forEach((l) => {
-    if (input.includes(l)) {
-      input = input.replace(l, "");
+  static usesAvailableLetters = (input, lettersInHand) => {
+    lettersInHand.forEach((l) => {
+      if (input.includes(l)) {
+        input = input.replace(l, "");
+      }
+    });
+    return input === "";
+  };
+
+  static scoreWord = (word) => {
+    if (word.length == 0) {
+      return 0;
     }
-  });
-  return input === "";
-};
+    let score = 0;
+    for (let letter of word) {
+      score += SCORE_CHART[letter.toUpperCase()];
+    }
+    if (word.length >= 7) {
+      score += 8;
+    }
+    return score;
+  };
 
-export const scoreWord = (word) => {
-  if (word.length == 0) {
-    return 0;
-  }
-  let score = 0;
-  for (let letter of word) {
-    score += SCORE_CHART[letter.toUpperCase()];
-  }
-  if (word.length >= 7) {
-    score += 8;
-  }
-  return score;
-};
-
-export const highestScoreFrom = (words) => {
-  let count = 0;
-  let best_word = "";
-  for (const oneWord of words) {
-    if (scoreWord(oneWord) > count) {
-      count = scoreWord(oneWord);
-      best_word = oneWord;
-    } else if (scoreWord(oneWord) === count) {
-      if (oneWord.length === 10 && oneWord.length > best_word.length) {
-        best_word = oneWord;
-      } else if (best_word.length !== 10 && best_word.length > oneWord.length) {
-        best_word = oneWord;
+  static highestScoreFrom = (words) => {
+    let count = 0;
+    let bestWord = "";
+    for (const oneWord of words) {
+      if (Adagrams.scoreWord(oneWord) > count) {
+        count = Adagrams.scoreWord(oneWord);
+        bestWord = oneWord;
+      } else if (Adagrams.scoreWord(oneWord) === count) {
+        if (oneWord.length === 10 && oneWord.length > bestWord.length) {
+          bestWord = oneWord;
+        } else if (bestWord.length !== 10 && bestWord.length > oneWord.length) {
+          bestWord = oneWord;
+        }
       }
     }
-  }
-  return {
-    word: best_word,
-    score: count,
+    return {
+      word: bestWord,
+      score: count,
+    };
   };
-};
+}
+
+export default Adagrams;
