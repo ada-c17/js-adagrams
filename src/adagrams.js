@@ -1,17 +1,3 @@
-// A : 9	N : 6
-// B : 2	O : 8
-// C : 2	P : 2
-// D : 4	Q : 1
-// E : 12	R : 6
-// F : 2	S : 4
-// G : 3	T : 6
-// H : 2	U : 4
-// I : 9	V : 2
-// J : 1	W : 2
-// K : 1	X : 1
-// L : 4	Y : 2
-// M : 2	Z : 1
-
 const LETTERBANK = [
   "A",
   "A",
@@ -202,4 +188,32 @@ export const highestScoreFrom = (words) => {
   // case: len highestScoreWord < 10 and len word < len highestScoreWord
   // otherwise do nothing
   // return highestScoreWord
+  let highestScoreWord = {
+    word: "",
+    score: 0,
+  };
+  for (let word of words) {
+    const score = scoreWord(word);
+    // console.log(score);
+    // console.log(highestScoreWord[score]);
+    if (score > highestScoreWord["score"]) {
+      console.log("yes");
+      highestScoreWord = {
+        word,
+        score,
+      };
+    } else if (score === highestScoreWord["score"]) {
+      if (
+        highestScoreWord["word"].length < 10 &&
+        (word.length === 10 || word.length < highestScoreWord["word"].length)
+      ) {
+        highestScoreWord = {
+          word,
+          score,
+        };
+      }
+    }
+    // console.log(highestScoreWord);
+  }
+  return highestScoreWord;
 };
