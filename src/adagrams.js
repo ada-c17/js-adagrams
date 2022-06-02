@@ -84,7 +84,29 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-    // Implement this method for wave 2
+    input = input.toUpperCase();
+    const guessedLetters = Array.from(input);
+    let booleanList = [];
+    const letterCountGuessedLetters = guessedLetters.reduce((obj, letter) => {
+        const count = obj[letter] || 0;
+        return {...obj, [letter]: count + 1 };
+    }, {});
+    const letterCountLettersInHand = lettersInHand.reduce((obj, letter) => {
+        const count = obj[letter] || 0;
+        return {...obj, [letter]: count + 1 };
+    }, {});
+    for (const [letter, count] of Object.entries(letterCountGuessedLetters)) {
+        if (count <= letterCountLettersInHand[letter]) {
+            booleanList.push(true);
+        } else {
+            booleanList.push(false);
+        }
+    }
+    if (booleanList.every(Boolean)) {
+        return true;
+    } else {
+        return false;
+    }
 };
 
 export const scoreWord = (word) => {
