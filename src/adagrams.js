@@ -40,10 +40,14 @@ export const drawLetters = () => {
   }
 
   while (userHand.length < 10) {
-    const letter_index = Math.floor(Math.random() * availableLetters.length);
-    const letter_choice = availableLetters[letter_index];
-    availableLetters.splice(letter_index, 1);
-    userHand.push(letter_choice);
+    const letterIndex = Math.floor(Math.random() * availableLetters.length);
+    const letterChoice = availableLetters[letterIndex];
+
+    //pop letter from array
+    availableLetters.splice(letterIndex, 1);
+
+    //append to userHand
+    userHand.push(letterChoice);
   }
 
   return userHand;
@@ -51,6 +55,17 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
+  let userHand = [...lettersInHand];
+
+  for (let letter of input) {
+    if (!userHand.includes(letter)) {
+      return false;
+    } else {
+      const letterIndex = userHand.indexOf(letter);
+      userHand.splice(letterIndex, 1);
+    }
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
