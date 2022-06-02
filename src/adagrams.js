@@ -32,18 +32,14 @@ const arrtoObj = startArr => {
 
 export const drawLetters = () => {
   let lettersArr = objtoArr(LETTER_POOL);
-  let lettersArrLen = lettersArr.length;
-  let drawnLettersMap = {};
-  while (Object.values(drawnLettersMap).reduce((a, b) => a + b,0) < 10) {
-    let randLetter = lettersArr[Math.floor(Math.random()*lettersArrLen)];
-    while ((LETTER_POOL[randLetter] - drawnLettersMap[randLetter]) < 1) {
-      randLetter = lettersArr[Math.floor(Math.random()*lettersArr.length)];
-    }
-    if (randLetter in drawnLettersMap) {
-      drawnLettersMap[randLetter]++;
-    } else {drawnLettersMap[randLetter] = 1;}
-  };
-  return objtoArr(drawnLettersMap);
+  let drawnLetters = [];
+  while (drawnLetters.length < 10) {
+    const randIndex = Math.floor(Math.random()*lettersArr.length);
+    const randLetter = lettersArr[randIndex];
+    lettersArr.splice(randIndex,1); 
+    drawnLetters.push(randLetter);
+  }
+  return drawnLetters;
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
@@ -68,32 +64,18 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  let wordScoreMap = {};
+  let maxScore = 0;
+  let maxWord = "";
   for (const word of words) {
-    let wordScore = scoreWord(word);
-    if (wordScore in wordScoreMap) {
-      wordScoreMap[wordScore].push(word);
-    } else { wordScoreMap[wordScore] = [word];
-    }
-  }
-  const maxScore = parseInt(Math.max.apply(null,Object.keys(wordScoreMap)));
-  const maxWords = wordScoreMap[maxScore];
-  if (maxWords.length > 1) {
-    let minLen = 11;
-    let minWord = [];
-    for (const word of maxWords) {
-      if (word.length === 10) {
-        return {word: word, score: maxScore};
-      } else if (minLen !== 10) {
-        if (word.length < minLen) {
-          minLen = word.length
-          minWord = [word]
-        } else if (word.length === minLen) {
-          minWord.push(word);
-        }
+    const wordScore = scoreWord(word);
+    if (wordScore > maxScore) {
+      maxScore = wordScore;
+      maxWord = word;
+    } else if (wordScore === maxScore) {
+      if ((maxWord.length !== 10 && word.length < maxWord.length) || (word.length === 10 && word.length > maxWord.length)) {
+        maxWord = word;
       }
     }
-    return {word: minWord[0], score: maxScore};
   }
-  return {word: maxWords[0], score: maxScore};
+  return {word: maxWord, score: maxScore};
 };
