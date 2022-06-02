@@ -19,6 +19,11 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
+  const user_input = input.toUpperCase().split("");
+  const isValid = user_input.every(val => lettersInHand.includes(val)
+                  && user_input.filter(el => el === val).length
+                  <= lettersInHand.filter(el => el === val).length);
+  return isValid;
 };
 
 export const scoreWord = (word) => {
