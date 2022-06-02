@@ -5,7 +5,7 @@ import {
   highestScoreFrom,
 } from "adagrams";
 
-const LETTER_POOL = {
+const letterPool = {
   A: 9,
   B: 2,
   C: 2,
@@ -64,7 +64,7 @@ describe("Adagrams", () => {
         }
 
         for (let letter of drawn) {
-          expect(letter_freq[letter]).toBeLessThanOrEqual(LETTER_POOL[letter]);
+          expect(letter_freq[letter]).toBeLessThanOrEqual(letterPool[letter]);
         }
       }
     });

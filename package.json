@@ -8,10 +8,7 @@
     "coverage": "open coverage/lcov-report/index.html",
     "demo-game": "babel-node src/demo.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/AdaGold/js-adagrams.git"
-  },
+  "repository": "git://github.com/AdaGold/js-adagrams.git",
   "author": "Ada Developers Academy <contact@adadevelopersacademy.org>",
   "license": "MIT",
   "bugs": {
