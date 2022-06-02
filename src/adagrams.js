@@ -1,3 +1,4 @@
+const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const LETTER_POOL = {
   A: 9,
   B: 2,
@@ -26,9 +27,8 @@ const LETTER_POOL = {
   Y: 2,
   Z: 1,
 };
-const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
 export const drawLetters = () => {
-  // Implement this method for wave 1
   const hand = [];
   const letterPoolCopy = { ...LETTER_POOL };
   while (hand.length < 10) {
@@ -44,6 +44,25 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
+  const lettersObj = {};
+  for (let char of lettersInHand) {
+    if (char in lettersObj) {
+      lettersObj[char]++;
+    } else {
+      lettersObj[char] = 1;
+    }
+  }
+  for (let char of input) {
+    if (char in lettersObj) {
+      lettersObj[char]--;
+      if (lettersObj[char] < 0) {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
