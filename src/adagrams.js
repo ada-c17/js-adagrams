@@ -10,8 +10,7 @@ export const drawLetters = () => {
 		let index = Math.floor((Math.random()*LETTER_POOL.length));
 		if (!uniqueIndex.includes(index)) {
 			uniqueIndex.push(index);
-			const letter = LETTER_POOL[index];
-			tenLetters.push(letter);
+			tenLetters.push(LETTER_POOL[index]);
 		}
   }
 	return tenLetters;
