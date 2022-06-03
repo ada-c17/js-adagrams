@@ -49,16 +49,17 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   for (const letter in input) {
-    if (!lettersInHand.includes(input[letter])) { // IF IN ONLY WORKS FOR OBJ
+    if (!lettersInHand.includes(input[letter])) {
+      // IF IN ONLY WORKS FOR OBJ
       return false;
     } else {
       lettersInHand.splice(input[letter], 1);
     }
-  } return true;
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
   const lettersAndpointValues = {
     A: 1,
     B: 3,
@@ -88,6 +89,13 @@ export const scoreWord = (word) => {
     Z: 10,
   };
   const bonus = 8;
+  for (const letter of word) {
+    //word is a string
+    pointsPerletter = lettersAndpointValues[letter];
+    console.log(pointsPerletter); //prints the correct values
+    // } if (7 <= word.length <= 10) {
+    //   return (add(pointsPerletter) + bonus);
+  }
 };
 
 export const highestScoreFrom = (words) => {
