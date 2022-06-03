@@ -28,12 +28,13 @@ const LETTER_POOL = {
 };
 
 export const drawLetters = () => {
-  const listPool = [];
+  const listPool = []; // creating an empty list to store all the possible letters from dictionary
 
   for (const key in LETTER_POOL) {
+    // looping over the object's keys to get access to its values
     let counter = 0;
     while (counter < LETTER_POOL[key]) {
-      listPool.push(key);
+      listPool.push(key); // adding key values times and moving to the next key
       counter++;
     }
   }
@@ -42,11 +43,11 @@ export const drawLetters = () => {
   const hand = [];
 
   while (startingPoint < 10) {
-    const indexVariable = Math.floor(Math.random() * listPool.length);
-    const randomLetter = listPool[indexVariable];
+    const indexVariable = Math.floor(Math.random() * listPool.length); //randomly celecting the index of letter that was randomly generated
+    const randomLetter = listPool[indexVariable]; //randomly generating a letter from my pool list
 
-    hand.push(randomLetter);
-    listPool.splice(indexVariable, 1);
+    hand.push(randomLetter); // adding randomly generated letter to a hand
+    listPool.splice(indexVariable, 1); // ramoving that randomly generated letter from pool by remembering its index
     startingPoint++;
   }
 
