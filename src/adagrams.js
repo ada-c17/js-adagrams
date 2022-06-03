@@ -76,17 +76,11 @@ class Adagrams {
   };
 
   static scoreWord = (word) => {
-    if (word.length == 0) {
-      return 0;
-    }
     let score = 0;
-    for (let letter of word) {
+    for (const letter of word) {
       score += SCORE_CHART[letter.toUpperCase()];
     }
-    if (word.length >= 7) {
-      score += 8;
-    }
-    return score;
+    return word.length >= 7 ? (score += 8) : score;
   };
 
   static highestScoreFrom = (words) => {

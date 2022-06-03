@@ -1,10 +1,4 @@
 import Adagrams from "adagrams";
-// import {
-//   drawLetters,
-//   usesAvailableLetters,
-//   scoreWord,
-//   highestScoreFrom,
-// } from "adagrams";
 
 const LETTER_POOL = {
   A: 9,
