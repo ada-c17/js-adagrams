@@ -112,7 +112,6 @@ export const usesAvailableLetters = (input, lettersInHand) => {
       character = character.toUpperCase();
       if (character in lettersInHandObject && lettersInHandObject[character] > 0){
         lettersInHandObject[character]--;
-        console.log(lettersInHandObject);
       }else{
         result = false;
       }
