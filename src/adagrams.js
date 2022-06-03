@@ -70,7 +70,17 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  const word = input.toUpperCase();
+  let letterBank = lettersInHand.slice();
+  for (const letter of word) {
+    let index = letterBank.findIndex((item) => item === letter);
+    if (index == -1) {
+      return false;
+    } else {
+      letterBank.splice(index, 1);
+    }
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
