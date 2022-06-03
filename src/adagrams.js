@@ -107,7 +107,7 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // list of objects
+  // array of objects
   const wordsAndScores = words.map((w) => ({ word: w, score: scoreWord(w) }));
   let highestScore = 0;
   let highestPlay;
@@ -115,13 +115,14 @@ export const highestScoreFrom = (words) => {
     if (play.score > highestScore) {
       highestScore = play.score;
       highestPlay = play;
-    } else if (play.score === highestScore) {
-      if (play.word.length === 10 && highestPlay.word.length < 10) {
+    } else if (play.score === highestScore && highestPlay.word.length < 10) {
+      // order of precedence for ties
+      // 1: first ten letter word
+      if (play.word.length === 10) {
         highestPlay = play;
-      } else if (
-        play.word.length < highestPlay.word.length &&
-        highestPlay.word.length < 10
-      ) {
+      }
+      // 2: first shortest word, if no word is 10 letters
+      else if (play.word.length < highestPlay.word.length) {
         highestPlay = play;
       }
     }
