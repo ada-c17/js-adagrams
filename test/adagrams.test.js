@@ -35,7 +35,7 @@ const LETTER_POOL = {
 };
 
 describe("Adagrams", () => {
-  describe.only("drawLetters", () => {
+  describe("drawLetters", () => {
     it("draws ten letters from the letter pool", () => {
       const drawn = drawLetters();
 

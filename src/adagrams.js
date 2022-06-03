@@ -1,5 +1,4 @@
 export const drawLetters = () => {
-  // Implement this method for wave 1
   const LETTER_POOL = {
     A: 9,
     B: 2,
@@ -29,7 +28,7 @@ export const drawLetters = () => {
     Z: 1,
   };
   const allLetters = [];
-  for (var element in LETTER_POOL) {
+  for (const element in LETTER_POOL) {
     const freqLetter = LETTER_POOL[element];
 
     for (let step = 0; step < freqLetter; step++) {
@@ -49,11 +48,46 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  for (const letter in input) {
+    if (!lettersInHand.includes(input[letter])) { // IF IN ONLY WORKS FOR OBJ
+      return false;
+    } else {
+      lettersInHand.splice(input[letter], 1);
+    }
+  } return true;
 };
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
+  const lettersAndpointValues = {
+    A: 1,
+    B: 3,
+    C: 3,
+    D: 2,
+    E: 1,
+    F: 4,
+    G: 2,
+    H: 4,
+    I: 1,
+    J: 8,
+    K: 5,
+    L: 1,
+    M: 3,
+    N: 1,
+    O: 1,
+    P: 3,
+    Q: 10,
+    R: 1,
+    S: 1,
+    T: 1,
+    U: 1,
+    V: 4,
+    W: 4,
+    X: 8,
+    Y: 4,
+    Z: 10,
+  };
+  const bonus = 8;
 };
 
 export const highestScoreFrom = (words) => {
