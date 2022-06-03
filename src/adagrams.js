@@ -84,7 +84,25 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  const bonusScore = word.length > 6 ? 8 : 0;
+  const totalScore = Array.from(word.toUpperCase())
+    .map((letter) => SCORE_CHART[letter])
+    .reduce((prev, cur) => prev + cur, bonusScore);
+  return totalScore;
+};
+
+const higher = (a, b) => {
+  if (a.score !== b.score) {
+    return a.score > b.score ? a : b;
+  } else if (a.word.length === 10) {
+    return a;
+  } else if (b.word.length === 10) {
+    return b;
+  } else if (a.word.length === b.word.length) {
+    return a;
+  } else {
+    return a.word.length < b.word.length ? a : b;
+  }
 };
 
 export const highestScoreFrom = (words) => {
