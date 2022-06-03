@@ -6,6 +6,18 @@ It looks to see if the letter is in the array and, if it is, it adds 1 to the re
 */
 export const countTimes = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
 
+// 
+export const loadWinner = (word, score) => {
+  let winner = {
+    word: '',
+    score: 0
+  }
+
+  winner.word = word;
+  winner.score = score;
+  return winner;
+}
+
 /*
 This function handles any tie scores
 */
@@ -22,20 +34,18 @@ export const tieBreaker = maxScore => {
       let nxtScore = maxScore[i][1];
 
       if (nxtWord.length === 10) {
-          winner.word = nxtWord;
-          winner.score = nxtScore;
+          winner = loadWinner(nxtWord, nxtScore);
           break;
       } else if (nxtWord.length < smallestWordLen) {
           smallestWordLen = nxtWord.length;
-          winner = {};
-          winner.word = nxtWord;
-          winner.score = nxtScore;
+          winner = loadWinner(nxtWord, nxtScore);
       } else {
           continue;    
       };
   };
   return winner;
 };
+
 
 
 export const drawLetters = () => {
@@ -72,7 +82,7 @@ export const drawLetters = () => {
   let clone = JSON.parse(JSON.stringify(letterPool));
   let userHand = [];
 
-  for (let i = 0; i < 10; i++) {
+  while (userHand.length != 10) {
     // Using the random math generator as the index for a random letter from the pool
     const randNum = Math.floor(Math.random() * 26);
     const char = Object.keys(letterPool)[randNum];
@@ -203,8 +213,7 @@ export const scoreWord = input => {
     if (maxScore.length > 1) {
         winner = tieBreaker(maxScore)
     } else {
-        winner.word = maxScore[0][0];
-        winner.score = maxScore[0][1];
+        winner = loadWinner(maxScore[0][0], maxScore[0][1]);
     }
     return winner;
   };
