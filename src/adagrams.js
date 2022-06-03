@@ -45,7 +45,27 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  const letters_dict = {};
+
+  for (const char of lettersInHand) {
+    if (letters_dict[char]) {
+      letters_dict[char] += 1;
+    } else {
+      letters_dict[char] = 1;
+    }
+  }
+
+  for (const letter of input) {
+    if (!letters_dict[letter]) {
+      return false;
+    }
+    if (letters_dict[letter] < 1) {
+      return false;
+    } else {
+      letters_dict[letter] -= 1;
+    }
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
