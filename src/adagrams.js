@@ -2,6 +2,7 @@ import _ from "lodash";
 
 export const drawLetters = () => {
   // Implement this method for wave 1
+
   const letterPool = {
     'A': 9, 
     'B': 2, 
@@ -78,6 +79,53 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
+
+  /**
+   * create obj letterScore
+   * create word1 which is all uppercase of word (to don't modify word)
+   * use ternary operation to declare variable score and set initial value:
+   *  if length of word1 is greater than 6 -> score = 8, else score = 0
+   * looping through each letter in word1 and each iteration add value of letter to score
+   * return score
+   */
+
+  const letterScore = {
+    'A': 1, 
+    'B': 3, 
+    'C': 3, 
+    'D': 2, 
+    'E': 1, 
+    'F': 4, 
+    'G': 2, 
+    'H': 4, 
+    'I': 1, 
+    'J': 8, 
+    'K': 5, 
+    'L': 1, 
+    'M': 3, 
+    'N': 1, 
+    'O': 1, 
+    'P': 3, 
+    'Q': 10, 
+    'R': 1, 
+    'S': 1, 
+    'T': 1, 
+    'U': 1, 
+    'V': 4, 
+    'W': 4, 
+    'X': 8, 
+    'Y': 4, 
+    'Z': 10
+}
+
+  const word1 = word.toUpperCase();
+  let score = word1.length > 6 ? 8 : 0;
+
+  for (let letter of word1) {
+    score += letterScore[letter];
+  }
+
+  return score;
 };
 
 export const highestScoreFrom = (words) => {
