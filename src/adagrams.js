@@ -90,7 +90,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 export const scoreWord = (word) => {
   let total = 0;
   let new_word = word.toUpperCase();
-  // Guard Clause
+
   if (new_word === false) {
     return total;
   }
@@ -105,5 +105,27 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+
+  let score = 0;
+  let word = "";
+
+  for (let item of words) {
+    let wordScore = scoreWord(item);
+    if (score < wordScore) {
+      score = wordScore;
+      word = item;
+    } else if (score === wordScore) {
+      if (item.length === word.length) {
+        break;
+      } else if (item.length === 10) {
+        word = item;
+      } else if (word.length === 10) {
+        break;
+      } else if (item.length < word.length) {
+        word = item;
+      }
+    }
+  }
+  const winningDict = { word, score };
+  return winningDict;
 };
