@@ -76,28 +76,38 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   const inputUpper = input.toUpperCase();
-  let obj = new Map();
 
-  lettersInHand.forEach((e) => {
-    if (obj.has(e)) {
-      obj.set(e, obj.get(e) + 1);
+  for (const letter of inputUpper) {
+    if (lettersInHand.includes(letter)) {
+      lettersInHand.splice(lettersInHand.indexOf(letter), 1);
     } else {
-      obj.set(e, 1);
-    }
-  });
-
-  for (const char of inputUpper) {
-    if (!obj.has(char)) {
-      return false;
-    } else {
-      obj.set(char, obj.get(char) - 1);
-    }
-    if (obj.get(char) < 0) {
       return false;
     }
   }
   return true;
 };
+
+// let obj = new Map();
+
+// lettersInHand.forEach((e) => {
+//   if (obj.has(e)) {
+//     obj.set(e, obj.get(e) + 1);
+//   } else {
+//     obj.set(e, 1);
+//   }
+// });
+
+// for (const char of inputUpper) {
+//   if (!obj.has(char)) {
+//     return false;
+//   } else {
+//     obj.set(char, obj.get(char) - 1);
+//   }
+//   if (obj.get(char) < 0) {
+//     return false;
+//   }
+// }
+// return true;
 
 export const scoreWord = (word) => {
   let score = 0;
