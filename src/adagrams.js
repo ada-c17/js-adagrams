@@ -1,5 +1,57 @@
+const letterPool = {
+  A: 9,
+  B: 2,
+  C: 2,
+  D: 4,
+  E: 12,
+  F: 2,
+  G: 3,
+  H: 2,
+  I: 9,
+  J: 1,
+  K: 1,
+  L: 4,
+  M: 2,
+  N: 6,
+  O: 8,
+  P: 2,
+  Q: 1,
+  R: 6,
+  S: 4,
+  T: 6,
+  U: 4,
+  V: 2,
+  W: 2,
+  X: 1,
+  Y: 2,
+  Z: 1,
+};
+
 export const drawLetters = () => {
   // Implement this method for wave 1
+
+  let poolOfLetter = [];
+
+  for (let [letter, count] of Object.entries(letterPool)) {
+    let multipleLetter = Array(count).fill(letter);
+    for (let letter of multipleLetter) {
+      poolOfLetter.push(letter);
+    }
+  }
+
+  let tenRandomLetters = [];
+
+  const lenghtRandom = tenRandomLetters.length;
+
+  for (let i = 1; i <= 10; i++) {
+    console.log(i);
+    let letter = poolOfLetter[Math.floor(Math.random() * poolOfLetter.length)];
+    tenRandomLetters.push(letter);
+    let index = poolOfLetter.indexOf(letter);
+    poolOfLetter.splice(index, 1);
+  }
+
+  return tenRandomLetters;
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
