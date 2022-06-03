@@ -62,6 +62,7 @@ export const drawLetters = () => {
   let userHand = [];
   let availableLetters = [];
 
+  // add letters to a new array with all available letters
   for (const letter in letterPool) {
     for (let num = 0; num < letterPool[letter]; num++) {
       availableLetters.push(letter);
@@ -84,6 +85,8 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
+
+  //creates a shallow copy of the inputted object. Ensures original isn't altered
   let userHand = [...lettersInHand];
 
   for (let letter of input) {
@@ -91,6 +94,8 @@ export const usesAvailableLetters = (input, lettersInHand) => {
       return false;
     } else {
       const letterIndex = userHand.indexOf(letter);
+
+      //removes the selected letter from the userHand array. Very expensive as it's O(n) each time
       userHand.splice(letterIndex, 1);
     }
   }
@@ -113,7 +118,6 @@ export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
 
   let wordObj = {};
-  let tieArray = [];
 
   words.forEach((word) => {
     let score = scoreWord(word);
@@ -121,6 +125,8 @@ export const highestScoreFrom = (words) => {
   });
 
   let scoreValues = Object.values(wordObj);
+
+  //finds max score of the scoreValues array. (...) spread syntax passes in each score into max
   let maxScore = Math.max(...scoreValues);
 
   let minWord = tieBreaker(wordObj, maxScore);
@@ -129,7 +135,7 @@ export const highestScoreFrom = (words) => {
 
 const tieBreaker = (wordObj, maxScore) => {
   let tieArray = [];
-  let minWord = "";
+  let minWord; //must initiate the variable
 
   for (let word in wordObj) {
     if (wordObj[word] === maxScore) {
@@ -140,6 +146,12 @@ const tieBreaker = (wordObj, maxScore) => {
     if (word.length === 10) {
       return word;
     } else {
+      /* this finds the word with the smallest length and returns smallest using ternary operator
+          if a.length <= b.length, return a else, return b
+          a starts empty and b the first letter, then it continues. a becomes the smallest
+          and then compared to the next word until it finds the final one, which in this case,
+          due to the <= will be the smallest word and/or the first word in a tie
+      */
       minWord = tieArray.reduce((a, b) => (a.length <= b.length ? a : b));
     }
   }
