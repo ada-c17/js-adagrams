@@ -149,5 +149,46 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+  /**
+       parameters:
+    --list (word_list) of strings
+
+    this function gets the highest scoring word and its score by: 
+    --initializes and sets empty string to highest_scoring_word
+    --initializes and sets empty score to highest_score
+    --for each word in the word_list, check if that word's score is higher than our current highest score
+        --if so, reassign highest_score to the score of that word and reassign the highest_scoring_word to that word
+    --if the score is equal to our highest_score
+        --run a tie breaker
+        --check to see if the length of the current highest_scoring_word is 10
+            --if so, return that word and score 
+        --check to see if the length of the current word is 10
+            --if so, reassign highest_scoring_word to that word
+        --check to see if the length of the current word is less than our highest_scoring_word
+            --if so, reassign highest_scoring_wrod to that word
+
+    returns:
+    --string (highest scoring word)
+    --integer (highest score)
+   */
+  let highestScoringWord = "";
+  let highestScore = 0;
+
+  for (const word of words){
+    const wordScore = scoreWord(word);
+
+    if (wordScore > highestScore){
+      highestScore = wordScore;
+      highestScoringWord = word;
+    } else if (wordScore === highestScore){
+      if (highestScoringWord.length === 10){
+        continue
+      } else if (word.length === 10){
+        highestScoringWord = word
+      } else if (word.length < highestScoringWord.length){
+        highestScoringWord = word
+      }
+    }
+  }
+  return {'word':highestScoringWord, 'score':highestScore}
 };
