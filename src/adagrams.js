@@ -113,6 +113,13 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
+  for (let i = 0; i < input.length; i++) {
+    if (!lettersInHand.includes(input[i])) {
+      return false;
+    }
+    lettersInHand.splice(input[i], 1);
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
