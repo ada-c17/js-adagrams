@@ -56,6 +56,16 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
+  word = word.toUpperCase();
+  const scores = [];
+  for (let letter of word) {
+    scores.push(letterPool[letter].value);
+  }
+  let scoreSum = scores.reduce((sum, score) => sum + score, 0);
+  if (word.length > 6) {
+    scoreSum += 8;
+  }
+  return scoreSum;
 };
 
 export const highestScoreFrom = (words) => {
