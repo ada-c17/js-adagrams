@@ -100,4 +100,23 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
+  //for word of words call the scoreWord function
+  //store in an object such as ==> word:score
+
+  //set variable with highest score equal to value of first word in object
+  //set variable called winning word equal to the first word in object
+  //loop through object and if a score is higher than the highest score update the score and the word
+  // return the word and score
+  const scoreHash = {};
+  let winningScore = scoreWord(words[0]);
+  let winningWord = words[0];
+
+  for (const word of words) {
+    let currentScore = scoreWord(word);
+    if (currentScore > winningScore) {
+      winningWord = word;
+      winningScore = currentScore;
+    }
+  }
+  return { score: winningScore, word: winningWord };
 };
