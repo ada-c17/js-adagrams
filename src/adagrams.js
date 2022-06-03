@@ -89,13 +89,16 @@ export const scoreWord = (word) => {
     Z: 10,
   };
   const bonus = 8;
-  for (const letter of word) {
+  let pointsSum = 0;
+  for (const letter of word.toUpperCase()) {
     //word is a string
-    pointsPerletter = lettersAndpointValues[letter];
-    console.log(pointsPerletter); //prints the correct values
-    // } if (7 <= word.length <= 10) {
-    //   return (add(pointsPerletter) + bonus);
+    let pointsPerletter = lettersAndpointValues[letter];
+    pointsSum += pointsPerletter
   }
+  if (7 <= word.length && word.length <= 10) {
+    return (pointsSum) + bonus;
+  }
+  return pointsSum;
 };
 
 export const highestScoreFrom = (words) => {
