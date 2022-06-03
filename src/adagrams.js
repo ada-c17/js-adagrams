@@ -31,12 +31,14 @@ export const drawLetters = () => {
   const letterPool = [];
   const drawnLetters = [];
 
+  // add letters to a letterPool list
   for (const letter in LETTER_POOL) {
     for (let i = 0; i < LETTER_POOL[letter]; i++) {
       letterPool.push(letter);
     }
   }
 
+  // pick 10 random letters from letterPool list and add to drawnLetters
   for (let i = 0; i < 10; i++) {
     const index = Math.floor(Math.random() * letterPool.length);
     const letter = letterPool[index];
@@ -50,8 +52,11 @@ export const drawLetters = () => {
 export const usesAvailableLetters = (input, lettersInHand) => {
   const word = input.toUpperCase();
 
+  // create copy of lettersInHand
   const lettersInHandCopy = lettersInHand.map((x) => x);
 
+  // for each letter in the word, if it is in the letters in hand, remove from hand
+  // otherwise, return false since the letter is not available
   for (const letter of word) {
     if (lettersInHandCopy.includes(letter)) {
       const index = lettersInHandCopy.indexOf(letter);
@@ -96,10 +101,12 @@ export const scoreWord = (word) => {
   let points = 0;
   word = word.toUpperCase();
 
+  // add to total points based on the letter's point amount in point table
   for (const letter of word) {
     points += letterPointTable[letter];
   }
 
+  // if word length is 7, 8, 9, or 10, add extra 8 points
   if (word.length >= 7 && word.length <= 10) {
     points += 8;
   }
@@ -115,19 +122,26 @@ export const highestScoreFrom = (words) => {
     score: 0,
   };
 
+  // for each word, compare the score to the winning word (so far)
   for (const word of words) {
+    // get word's score
     const wordScore = scoreWord(word);
 
+    // if the current word's score is greater than the current max, update the max score
+    // and the winning word to match the current word's information
     if (wordScore > maxScore) {
       maxScore = wordScore;
       winningWord.word = word;
       winningWord.score = wordScore;
+      // if there is a tie, do the tiebreaker operations
     } else if (wordScore === maxScore) {
+      // if a word has a length of 10, it should win
       if (winningWord.word.length === 10) {
         continue;
       } else if (word.length === 10) {
         winningWord.word = word;
         winningWord.score = wordScore;
+        // otherwise, the shorter word should win
       } else if (word.length < winningWord.word.length) {
         winningWord.word = word;
         winningWord.score = wordScore;
