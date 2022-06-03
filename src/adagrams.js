@@ -63,12 +63,52 @@ export const usesAvailableLetters = (input, lettersInHand) => {
     } else {
       return false;
     }
-    return true;
   }
+
+  return true;
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  const list1Point = ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"];
+  const list2Points = ["D", "G"];
+  const list3Points = ["B", "C", "M", "P"];
+  const list4Points = ["F", "H", "V", "W", "Y"];
+  const list5Points = ["K"];
+  const list8Points = ["J", "X"];
+  const list10Points = ["Q", "Z"];
+
+  let totalPoints = 0;
+
+  for (const letter of word) {
+    if (word.length === 0) {
+      return 0;
+    }
+
+    if (list1Point.includes(letter.toUpperCase())) {
+      totalPoints += 1;
+    } else if (list2Points.includes(letter.toUpperCase())) {
+      totalPoints += 2;
+    } else if (list3Points.includes(letter.toUpperCase())) {
+      totalPoints += 3;
+    } else if (list4Points.includes(letter.toUpperCase())) {
+      totalPoints += 4;
+    } else if (list5Points.includes(letter.toUpperCase())) {
+      totalPoints += 5;
+    } else if (list8Points.includes(letter.toUpperCase())) {
+      totalPoints += 8;
+    } else if (list10Points.includes(letter.toUpperCase())) {
+      totalPoints += 10;
+    }
+  }
+  if (
+    word.length === 7 ||
+    word.length === 8 ||
+    word.length === 9 ||
+    word.length === 10
+  ) {
+    totalPoints += 8;
+  }
+  return totalPoints;
 };
 
 export const highestScoreFrom = (words) => {
