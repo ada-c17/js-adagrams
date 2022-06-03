@@ -27,6 +27,16 @@ const poolHash = {
   Z: 1,
 };
 
+const scoreChart = {
+  1: ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"],
+  2: ["D", "G"],
+  3: ["B", "C", "M", "P"],
+  4: ["F", "H", "V", "W", "Y"],
+  5: ["K"],
+  8: ["J", "X"],
+  10: ["Q", "Z"],
+};
+
 export const drawLetters = () => {
   // Implement this method for wave 1
 
@@ -56,10 +66,10 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
   const wordUp = input.toUpperCase();
 
-  for (let counter = 0; counter < wordUp.length; counter++) {
-    if (lettersInHand.includes(wordUp[counter])) {
+  for (const letter of wordUp) {
+    if (lettersInHand.includes(letter)) {
       //checking if letter from word in hand
-      lettersInHand.splice(lettersInHand.indexOf(wordUp[counter]), 1); //using splice to remove that letter from hand
+      lettersInHand.splice(lettersInHand.indexOf(letter), 1); //using splice to remove that letter from hand
     } else {
       return false;
     }
@@ -69,23 +79,16 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
-  const scoreChart = {
-    1: ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"],
-    2: ["D", "G"],
-    3: ["B", "C", "M", "P"],
-    4: ["F", "H", "V", "W", "Y"],
-    5: ["K"],
-    8: ["J", "X"],
-    10: ["Q", "Z"],
-  };
-  const wordUp = word.toUpperCase();
   let score = 0;
+
+  const wordUp = word.toUpperCase();
+
   if (wordUp.length >= 7) {
     score += 8;
   }
 
-  for (let letter of wordUp) {
-    for (let letterScore in scoreChart) {
+  for (const letter of wordUp) {
+    for (const letterScore in scoreChart) {
       if (scoreChart[letterScore].includes(letter)) {
         //looking in the list value of that key to see if letter in list
         score += parseInt(letterScore); //the key is not an int so it needs to be converted before it is added
