@@ -27,6 +27,35 @@ const letterPool = {
   Z: 1,
 };
 
+const points = {
+  A: 1,
+  B: 3,
+  C: 3,
+  D: 2,
+  E: 1,
+  F: 4,
+  G: 2,
+  H: 4,
+  I: 1,
+  J: 8,
+  K: 5,
+  L: 1,
+  M: 3,
+  N: 1,
+  O: 1,
+  P: 3,
+  Q: 10,
+  R: 1,
+  S: 1,
+  T: 1,
+  U: 1,
+  V: 4,
+  W: 4,
+  X: 8,
+  Y: 4,
+  Z: 10,
+};
+
 export const drawLetters = () => {
   // Implement this method for wave 1
 
@@ -70,8 +99,49 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
+  let score = 0;
+  for (let letter of word) {
+    score += points[letter.toUpperCase()];
+  }
+  if (word.length >= 7 && word.length <= 10) {
+    score += 8;
+  }
+  return score;
 };
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
+
+  let wordObj = {};
+  let tieArray = [];
+
+  words.forEach((word) => {
+    let score = scoreWord(word);
+    wordObj[word] = score;
+  });
+
+  let scoreValues = Object.values(wordObj);
+  let maxScore = Math.max(...scoreValues);
+
+  let minWord = tieBreaker(wordObj, maxScore);
+  return { word: minWord, score: maxScore };
+};
+
+const tieBreaker = (wordObj, maxScore) => {
+  let tieArray = [];
+  let minWord = "";
+
+  for (let word in wordObj) {
+    if (wordObj[word] === maxScore) {
+      tieArray.push(word);
+    }
+  }
+  for (let word of tieArray) {
+    if (word.length === 10) {
+      return word;
+    } else {
+      minWord = tieArray.reduce((a, b) => (a.length <= b.length ? a : b));
+    }
+  }
+  return minWord;
 };
