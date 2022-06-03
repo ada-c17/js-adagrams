@@ -1,36 +1,36 @@
-const LETTERPOOL = {
-  A: 9,
-  B: 2,
-  C: 2,
-  D: 4,
-  E: 12,
-  F: 2,
-  G: 3,
-  H: 2,
-  I: 9,
-  J: 1,
-  K: 1,
-  L: 4,
-  M: 2,
-  N: 6,
-  O: 8,
-  P: 2,
-  Q: 1,
-  R: 6,
-  S: 4,
-  T: 6,
-  U: 4,
-  V: 2,
-  W: 2,
-  X: 1,
-  Y: 2,
-  Z: 1,
+const letterPool = {
+  A: { quantity: 9, value: 1 },
+  B: { quantity: 2, value: 3 },
+  C: { quantity: 2, value: 3 },
+  D: { quantity: 4, value: 2 },
+  E: { quantity: 12, value: 1 },
+  F: { quantity: 2, value: 4 },
+  G: { quantity: 3, value: 2 },
+  H: { quantity: 2, value: 4 },
+  I: { quantity: 9, value: 1 },
+  J: { quantity: 1, value: 8 },
+  K: { quantity: 1, value: 5 },
+  L: { quantity: 4, value: 1 },
+  M: { quantity: 2, value: 3 },
+  N: { quantity: 6, value: 1 },
+  O: { quantity: 8, value: 1 },
+  P: { quantity: 2, value: 3 },
+  Q: { quantity: 1, value: 10 },
+  R: { quantity: 6, value: 1 },
+  S: { quantity: 4, value: 1 },
+  T: { quantity: 6, value: 1 },
+  U: { quantity: 4, value: 1 },
+  V: { quantity: 2, value: 4 },
+  W: { quantity: 2, value: 4 },
+  X: { quantity: 1, value: 8 },
+  Y: { quantity: 2, value: 4 },
+  Z: { quantity: 1, value: 10 },
 };
 
 export const drawLetters = () => {
   // Implement this method for wave 1
   const lettersInHand = [];
-  const availableLetters = getAvailableLetters(LETTERPOOL);
+  const availableLetters = getAvailableLetters(letterPool);
   let count = 0;
 
   while (count < 10) {
@@ -63,11 +63,11 @@ export const highestScoreFrom = (words) => {
 };
 
 const getAvailableLetters = (letterData) => {
-  const characters = Object.keys(LETTERPOOL);
+  const characters = Object.keys(letterPool);
   const generatedLetters = [];
 
   characters.forEach((letter) => {
-    for (let i = 0; i < LETTERPOOL[letter]; i++) {
+    for (let i = 0; i < letterPool[letter].quantity; i++) {
       generatedLetters.push(letter);
     }
   });
