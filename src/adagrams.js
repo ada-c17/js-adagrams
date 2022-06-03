@@ -1,4 +1,4 @@
-import { _ } from "core-js";
+import _ from "underscore";
 
 const LETTER_POOL = {
   A: 9,
@@ -33,15 +33,30 @@ export const drawLetters = () => {
   // Implement this method for wave 1
   const lettersArray = [];
   let dictIndex = 0;
-  while (lettersArray.filter(x => x === Object.keys(LETTER_POOL)[dictIndex]).length < Object.values(LETTER_POOL)[dictIndex]) {
+
+  while (lettersArray.filter(x => x === Object.keys(LETTER_POOL)[dictIndex]).length <= Object.values(LETTER_POOL)[dictIndex]) {
     lettersArray.push(Object.keys(LETTER_POOL)[dictIndex]);
-  };
+    dictIndex++;
+  }
+  
   return _.sample(lettersArray,10);
 
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
+  const lettersInHandCopy = JSON.parse(JSON.stringify(lettersInHand)); 
+  const UppercasePool = lettersInHandCopy.map(letter => letter.toUpperCase());
+  for (let letter in input){
+    if (!UppercasePool.includes(input[letter])) {
+      return false;
+    } else{
+      lettersInHand_copy.splice(input.indexOf(input[letter]), 1);
+      // console.log(lettersInHand_copy);
+    }
+
+  return true;  
+  }
 };
 
 export const scoreWord = (word) => {
