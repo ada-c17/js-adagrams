@@ -93,18 +93,38 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  // Need to check word validity?
   let points = 0;
   const inputWord = word.toUpperCase();
   for (let char of inputWord) {
     points += LETTER_SCORES[char];
   }
   if (word.length >= 7) {
+    // add 10 into this?
     points += 8;
   }
   return points;
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+  // list of objects
+  const wordsAndScores = words.map((w) => ({ word: w, score: scoreWord(w) }));
+  let highestScore = 0;
+  let highestPlay;
+  for (let play of wordsAndScores) {
+    if (play.score > highestScore) {
+      highestScore = play.score;
+      highestPlay = play;
+    } else if (play.score === highestScore) {
+      if (play.word.length === 10 && highestPlay.word.length < 10) {
+        highestPlay = play;
+      } else if (
+        play.word.length < highestPlay.word.length &&
+        highestPlay.word.length < 10
+      ) {
+        highestPlay = play;
+      }
+    }
+  }
+  return highestPlay;
 };
