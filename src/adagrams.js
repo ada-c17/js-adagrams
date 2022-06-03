@@ -53,8 +53,30 @@ export const drawLetters = () => {
   return hand;
 };
 
+// Add to package.json to enable debugger to work on this file "type": "module"
+const letterFreq = (entity) => {
+  const letterCount = {};
+  for (let letter of entity) {
+    if (letterCount[letter]) {
+      letterCount[letter] += 1;
+    } else {
+      letterCount[letter] = 1;
+    }
+  }
+  return letterCount;
+};
+
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  const handCount = letterFreq(lettersInHand);
+  const inputCount = letterFreq(input);
+  for (let letter in inputCount) {
+    console.log("The current letter is", letter);
+    console.log("The count of the letter in the hand is", handCount[letter]);
+    if (inputCount[letter] > handCount[letter] || !handCount[letter]) {
+      return false;
+    }
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
