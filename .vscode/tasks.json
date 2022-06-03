@@ -1,0 +1,16 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "demo-game",
+			"problemMatcher": [],
+			"label": "npm: demo-game",
+			"detail": "babel-node src/demo.js",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	]
+}

@@ -1,13 +1,3 @@
-const SCORE_CHART = {
-    1: ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"],
-    2: ["D", "G"],
-    3: ["B", "C", "M", "P"],
-    4: ["F", "H", "V", "W", "Y"],
-    5: ["K"],
-    8: ["J", "X"],
-    10: ["Q", "Z"],
-};
-
 export const drawLetters = () => {
     const letterPool = {
         A: 9,
@@ -38,45 +28,42 @@ export const drawLetters = () => {
         Z: 1,
     };
     const letters = [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "J",
-        "K",
-        "L",
-        "M",
-        "N",
-        "O",
-        "P",
-        "Q",
-        "R",
-        "S",
-        "T",
-        "U",
-        "V",
-        "W",
-        "X",
-        "Y",
-        "Z",
+        'A',
+        'B',
+        'C',
+        'D',
+        'E',
+        'F',
+        'G',
+        'H',
+        'I',
+        'J',
+        'K',
+        'L',
+        'M',
+        'N',
+        'O',
+        'P',
+        'Q',
+        'R',
+        'S',
+        'T',
+        'U',
+        'V',
+        'W',
+        'X',
+        'Y',
+        'Z',
     ];
     const randomLetters = (choices) =>
         choices[Math.floor(Math.random() * choices.length)];
     let hand = [];
-    for (let i = 0; i < 10; ++i) {
+    while (hand.length != 10) {
         let letter = randomLetters(letters);
-        // Added a label here to break so it wouldn't go through the whole pool
-        // after adding the letter to the hand once it finds it in the pool
-        handPlacement: for (const [key, value] of Object.entries(letterPool)) {
-            if (letter == key && value > 0) {
+        for (const [key, value] of Object.entries(letterPool)) {
+            if (letter == key && value != 0) {
                 letterPool[key] -= 1;
                 hand.push(letter);
-                break handPlacement;
             }
         }
     }
@@ -110,9 +97,63 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-    // Implement this method for wave 3
+    const scoreChart = {
+        1: ['A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T'],
+        2: ['D', 'G'],
+        3: ['B', 'C', 'M', 'P'],
+        4: ['F', 'H', 'V', 'W', 'Y'],
+        5: ['K'],
+        8: ['J', 'X'],
+        10: ['Q', 'Z'],
+    };
+    word = word.toUpperCase();
+    let score = 0;
+    if (word === '') {
+        return score;
+    }
+    for (const letter of word) {
+        for (const [points, letters] of Object.entries(scoreChart)) {
+            if (letters.includes(letter)) {
+                score += parseInt(points);
+            }
+        }
+    }
+    if (word.length >= 7) {
+        score += 8;
+    }
+    return score;
 };
 
 export const highestScoreFrom = (words) => {
-    // Implement this method for wave 1
+    const scores = {};
+    for (const word of words) {
+        let scoredWord = scoreWord(word);
+        scores[word] = scoredWord;
+    }
+    const getMaxScore = (object) => {
+        return Object.keys(object).filter((x) => {
+            return object[x] == Math.max.apply(null, Object.values(object));
+        });
+    };
+    const highestScoringWords = getMaxScore(scores);
+    if (highestScoringWords.length > 1) {
+        // get longest word, and if 10 in length, return it
+        const longestWord = highestScoringWords.reduce(function(a, b) {
+            return a.length > b.length ? b : a;
+        });
+        if (longestWord.length === 10) {
+            return { word: longestWord, score: scoreWord(longestWord) };
+        } else {
+            // get shortest word
+            const shortestWord = highestScoringWords.reduce((a, b) =>
+                a.length <= b.length ? a : b
+            );
+            return { word: shortestWord, score: scoreWord(shortestWord) };
+        }
+    }
+    // This is here in case there is only one word submitted or two with the same length
+    return {
+        word: highestScoringWords[0],
+        score: scoreWord(highestScoringWords[0]),
+    };
 };
