@@ -106,5 +106,8 @@ const higher = (a, b) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
+  const winner = words
+    .map((word) => ({ word: word, score: scoreWord(word) }))
+    .reduce((prev, cur) => higher(prev, cur));
+  return winner;
 };
