@@ -1,6 +1,14 @@
 // HELPER FUNCTIONS
+
+/*
+This function uses the built in method 'reduce' to reduce the array based on the parameters supplied.
+It looks to see if the letter is in the array and, if it is, it adds 1 to the return value.
+*/
 export const countTimes = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
 
+/*
+This function handles any tie scores
+*/
 export const tieBreaker = maxScore => {
   let winner = {
       word: '',
@@ -18,7 +26,6 @@ export const tieBreaker = maxScore => {
           winner.score = nxtScore;
           break;
       } else if (nxtWord.length < smallestWordLen) {
-          console.log('Shorter word found');
           smallestWordLen = nxtWord.length;
           winner = {};
           winner.word = nxtWord;
@@ -27,7 +34,6 @@ export const tieBreaker = maxScore => {
           continue;    
       };
   };
-  console.log(winner);
   return winner;
 };
 
@@ -66,28 +72,45 @@ export const drawLetters = () => {
   let clone = JSON.parse(JSON.stringify(letterPool));
   let userHand = [];
 
-  for (let i = 0; i <= 10; ++i) {
+  for (let i = 0; i < 10; i++) {
+    // Using the random math generator as the index for a random letter from the pool
     const randNum = Math.floor(Math.random() * 26);
     const char = Object.keys(letterPool)[randNum];
     let letterCount = clone[char];
 
+    /* 
+    If the letter obtained has already been used the max number of times, it'll try again
+    If the letter still can be used, the counter for that letter gets reduced by 1
+      and the letter gets added to the hand
+    */
+
     if (letterCount === 0) {
       continue;
     } else {
-      clone[char] -= 1;
-      userHand.push(char);
+        clone[char] -= 1;
+        userHand.push(char);
     }
   }
+  // return the user hand of 10 random letters
   return userHand;
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
+
+  // Change the input to upper case
   input = input.toUpperCase();
   
+  /*
+    Check how many times a letter appears in the supplied word (input)
+    Check how many time that same letter appears in the user's hand
+  */
   for (const letter of input) {
+      /* Using RegExp to create the string to pass to the search
+      Since the 'includes' function does not handle variables directly */
       let rgxp = new RegExp(letter, "g");
       let letterCount = input.match(rgxp).length;
+
       let isFound = lettersInHand.includes(letter);
       if (isFound === true) {
           let bankCount = countTimes(lettersInHand, letter);
@@ -97,14 +120,14 @@ export const usesAvailableLetters = (input, lettersInHand) => {
               return false;
           }
       } else {
-        return false;
-  };
+          return false;
+      };
       
   };
   return true;
 };
 
-export const scoreWord = (input) => {
+export const scoreWord = input => {
   // Implement this method for wave 3
   const letterVals = {
     "A": 1, 
@@ -182,63 +205,6 @@ export const scoreWord = (input) => {
     } else {
         winner.word = maxScore[0][0];
         winner.score = maxScore[0][1];
-        console.log(winner);
     }
-
-    // return winner object (word & score as keys)
     return winner;
   };
-
-/* def tie_breaker(max_score):
-    tie = ["", 0]
-    smallest_word_len = 1000
-    
-
-    for i in range(len(max_score)):
-        word = max_score[i][0]
-        score = max_score[i][1]
-        length = len(word)
-
-        if length == 10:
-            # .clear() method removes all elements  from a list
-            tie.clear()
-            tie.append(word)
-            tie.append(score)
-            break
-        elif length < smallest_word_len:
-            smallest_word_len = length
-            tie.clear()
-            tie.append(word)
-            tie.append(score)
-        else:
-            continue           
-
-    return tie
-
-def get_highest_word_score(word_list):
-    word_score = 0
-    winner_list = []
-    max_score = [["", 0]]
-    score_tuple = tuple() 
-
-    for word in word_list:
-        i = 0
-        word_score = score_word(word)
-        if word_score > max_score[i][1]:
-            max_score.clear()
-            max_score.append([word, word_score])
-        elif word_score == max_score[i][1]:
-            max_score.append([word, word_score])
-        else:
-            continue
-        i += 1
-    
-    if len(max_score) > 1:
-        tie = tie_breaker(max_score)
-        score_tuple = tuple(tie)
-    else:
-        winner_list.append(max_score[0][0])
-        winner_list.append(max_score[0][1])
-        score_tuple = tuple(winner_list)
-
-    return score_tuple */
