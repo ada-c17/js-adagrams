@@ -34,7 +34,7 @@ export const drawLetters = () => {
     // looping over the object's keys to get access to its values
     let counter = 0;
     while (counter < LETTER_POOL[key]) {
-      listPool.push(key); // adding key values times and moving to the next key
+      listPool.push(key.toUpperCase()); // adding key values times and moving to the next key
       counter++;
     }
   }
@@ -47,6 +47,7 @@ export const drawLetters = () => {
     const randomLetter = listPool[indexVariable]; //randomly generating a letter from my pool list
 
     hand.push(randomLetter); // adding randomly generated letter to a hand
+
     listPool.splice(indexVariable, 1); // ramoving that randomly generated letter from pool by remembering its index
     startingPoint++;
   }
@@ -55,7 +56,15 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  for (let letter of input) {
+    if (lettersInHand.includes(letter.toUpperCase())) {
+      let index = lettersInHand.indexOf(letter.toUpperCase());
+      lettersInHand.splice(index, 1);
+    } else {
+      return false;
+    }
+    return true;
+  }
 };
 
 export const scoreWord = (word) => {
