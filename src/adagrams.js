@@ -150,8 +150,17 @@ export const scoreWord = (word) => {
 
 
 
-
-
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+  /**
+   * Input:
+   *  - words: an array of strings
+   * 
+   * Output:
+   *  - JS Object with winning word (string) and its score
+   * 
+   * Tie Breaking Rules:
+   *  1. Prefer the word with fewest letters
+   *  2. Except if one word has ten letters, choose word with ten letters > word with fewer letters
+   *  3. Multiple words with same score and same length? Choose the first one in the array
+   */
 };
