@@ -53,7 +53,16 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  // if letter is in hand (calling indexOf() gives a value of 0 or higher), remove it. if not, return false.
+  for (let i = 0; i < input.length; i++) {
+    let letterIndex = lettersInHand.indexOf(input[i]);
+    if (letterIndex >= 0) {
+      lettersInHand.splice(letterIndex, 1);
+    } else {
+      return false;
+    }
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
