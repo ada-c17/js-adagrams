@@ -1,4 +1,5 @@
 export const drawLetters = () => {
+
   const LETTER_POOL = {
     A: 9,
     B: 2,
@@ -56,12 +57,11 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
+  
   const usersWord = input.toUpperCase();
 
   // Create shallow copy of lettersInHand
   const lettersInHandCopy = [...lettersInHand];
-
-  let found = true;
 
   // Loop through input
   // if letter in input is present in lettersInHand --> remove letter
@@ -69,20 +69,13 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
   for (let letter in usersWord) {
     if (lettersInHandCopy.includes(usersWord[letter])) {
-      // continue;
-      // splice
       lettersInHandCopy.splice(usersWord[letter], 1)
       continue;
-      // return true;
     }
     return false;
   }
   return true;
 
-
-
-  // console.log(`users word: ${usersWord}`);
-  // console.log(`letters drawn: ${lettersInHand}`);
 };
 
 export const scoreWord = (word) => {
