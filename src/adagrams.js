@@ -133,6 +133,42 @@ export const scoreWord = (word) => {
   return result;
 };
 
+const tieBreaker = (wordList) => {
+  let winningWord = 'tenletters';
+  for (let word of wordList) {
+    if (word.length === 10) {
+      return word;
+    } else if (word.length < winningWord.length) {
+      winningWord = word;
+    }
+  }
+  return winningWord;
+};
+
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
+  let highScore = 0;
+  let highestScored = [];
+
+  for (let word of words) {
+    const wordScore = scoreWord(word);
+    if (wordScore > highScore) {
+      highScore = wordScore;
+      highestScored = [word];
+    } else if (wordScore === highScore) {
+      highestScored.push(word);
+    }
+  }
+
+  let highestScoredWord = '';
+
+  if (highestScored.length > 1) {
+    highestScoredWord = tieBreaker(highestScored);
+  } else {
+    highestScoredWord = highestScored[0];
+  }
+  const result = {
+    word: highestScoredWord,
+    score: highScore,
+  };
+  return result;
 };
