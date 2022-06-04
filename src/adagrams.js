@@ -66,9 +66,10 @@ export const drawLetters = () => {
   }
 
   /*
-    build a userHand by looping 10 times, each time choosing a random index
-    in the 98 letters in the availableLetters array, and the letter at that index;
-    then remove chosen letter from availableLetters array, and add to userHand.
+    build a userHand by looping 10 times; for each loop, choose a random index
+    from 98 letters in the availableLetters array, and its corresponding value
+    (letter) at that index; then remove chosen letter from availableLetters array,
+    and add to userHand.
   */
   for (let i = 0; i < 10; i++) {
     let chosenLetterIdx = Math.floor(Math.random() * availableLetters.length)
