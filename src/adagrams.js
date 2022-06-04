@@ -171,4 +171,5 @@ const keyWithMaxValue = aDict => {
       maxKey = char;
     }
   }
+  return maxKey;
 };
