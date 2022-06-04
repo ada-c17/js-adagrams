@@ -137,32 +137,14 @@ export const scoreWord = (word) => {
 
   let totalScore = 0;
 
-  if (word === "" && word.length === 0){
-    return totalScore;
-    // console.log("This string is empty");
-  } else {
-    // console.log("This string is not empty");
-    // let inputWord = word.toUpperCase();
-
-    for (const letter of word.toUpperCase()){
-      totalScore += scoreChart[letter];
-    }
-
-    if (word.length >= 7 && word.length <= 10) {
-      totalScore += 8;
-    }
-    return totalScore;
+  for (const letter of word.toUpperCase()){
+    totalScore += scoreChart[letter];
   }
-  // let inputWord = word.toUpperCase();
 
-  // for (const letter of inputWord){
-  //   totalScore += scoreChart[letter];
-  // }
-
-  // if (inputWord.length >= 7 && inputWord.length <= 10) {
-  //   totalScore += 8;
-  // }
-  // return totalScore;
+  if (word.length >= 7 && word.length <= 10) {
+    totalScore += 8;
+  }
+  return totalScore;
 
 };
 
