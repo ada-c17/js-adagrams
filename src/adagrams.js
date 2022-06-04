@@ -131,10 +131,16 @@ export const highestScoreFrom = (words) => {
   // Implement this method for wave 4
   const scoreDict = buildScoreDict(words);
   const maxScoreWord = keyWithMaxValue(scoreDict);
-  max_score = scoreDict[maxScoreWord] 
-  maxScoreWords = [word for word in words if scoreDict[word] >= max_score]
+  const maxScore = scoreDict[maxScoreWord];
+  const maxScoreWords = [];
+  for (let word of words) {
+    if (scoreDict[word] >= maxScore) {
+      maxScoreWords.push(word)
+    }
+  }
+
   if len(maxScoreWords) == 1:
-      return (maxScoreWord, max_score)
+      return (maxScoreWord, maxScore)
   return resolve_ties(maxScoreWords, scoreDict)
 };
 
