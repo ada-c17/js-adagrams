@@ -34,6 +34,8 @@ const LETTER_POOL = {
   Z: 1,
 };
 
+
+// Test One
 describe("Adagrams", () => {
   describe("drawLetters", () => {
     it("draws ten letters from the letter pool", () => {
@@ -70,6 +72,9 @@ describe("Adagrams", () => {
     });
   });
 
+
+
+  // Test Two 
   describe("usesAvailableLetters", () => {
     it("returns true if the submitted letters are valid against the drawn letters", () => {
       const drawn = ["D", "O", "G", "X", "X", "X", "X", "X", "X", "X"];
@@ -96,6 +101,9 @@ describe("Adagrams", () => {
     });
   });
 
+
+
+  // Test Three
   describe("scoreWord", () => {
     const expectScores = (wordScores) => {
       Object.entries(wordScores).forEach(([word, score]) => {
@@ -133,6 +141,10 @@ describe("Adagrams", () => {
     });
   });
 
+
+  
+
+  // Test Four
   describe.skip("highestScoreFrom", () => {
     it("returns a hash that contains the word and score of best word in an array", () => {
       const words = ["X", "XX", "XXX", "XXXX"];

@@ -106,7 +106,6 @@ export const scoreWord = (word) => {
    * Words with lengths 7, 8, 9, or 10 gets an additional 8 points
    */
   
-
   const scoreChart = {
     A: 1,
     E: 1,
@@ -136,7 +135,25 @@ export const scoreWord = (word) => {
     Z: 10
   }
 
+  const inputWord = word.toUpperCase();
+
+  let usersScore = 0;
+
+  for (let letter of inputWord){
+    // console.log(letter);
+    if (scoreChart.hasOwnProperty(letter)) {
+      // console.log(scoreChart[letter]);
+      usersScore += scoreChart[letter];
+    }
+    // console.log(`NO`);
+  }
+  console.log(usersScore);
+
 };
+
+
+
+
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
