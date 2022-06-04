@@ -125,5 +125,37 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+  var winningWordData = {};
+  var topScore = scoreWord(words[0]);
+  var topWords = [];
+
+  for (var i = 0; i < words.length; i++) {
+    var currentWordScore = scoreWord(words[i]);
+
+    if (currentWordScore === topScore) {
+      topWords.push(words[i]);
+    }
+    if (currentWordScore > topScore) {
+      topScore = currentWordScore;
+      topWords = [];
+      topWords.push(words[i])
+    }
+  }
+
+  var shortestWord = topWords[0];
+  for (var i = 0; i < topWords.length; i++) {
+    if (topWords[i].length === 10 && winningWordData['word'] === undefined) {
+      winningWordData['word'] = topWords[i];
+      winningWordData['score'] = scoreWord(topWords[i]);
+    } else if (topWords[i].length < shortestWord.length) {
+      shortestWord = topWords[i];
+    }
+  }
+
+  if (winningWordData['word'] === undefined) {
+    winningWordData['word'] = shortestWord;
+    winningWordData['score'] = scoreWord(shortestWord);
+  }
+
+  return winningWordData;
 };
