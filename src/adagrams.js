@@ -53,8 +53,31 @@ export const drawLetters = () => {
   return userHand;
 };
 
+export const hashingFun = (str) => {
+  let frequencyDict = {};
+
+  for (var i = 0; i < str.length; i++) {
+    if (frequencyDict[str[i]] === undefined) {
+      frequencyDict[str[i]] = 1;
+    } else {
+      frequencyDict[str[i]]++;
+    }
+  }
+
+  return frequencyDict;
+};
+
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  const userHandFrequency= hashingFun(lettersInHand);
+  const wordFrequency = hashingFun(input);
+
+  for (var key in wordFrequency) {
+    if (userHandFrequency[key] === undefined || userHandFrequency[key] < wordFrequency[key]) {
+      return false;
+    }
+  }
+
+  return true;
 };
 
 export const scoreWord = (word) => {
