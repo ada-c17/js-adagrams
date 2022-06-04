@@ -1,4 +1,11 @@
 export const drawLetters = () => {
+  /**
+   * Input: no parameters
+   * 
+   * Output: Array of ten strings where each string is one letter
+   * 
+   * The array represents the player's hand of letters
+   */
 
   const LETTER_POOL = {
     A: 9,
@@ -57,7 +64,17 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  
+  /**
+   * Input
+   *  - input = some input word as a string
+   *  - lettersInHand = array of ten strings where each string is one letter
+   * 
+   * Output: true or false
+   *  - true if every letter from input is in lettersInHand
+   *  - false if a letter from input is NOT in lettersInHand 
+   *      or if too many letters compared to lettersInHand
+   */
+
   const usersWord = input.toUpperCase();
 
   // Create shallow copy of lettersInHand
@@ -79,7 +96,19 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  /**
+   * Input:
+   *  - word = string of characters
+   * 
+   * Output:
+   *  - integer representing number of points
+   * 
+   * Words with lengths 7, 8, 9, or 10 gets an additional 8 points
+   */
+  
+
+  const scoreChart = 
+
 };
 
 export const highestScoreFrom = (words) => {
