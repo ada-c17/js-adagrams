@@ -29,6 +29,35 @@ const LETTER_POOL = {
   Z: 1,
 };
 
+const LETTER_POINTS = {
+  A: 1,
+  B: 3,
+  C: 3,
+  D: 2,
+  E: 1,
+  F: 4,
+  G: 2,
+  H: 4,
+  I: 1,
+  J: 8,
+  K: 5,
+  L: 1,
+  M: 3,
+  N: 1,
+  O: 1,
+  P: 3,
+  Q: 10,
+  R: 1,
+  S: 1,
+  T: 1,
+  U: 1,
+  V: 4,
+  W: 4,
+  X: 8,
+  Y: 4,
+  Z: 10,
+};
+
 export const drawLetters = () => {
   // Implement this method for wave 1
   const lettersArray = [];
@@ -46,17 +75,15 @@ export const drawLetters = () => {
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
   const lettersInHandCopy = JSON.parse(JSON.stringify(lettersInHand)); 
-  const UppercasePool = lettersInHandCopy.map(letter => letter.toUpperCase());
-  for (let letter in input){
-    if (!UppercasePool.includes(input[letter])) {
-      return false;
+  let UppercasePool = lettersInHandCopy.map(letter => letter.toUpperCase());
+  for (let i = 0; i < input.length; i++){
+    if (UppercasePool.includes(input[i])){
+      UppercasePool.splice(UppercasePool.indexOf(input[i]), 1); 
     } else{
-      lettersInHand_copy.splice(input.indexOf(input[letter]), 1);
-      // console.log(lettersInHand_copy);
+      return false;
     }
-
-  return true;  
   }
+  return true;
 };
 
 export const scoreWord = (word) => {
