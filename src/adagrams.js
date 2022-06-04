@@ -27,6 +27,35 @@ const letterPool = {
   Z: 1,
 };
 
+const scoreChart = {
+  A: 1,
+  B: 3,
+  C: 3,
+  D: 2,
+  E: 1,
+  F: 4,
+  G: 2,
+  H: 4,
+  I: 1,
+  J: 8,
+  K: 5,
+  L: 1,
+  M: 3,
+  N: 1,
+  O: 1,
+  P: 3,
+  Q: 10,
+  R: 1,
+  S: 1,
+  T: 1,
+  U: 1,
+  V: 4,
+  W: 4,
+  X: 8,
+  Y: 4,
+  Z: 10,
+};
+
 export const drawLetters = () => {
   // Implement this method for wave 1
 
@@ -44,11 +73,9 @@ export const drawLetters = () => {
   const lenghtRandom = tenRandomLetters.length;
 
   for (let i = 1; i <= 10; i++) {
-    console.log(i);
     let letter = poolOfLetter[Math.floor(Math.random() * poolOfLetter.length)];
     tenRandomLetters.push(letter);
-    let index = poolOfLetter.indexOf(letter);
-    poolOfLetter.splice(index, 1);
+    poolOfLetter.splice(poolOfLetter.indexOf(letter), 1);
   }
 
   return tenRandomLetters;
@@ -56,6 +83,23 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
+  const letterBank = lettersInHand;
+  let boolSet = new Set();
+
+  for (let letter of input) {
+    if (letterBank.includes(letter)) {
+      boolSet.add(true);
+      letterBank.splice(letterBank.indexOf(letter), 1);
+    } else {
+      boolSet.add(false);
+    }
+  }
+
+  if (boolSet.has(false) || boolSet.size === 0) {
+    return false;
+  } else {
+    return true;
+  }
 };
 
 export const scoreWord = (word) => {
