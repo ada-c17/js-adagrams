@@ -1,3 +1,4 @@
+// Helper functions for drawing letters
 const createLetterPoolArray = () => {
   const letterQuantities = {
     A: 9,
@@ -28,11 +29,13 @@ const createLetterPoolArray = () => {
     Z: 1,
   };
   let letterPoolArray = [];
+
   for (const [letter, quantity] of Object.entries(letterQuantities)) {
     for (let i = 0; i < quantity; i++) {
       letterPoolArray.push(letter);
     }
   }
+
   return letterPoolArray;
 };
 
@@ -41,14 +44,15 @@ const getRandomIndex = (arrayLength) => {
 };
 
 export const drawLetters = () => {
-  // Implement this method for wave 1
   let letterPoolArray = createLetterPoolArray();
   let currentHand = [];
+
   for (let i = 0; i < 10; i++) {
     const drawnIndex = getRandomIndex(letterPoolArray.length);
     currentHand.push(letterPoolArray[drawnIndex]);
     letterPoolArray.splice(drawnIndex, 1);
   }
+
   return currentHand;
 };
 
@@ -73,6 +77,7 @@ const countString = (string, value) => {
       count++;
     }
   }
+
   return count;
 };
 
@@ -83,15 +88,18 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   for (let letter of letters) {
     const inputCount = countString(upperInput, letter);
     const handCount = countArray(lettersInHand, letter);
+
     if (handCount < inputCount) {
       return false;
     }
   }
+
   return true;
 };
 
 export const scoreWord = (word) => {
   let result = 0;
+
   if (word !== '') {
     const letterScores = {
       A: 1,
@@ -126,15 +134,19 @@ export const scoreWord = (word) => {
         result += letterScores[letter.toUpperCase()];
       }
     }
+
     if (7 <= word.length && word.length <= 10) {
       result += 8;
     }
   }
+
   return result;
 };
 
+// Helper function for choosing highest score
 const tieBreaker = (wordList) => {
   let winningWord = 'tenletters';
+
   for (let word of wordList) {
     if (word.length === 10) {
       return word;
@@ -142,6 +154,7 @@ const tieBreaker = (wordList) => {
       winningWord = word;
     }
   }
+
   return winningWord;
 };
 
@@ -166,9 +179,11 @@ export const highestScoreFrom = (words) => {
   } else {
     highestScoredWord = highestScored[0];
   }
+
   const result = {
     word: highestScoredWord,
     score: highScore,
   };
+
   return result;
 };
