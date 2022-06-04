@@ -167,7 +167,7 @@ export const highestScoreFrom = (words) => {
    */
 
 
-  // JS object of {individual word from words: score}
+  // Empty JS object to fill after getting scores {individual word from words: score}
   let scores = new Object();
 
   // Loop through words array
@@ -178,8 +178,23 @@ export const highestScoreFrom = (words) => {
     scores[word] = calculatedScore;
   }
 
-  console.log(scores)
+  // console.log(scores);
 
   // go through JS object --> tie breaking stuff
+  let winner = new Object();
+
+  // Need to use for-in loop to iterate through JS Object
+
+  // Find key with shortest length
+  // Find key with length of ten
+
+  
+  // for (const key in scores) {
+    // let current = key.length;
+    // console.log(`${key}: ${scores[key]}`);
+    // console.log(key, key.length);
+
+  // }
+
 
 };
