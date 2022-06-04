@@ -76,7 +76,6 @@ export const drawLetters = () => {
     let chosenLetter = availableLetters.splice(chosenLetterIdx, 1);
     userHand = userHand.concat(chosenLetter);
   }
-
   return userHand;
 };
 
@@ -90,7 +89,6 @@ export const hashingFun = (str) => {
       frequencyDict[str[i]]++;
     }
   }
-
   return frequencyDict;
 };
 
@@ -103,7 +101,6 @@ export const usesAvailableLetters = (input, lettersInHand) => {
       return false;
     }
   }
-
   return true;
 };
 
