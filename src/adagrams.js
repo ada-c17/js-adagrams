@@ -94,14 +94,14 @@ class Adagrams {
     if (a.score !== b.score) {
       return a.score > b.score ? a : b;
     }
+    if (a.word.length === b.word.length) {
+      return a;
+    }
     if (a.word.length === 10) {
       return a;
     }
     if (b.word.length === 10) {
       return b;
-    }
-    if (a.word.length === b.word.length) {
-      return a;
     }
     return a.word.length < b.word.length ? a : b;
   }
