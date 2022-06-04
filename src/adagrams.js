@@ -31,19 +31,31 @@ export const drawLetters = () => {
   // Randomly draw 10 letters from the letter pool
   // Return: an array of ten string where each string is one letter
 
-  // for loop from 1 to 10 
-  // Get key and value, save in another variable
+  const letterDistribution = [];
+  const usersDraw = [];
 
-  let letterDistribution = [];
-
-  for (const letter in LETTER_POOL) {
+  // Add letters to letterDistribution array
+  for (const letter in LETTER_POOL){
     // console.log(letter);
     for (let i = 0; i < LETTER_POOL[letter]; i++){
       letterDistribution.push(letter);
     }
   }
 
-  console.log(letterDistribution);
+  // Pick 10 random letters from letterDistribution
+  // for (const i = 1; i <= 10; i++){
+  //   let randomLet = letterDistribution[Math.floor(Math.random()*letterDistribution.length)];
+  //   usersDraw.push(randomLet);
+
+  // }
+
+  while (usersDraw.length < 10) {
+    let randomLet = letterDistribution[Math.floor(Math.random()*letterDistribution.length)];
+    usersDraw.push(randomLet);
+  }
+
+  // console.log(letterDistribution);
+  console.log(usersDraw);
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
