@@ -112,6 +112,7 @@ export const scoreWord = (word) => {
     Y: 4,
     Z: 10,
   };
+
   const capWord = word.toUpperCase();
   let totalScore = 0;
   if (word === " ") {
