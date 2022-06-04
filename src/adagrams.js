@@ -127,6 +127,61 @@ export const scoreWord = (word) => {
   return totalScore;
 };
 
+// Wave 4
+
+const keyWithMaxValue = (aDict) => {
+  let max = 0;
+  let maxKey = "";
+  for (let char in aDict) {
+    if (aDict[char] > max) {
+      max = aDict[char];
+      maxKey = char;
+    }
+  }
+  return maxKey;
+};
+
+const keyWithMinValue = (aDict) => {
+  let min = aDict[0];
+  let minKey = "";
+  for (let char in aDict) {
+    if (aDict[char] < min) {
+      min = aDict[char];
+      minKey = char;
+    }
+  }
+  return minKey;
+};
+
+const buildScoreDict = (words) => {
+  const scoreDict = {};
+  for (let word of words) {
+    scoreDict[word] = scoreWord(word);
+  }
+  return scoreDict;
+};
+
+const buildLengthsDict = (maxScoreWords) => {
+  wordLengths = {};
+  for (word in maxScoreWords) {
+    wordLengths[word] = len(word);
+  }
+  return wordLengths;
+};
+
+const resolveTies = (maxScoreWords, scoreDict) => {
+  const wordLengths = buildLengthsDict(maxScoreWords);
+  const shortestWord = keyWithMinValue(wordLengths);
+  for (const [key, value] of Object.entires(wordLengths)) {
+    if (value === 10) {
+      const result = (key, scoreDict[key]);
+    } else {
+      const result = (shortestWord, scoreDict[shortestWord]);
+    }
+  }
+  return result;
+};
+
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 4
   const scoreDict = buildScoreDict(words);
@@ -138,49 +193,13 @@ export const highestScoreFrom = (words) => {
   const maxScoreWords = [];
   for (let word of words) {
     if (scoreDict[word] >= maxScore) {
-      maxScoreWords.push(word)
+      maxScoreWords.push(word);
     }
   }
 
   if (maxScoreWords.length === 1) {
-    return (maxScoreWord, maxScore)
+    return maxScoreWord, maxScore;
   }
 
-  return resolveTies(maxScoreWords, scoreDict)
-};
-
-const buildScoreDict = (words) => {
-    const scoreDict = {};
-    for (let word of words) {
-        scoreDict[word] = scoreWord(word)
-    }
-    return scoreDict;
-};
-
-def resolveTies(maxScoreWords, scoreDict):
-    word_lengths = build_lengths_dict(maxScoreWords)
-    shortest_word = min(word_lengths, key=word_lengths.get)
-    for key, value in word_lengths.items():
-        if value == 10:
-            return (key, scoreDict[key])
-        else:
-            result = (shortest_word, scoreDict[shortest_word])
-    return result
-
-def build_lengths_dict(maxScoreWords):
-    word_lengths = {}
-    for word in maxScoreWords:
-        word_lengths[word] = len(word)
-    return word_lengths
-
-const keyWithMaxValue = aDict => {
-  let max = 0;
-  let maxKey = '';
-  for (let char in aDict) {
-    if (aDict[char] > max) {
-      max = aDict[char];
-      maxKey = char;
-    }
-  }
-  return maxKey;
+  return resolveTies(maxScoreWords, scoreDict);
 };
