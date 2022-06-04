@@ -26,30 +26,38 @@ const LETTER_POOL = {
   Y: 2,
   Z: 1,
 };
-
-const makeArrayOfLetters = () => {
-  let letters_array = [];
+// Question: how to make this more efficient than nested loops?
+const makePoolOfLetters = () => {
+  let poolOfLetters = [];
   for (const [letter, count] of Object.entries(LETTER_POOL)) {
     for (let i = 0; i < count; i++) {
-      letters_array.push(letter);
+      poolOfLetters.push(letter);
     }
   }
-  return letters_array;
+  return poolOfLetters;
 };
 
-const getRandomIndex = (max) => {
-  return Math.random() * max;
-};
-
-export const drawLetters = () => {
-  let letters_array = makeArrayOfLetters();
-  const letters = [];
-  while (letters.length < 10) {
-    const random_index = getRandomIndex(letters_array.length);
-    letters.push(letters_array.splice(random_index, 1));
+const shuffleLetterPool = () => {
+  let poolOfLetters = makePoolOfLetters();
+  // Fisher Yates shuffle
+  for (let i = poolOfLetters.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * i);
+    let k = poolOfLetters[i];
+    poolOfLetters[i] = poolOfLetters[j];
+    poolOfLetters[j] = k;
   }
-  console.log(letters);
-  return letters;
+  return poolOfLetters;
+};
+
+// Question: I first tried generating a random index, then removing that index from the letter pool
+// and adding it to my hand - but couldn't figure out how to remove array elem at index
+export const drawLetters = () => {
+  let shuffledLetters = shuffleLetterPool();
+  let letterHand = [];
+  while (letterHand.length < 10) {
+    letterHand.push(shuffledLetters.pop());
+  }
+  return letterHand;
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
