@@ -72,10 +72,7 @@ export const drawLetters = () => {
   */
   for (let i = 0; i < 10; i++) {
     let chosenLetterIdx = Math.floor(Math.random() * availableLetters.length)
-    // chosenLetter = availableLetters[chosenLetterIdx];
     let chosenLetter = availableLetters.splice(chosenLetterIdx, 1);
-    // console.log("chosen Letter", chosenLetter);
-    // console.log("index", chosenLetterIdx);
     userHand = userHand.concat(chosenLetter);
   }
 
@@ -138,7 +135,7 @@ export const highestScoreFrom = (words) => {
     if (currentWordScore > topScore) {
       topScore = currentWordScore;
       topWords = [];
-      topWords.push(words[i])
+      topWords.push(words[i]);
     }
   }
 
