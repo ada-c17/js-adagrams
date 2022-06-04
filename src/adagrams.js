@@ -180,21 +180,38 @@ export const highestScoreFrom = (words) => {
 
   // console.log(scores);
 
+  let maxScore = 0;
+
   // go through JS object --> tie breaking stuff
-  let winner = new Object();
+  let winner = {
+    word: "",
+    score: 0
+  };
 
   // Need to use for-in loop to iterate through JS Object
 
   // Find key with shortest length
   // Find key with length of ten
 
-  
-  // for (const key in scores) {
+
+  for (const key in scores) {
     // let current = key.length;
     // console.log(`${key}: ${scores[key]}`);
     // console.log(key, key.length);
+      if (scores[key] > maxScore) {
+        maxScore = scores[key];
+        winner["word"] = key;
+        winner["score"] = scores[key];
+        // console.log("Printing here");
+        // console.log(winner);
+      } else if (scores[key] === maxScore) {
+        // if (key.length === 10) {
+        // }
+        console.log(`word: ${key}`);
+        console.log(`score: ${scores[key]}`);
 
-  // }
+      }
+  }
 
 
 };
