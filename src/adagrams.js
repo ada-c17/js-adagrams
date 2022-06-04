@@ -136,14 +136,20 @@ export const scoreWord = (word) => {
   }
 
   let totalScore = 0;
+  const extraPoints = [7, 8, 9, 10];
 
   for (const letter of word.toUpperCase()){
     totalScore += scoreChart[letter];
   }
 
-  if (word.length >= 7 && word.length <= 10) {
+  // if (word.length >= 7 && word.length <= 10) {
+  //   totalScore += 8;
+  // }
+
+  if (extraPoints.includes(word.length)) {
     totalScore += 8;
   }
+  
   return totalScore;
 
 };
