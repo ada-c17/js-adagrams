@@ -138,11 +138,13 @@ export const highestScoreFrom = (words) => {
   return resolve_ties(maxScoreWords, scoreDict)
 };
 
-def buildScoreDict(words):
-    scoreDict = {}
-    for word in words:
-        scoreDict[word] = score_word(word)
-    return scoreDict
+const buildScoreDict = (words) => {
+    const scoreDict = {};
+    for (let word of words) {
+        scoreDict[word] = scoreWord(word)
+    }
+    return scoreDict;
+}
 
 
 def resolve_ties(maxScoreWords, scoreDict):
