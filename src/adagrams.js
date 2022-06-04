@@ -84,7 +84,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   // if letter in input is present in lettersInHand --> remove letter
   // if not present, return false
 
-  for (let letter in usersWord) {
+  for (const letter in usersWord) {
     if (lettersInHandCopy.includes(usersWord[letter])) {
       lettersInHandCopy.splice(usersWord[letter], 1)
       continue;
@@ -135,28 +135,34 @@ export const scoreWord = (word) => {
     Z: 10
   }
 
-  const inputWord = word.toUpperCase();
-
   let totalScore = 0;
 
-  for (let letter of inputWord){
-    // console.log(letter);
-    if (scoreChart.hasOwnProperty(letter)) {
-      // console.log(scoreChart[letter]);
+  if (word === "" && word.length === 0){
+    return totalScore;
+    // console.log("This string is empty");
+  } else {
+    // console.log("This string is not empty");
+    // let inputWord = word.toUpperCase();
+
+    for (const letter of word.toUpperCase()){
       totalScore += scoreChart[letter];
     }
-    // console.log(`NO`);
+
+    if (word.length >= 7 && word.length <= 10) {
+      totalScore += 8;
+    }
+    return totalScore;
   }
-  // console.log(usersScore);
+  // let inputWord = word.toUpperCase();
 
-  const extraPoints = [7, 8, 9, 10];
+  // for (const letter of inputWord){
+  //   totalScore += scoreChart[letter];
+  // }
 
-  if (extraPoints.includes(inputWord.length)) {
-    totalScore += 8;
-  }
-
-  // console.log(totalScore);
-  return totalScore;
+  // if (inputWord.length >= 7 && inputWord.length <= 10) {
+  //   totalScore += 8;
+  // }
+  // return totalScore;
 
 };
 
