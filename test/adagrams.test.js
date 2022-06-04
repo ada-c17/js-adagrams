@@ -52,7 +52,7 @@ describe("Adagrams", () => {
     });
 
     it("does not draw a letter too many times", () => {
-      for (let i = 0; i < 7; i++) {
+      for (let i = 0; i < 1000; i++) {
         const drawn = drawLetters();
         const letter_freq = {};
         for (let letter of drawn) {

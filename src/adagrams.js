@@ -37,7 +37,7 @@ export const drawLetters = () => {
   while (counter > 0) {
     //let rand_i = parseInt(Math.random() * (91 - 65) + 65);
     //let letter = String.fromCharCode(rand_i);
-    let randI = Math.floor(Math.random()* letters.length);
+    let randI = Math.trunc(Math.random()* letters.length);
     //console.log(randI);
 
     if (letters[randI].quantity === 0) {
@@ -45,7 +45,7 @@ export const drawLetters = () => {
     }
 
     let quantity = letters[randI].quantity - 1;
-    letters[randI].quantity = (quantity * 1);
+    letters[randI].quantity = (quantity);
     letterBank.push(letters[randI].letter);
     counter -= 1;
   }
