@@ -28,13 +28,13 @@ export const drawLetters = () => {
     Z: 1,
   };
 
+  const letterPoolChoices = [];
+  for (let letter in LETTER_POOL) {
+    for (let i = 0; i < LETTER_POOL[letter]; i++) {
+      letterPoolChoices.push(letter);
+    }
+  }
   const output = [];
-  const letterPoolChoices = Object.keys(LETTER_POOL).reduce((res, key) => {
-    return res.concat(new Array(LETTER_POOL[key]).fill(key)); // try to refactor
-  }, []);
-  // for (const n in y) - loops through keys
-  // then another for loop to fill the key value amt of times?
-  // maybe I can still use reduce, but in a way I understand?
   while (output.length < 10) {
     const randomizeLetter = Math.floor(
       Math.random() * letterPoolChoices.length
@@ -93,7 +93,7 @@ export const scoreWord = (word) => {
   const BONUS = 8;
   const pointsForEachLetter = [];
 
-  if (word.length === 0) {
+  if (!word) {
     return 0;
   }
 
@@ -117,5 +117,29 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+  const scores = [];
+
+  for (let word of words) {
+    scores.push(scoreWord(word));
+  }
+  const zip = (word, score) => word.map((a, i) => [a, score[i]]);
+  const wordAndScore = zip(words, scores); // combining words and scores
+  const sortedWordAndScore = wordAndScore.sort(
+    (num1, num2) => num2[1] - num1[1]
+  );
+  let highestWord = sortedWordAndScore[0];
+  for (let score of sortedWordAndScore.slice(1)) {
+    if (highestWord[1] === score[1]) {
+      if (score[0].length === 10 && highestWord[0].length !== 10) {
+        highestWord = score;
+      } else if (
+        highestWord[0].length !== 10 &&
+        highestWord[0].length > score[0].length
+      ) {
+        highestWord = score;
+      }
+    }
+  }
+  const highestWordRes = { score: highestWord[1], word: highestWord[0] };
+  return highestWordRes;
 };
