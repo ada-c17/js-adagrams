@@ -1,24 +1,24 @@
-import { letterPool, generateLetters, getRandomLetter } from "helper";
-
 class Adagrams {
-  drawLetters() {
-    // generate all available letters using quantities from letterPool
-    const availableLetters = generateLetters(letterPool);
+  constructor(letterData, handSize) {
+    this.letterData = letterData;
+    this.handSize = handSize;
+  }
 
-    // generate 10 random letters from availableLetters
-    const handSize = 10;
+  drawLetters() {
+    const lettersNotUsed = this.generateLetters();
     const lettersInHand = [];
-    for (let i = 0; i < handSize; i++) {
-      lettersInHand.push(getRandomLetter(availableLetters));
+    for (let i = 0; i < this.handSize; i++) {
+      const randomIndex = ~~(Math.random() * lettersNotUsed.length);
+      const randomLetter = lettersNotUsed.splice(randomIndex, 1)[0];
+      lettersInHand.push(randomLetter);
     }
     return lettersInHand;
   }
 
   usesAvailableLetters(input, lettersInHand) {
     if (input.length > lettersInHand.length) return false;
-
-    for (let i of input) {
-      const index = lettersInHand.findIndex((letter) => letter === i);
+    for (const inputLetter of input) {
+      const index = lettersInHand.findIndex((letter) => letter === inputLetter);
       if (index === -1) {
         return false;
       } else {
@@ -30,13 +30,10 @@ class Adagrams {
 
   scoreWord(word) {
     if (!word) return 0;
-
-    word = word.toUpperCase();
-
-    let score = [...word].reduce((prev, current) => {
-      return prev + letterPool[current].score;
-    }, 0);
-
+    let score = word
+      .toUpperCase()
+      .split("")
+      .reduce((total, current) => total + this.letterData[current]["score"], 0);
     return word.length < 7 ? score : score + 8;
   }
 
@@ -45,8 +42,7 @@ class Adagrams {
       word: word,
       score: this.scoreWord(word),
     }));
-
-    return wordScores.reduce((prev, current) => {
+    const highestScoredWord = wordScores.reduce((prev, current) => {
       if (prev.score > current.score) {
         return prev;
       } else if (prev.score == current.score) {
@@ -63,6 +59,17 @@ class Adagrams {
         return current;
       }
     });
+    return highestScoredWord;
+  }
+
+  generateLetters() {
+    const availableLetters = [];
+    Object.entries(this.letterData).forEach(([letter, data]) => {
+      for (let i = 0; i < data.quantity; i++) {
+        availableLetters.push(letter);
+      }
+    });
+    return availableLetters;
   }
 }
 

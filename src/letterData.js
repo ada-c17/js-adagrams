@@ -1,4 +1,4 @@
-export const letterPool = {
+const letterData = {
   A: { quantity: 9, score: 1 },
   B: { quantity: 2, score: 3 },
   C: { quantity: 2, score: 3 },
@@ -27,19 +27,4 @@ export const letterPool = {
   Z: { quantity: 1, score: 10 },
 };
 
-export const generateLetters = (lettersData) => {
-  const availableLetters = [];
-  Object.entries(letterPool).forEach(([letter, value]) => {
-    for (let i = 0; i < value.quantity; i++) {
-      availableLetters.push(letter);
-    }
-  });
-  return availableLetters;
-};
-
-export const getRandomLetter = (lettersArray) => {
-  // get a random letter and remove that letter from the original arrays
-  let randomIndex = ~~(Math.random() * lettersArray.length);
-  let randomLetter = lettersArray.splice(randomIndex, 1)[0];
-  return randomLetter;
-};
+export default letterData;

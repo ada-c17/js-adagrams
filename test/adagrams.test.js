@@ -1,4 +1,5 @@
 import Adagrams from "adagrams";
+import letterData from "letterData";
 
 const LETTER_POOL = {
   A: 9,
@@ -30,7 +31,7 @@ const LETTER_POOL = {
 };
 
 describe("Adagrams", () => {
-  const game = new Adagrams();
+  const game = new Adagrams(letterData, 10);
 
   describe("drawLetters", () => {
     it("draws ten letters from the letter pool", () => {
