@@ -88,13 +88,15 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   // check if lettersInHand.includes(input)
   for (let letter of inputList) {
     if (lettersInHand.includes(letter)) {
-      let index = lettersInHand.findIndex((letter) => {
-        for (let i = 0; i < lettersInHand.length; i++) {
-          //find index of first occurance
-          return letter === lettersInHand[i];
-        }
-      });
-      lettersInHand.splice(index, 1); //remove item from list
+      {
+        let index = lettersInHand.findIndex((letter) => {
+          for (let i = 0; i < lettersInHand.length; i++) {
+            //find index of first occurance
+            return letter === lettersInHand[i];
+          }
+        });
+        lettersInHand.splice(index, 1); //remove item from list
+      }
     } else {
       return false;
     }
