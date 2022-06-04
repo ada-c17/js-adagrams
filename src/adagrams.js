@@ -43,6 +43,7 @@ export const drawLetters = () => {
     const selectedLetter = allLetters[randomIndex];
     listOfstrings.push(selectedLetter);
     allLetters.splice(randomIndex, 1);
+    //console.log(randomIndex);
   }
   return listOfstrings;
 };
@@ -93,14 +94,26 @@ export const scoreWord = (word) => {
   for (const letter of word.toUpperCase()) {
     //word is a string
     let pointsPerletter = lettersAndpointValues[letter];
-    pointsSum += pointsPerletter
+    pointsSum += pointsPerletter;
   }
   if (7 <= word.length && word.length <= 10) {
-    return (pointsSum) + bonus;
+    return pointsSum + bonus;
   }
   return pointsSum;
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+  const scoreAndword = {};
+  let maxScore = 0;
+  for (const word of words) {
+    //array of strings
+    //word is a string
+    let totalScore = scoreWord(word);
+    if (totalScore > maxScore) {
+      maxScore = totalScore;
+      scoreAndword["word"] = word;
+    }
+  }
+  scoreAndword["score"] = maxScore;
+  return scoreAndword;
 };
