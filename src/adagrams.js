@@ -49,8 +49,28 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  lettersInHand = drawLetters(); //array of 10 letters
+  //make input into array of strings
+  let inputList = [];
+  for (let letter in input) {
+    inputList.push(letter);
+  }
+  // check if lettersInHand.includes(input)
+  for (let letter of inputList) {
+    if (lettersInHand.includes(letter)) {
+      let index = lettersInHand.findIndex(letter); //find index of first occurance
+      lettersInHand.splice(index, 1); //remove item from list
+    } else {
+      return false;
+    }
+    return true;
+  }
 };
+//input: word (string); lettersInHand
+// lettersInHand, the second parameter, describes an array of drawn letters in a hand.
+// Returns either true or false
+//Returns true if every letter in the input word is available (in the right quantities) in the lettersInHand
+//Returns false if not; if there is a letter in input that is not present in the lettersInHand or has too much of compared to the lettersInHand
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
