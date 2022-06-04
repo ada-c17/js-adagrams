@@ -1,5 +1,4 @@
 export const drawLetters = () => {
-  // Implement this method for wave 1
   const LETTER_POOL = {
     A: 9,
     B: 2,
@@ -57,8 +56,9 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
-  let usersWord = input.toUpperCase();
+  const usersWord = input.toUpperCase();
+
+  const lettersInHandCopy = [...lettersInHand];
 
   let found = true;
 
@@ -70,16 +70,16 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   //   console.log(usersWord.charAt(i));
   // }
 
-  for (let i = 0; i < lettersInHand.length; i++) {
+  for (let i = 0; i < lettersInHandCopy.length; i++) {
     // console.log(lettersInHand[i]);
     let ele = lettersInHand[i];
 
-    if (!ele.includes(usersWord)){
+    if (!ele.includes(usersWord)) {
+      found = false;
       continue;
     }
-    return true;
   }
-  return false;
+  return found;
 
 
 
