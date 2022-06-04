@@ -32,7 +32,6 @@ export const drawLetters = () => {
     let letters = Object.keys(letterFreq);
     let randIndex = Math.floor(Math.random() * letters.length);
     let randLetter = letters[randIndex];
-    console.log(randLetter);
     let remainingLetterValue = letterFreq[randLetter];
     if (remainingLetterValue > 0) {
       drawn.push(randLetter);
@@ -43,11 +42,20 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  for (let i = 0; i < input.length; i++) {
+    const inputLetter = input[i];
+    if (lettersInHand.includes(inputLetter) === true) {
+      const letterIndex = lettersInHand.indexOf(inputLetter);
+      lettersInHand.splice(letterIndex, 1);
+    } else {
+      return false;
+    }
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  // Implement this method for wave 3 ----> forEach
 };
 
 export const highestScoreFrom = (words) => {
