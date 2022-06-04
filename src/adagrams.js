@@ -27,9 +27,11 @@ export const drawLetters = () => {
     Y: 2,
     Z: 1,
   };
+
   let letter_bank = [];
   const top_range = "A".charCodeAt(0);
   const bottom_range = "Z".charCodeAt(0);
+
   let counter = 0;
   while (counter < 10) {
     const rand_i = Math.random() * (top_range - bottom_range) + bottom_range;
@@ -37,8 +39,8 @@ export const drawLetters = () => {
     const value = letter_quantity[letter];
     if (value > 0) {
       letter_bank.push(letter);
-      counter += 1;
       letter_quantity[letter] -= 1;
+      counter += 1;
     }
   }
   return letter_bank;
@@ -46,7 +48,6 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   const letters_dict = {};
-
   for (const char of lettersInHand) {
     if (letters_dict[char]) {
       letters_dict[char] += 1;
@@ -57,9 +58,6 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
   for (const letter of input) {
     if (!letters_dict[letter]) {
-      return false;
-    }
-    if (letters_dict[letter] < 1) {
       return false;
     } else {
       letters_dict[letter] -= 1;
@@ -97,12 +95,12 @@ export const scoreWord = (word) => {
     Y: 4,
     Z: 10,
   };
-  let score = 0;
 
   if (!word) {
-    return score;
+    return 0;
   }
 
+  let score = 0;
   for (const char of word) {
     score += letter_points[char.toUpperCase()];
   }
@@ -119,15 +117,11 @@ export const highestScoreFrom = (words) => {
   for (const word of words) {
     const score = scoreWord(word);
     const length = word.length;
-    if (score > top_score) {
-      top_score = score;
-      top_word = word;
-      top_length = length;
-    }
     if (
-      score === top_score &&
-      top_length !== 10 &&
-      (length < top_length || length === 10)
+      score > top_score ||
+      (score === top_score &&
+        top_length !== 10 &&
+        (length < top_length || length === 10))
     ) {
       top_score = score;
       top_word = word;
