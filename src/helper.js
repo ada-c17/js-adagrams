@@ -1,4 +1,4 @@
-const LETTER_POOL = {
+export const LETTER_POOL = {
   A: 9,
   B: 2,
   C: 2,
@@ -27,7 +27,7 @@ const LETTER_POOL = {
   Z: 1,
 };
 
-const letterValue = {
+export const letterValue = {
   A: 1,
   B: 3,
   C: 3,
