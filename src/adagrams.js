@@ -113,5 +113,26 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+  let top_word = words[0];
+  let top_score = 0;
+  let top_length = words[0].length;
+  for (const word of words) {
+    const score = scoreWord(word);
+    const length = word.length;
+    if (score > top_score) {
+      top_score = score;
+      top_word = word;
+      top_length = length;
+    }
+    if (
+      score === top_score &&
+      top_length !== 10 &&
+      (length < top_length || length === 10)
+    ) {
+      top_score = score;
+      top_word = word;
+      top_length = length;
+    }
+  }
+  return { word: top_word, score: top_score };
 };
