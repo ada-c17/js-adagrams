@@ -57,8 +57,8 @@ const letterScores = {
 };
 
 export const drawLetters = () => {
-  let userHand = []
-  let availableLetters = []
+  let userHand = [];
+  let availableLetters = [];
 
   // iterate through object with letter distribution to populate availableLetters array
   for (let letter in letterDistribution) {
