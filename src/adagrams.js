@@ -142,14 +142,10 @@ export const scoreWord = (word) => {
     totalScore += scoreChart[letter];
   }
 
-  // if (word.length >= 7 && word.length <= 10) {
-  //   totalScore += 8;
-  // }
-
   if (extraPoints.includes(word.length)) {
     totalScore += 8;
   }
-  
+
   return totalScore;
 
 };
@@ -169,4 +165,21 @@ export const highestScoreFrom = (words) => {
    *  2. Except if one word has ten letters, choose word with ten letters > word with fewer letters
    *  3. Multiple words with same score and same length? Choose the first one in the array
    */
+
+
+  // JS object of {individual word from words: score}
+  let scores = new Object();
+
+  // Loop through words array
+  // for each individual word --> call scoreWord, add individual word and score to JS object
+  for (const word of words) {
+    const calculatedScore = scoreWord(word);
+    // console.log(scored);
+    scores[word] = calculatedScore;
+  }
+
+  console.log(scores)
+
+  // go through JS object --> tie breaking stuff
+
 };
