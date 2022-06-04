@@ -20,7 +20,7 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // create a new map with key being letter and value being frequency of what they used
+
   if (input.length <= 0 || input.length > 10) {
     return false;
   }
@@ -33,7 +33,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
       userLetter[char] = 1;
     }
   };
-  // check if the letter they used is  <= frequency
+  
   let userHand = {};
   lettersInHand.forEach(letter => {
     if (letter in userHand) {
@@ -97,5 +97,5 @@ export const highestScoreFrom = (words) => {
   }
 
   return {word: highScoreWord, score: maxScore};
-  
+
 };
