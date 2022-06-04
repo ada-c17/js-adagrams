@@ -30,8 +30,11 @@ export const drawLetters = () => {
 
   const output = [];
   const letterPoolChoices = Object.keys(LETTER_POOL).reduce((res, key) => {
-    return res.concat(new Array(LETTER_POOL[key]).fill(key));
+    return res.concat(new Array(LETTER_POOL[key]).fill(key)); // try to refactor
   }, []);
+  // for (const n in y) - loops through keys
+  // then another for loop to fill the key value amt of times?
+  // maybe I can still use reduce, but in a way I understand?
   while (output.length < 10) {
     const randomizeLetter = Math.floor(
       Math.random() * letterPoolChoices.length
@@ -45,7 +48,16 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  const cloneLettersInHand = [...lettersInHand];
+  for (const letter of input.toUpperCase()) {
+    if (!cloneLettersInHand.includes(letter)) {
+      return false;
+    } else {
+      let letterPosition = cloneLettersInHand.indexOf(letter);
+      cloneLettersInHand.splice(letterPosition, 1);
+    }
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
