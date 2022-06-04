@@ -1,20 +1,4 @@
-// import {
-//   drawLetters,
-//   usesAvailableLetters,
-//   scoreWord,
-//   highestScoreFrom,
-// } from "adagrams";
 import A from "adagrams";
-
-// [drawLetters, usesAvailableLetters, scoreWord, highestScoreFrom] = [
-//   A.drawLetters,
-//   A.usesAvailableLetters,
-//   A.scoreWord,
-//   A.highestScoreFrom,
-// ];
-
-// console.log(`Result of calling drawLetters: ${A.drawLetters()}`);
-// console.log(`Result of calling drawLetters: ${drawLetters()}`);
 
 const LETTER_POOL = {
   A: 9,
