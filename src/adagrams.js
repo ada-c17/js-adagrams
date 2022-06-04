@@ -67,23 +67,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   // if letter in input is present in lettersInHand --> remove letter
   // if not present, return false
 
-  // for (let i = 0; i < usersWord.length; i++) {
-  //   console.log(usersWord.charAt(i));
-  // }
-
-  // for (let i = 0; i < lettersInHandCopy.length; i++) {
-  //   // console.log(lettersInHand[i]);
-  //   let ele = lettersInHandCopy[i];
-
-  //   if (!ele.includes(usersWord)) {
-  //     found = false;
-  //     continue;
-  //   }
-  // }
-  // return found;
-
   for (let letter in usersWord) {
-    // console.log(letter);
     if (lettersInHandCopy.includes(usersWord[letter])) {
       // continue;
       // splice
