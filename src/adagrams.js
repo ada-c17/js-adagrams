@@ -49,7 +49,7 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   const cloneLettersInHand = [...lettersInHand];
-  for (const letter of input.toUpperCase()) {
+  for (let letter of input.toUpperCase()) {
     if (!cloneLettersInHand.includes(letter)) {
       return false;
     } else {
@@ -61,7 +61,59 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  const LETTERS_POINT_VALUES = {
+    A: 1,
+    B: 3,
+    C: 3,
+    D: 2,
+    E: 1,
+    F: 4,
+    G: 2,
+    H: 4,
+    I: 1,
+    J: 8,
+    K: 5,
+    L: 1,
+    M: 3,
+    N: 1,
+    O: 1,
+    P: 3,
+    Q: 10,
+    R: 1,
+    S: 1,
+    T: 1,
+    U: 1,
+    V: 4,
+    W: 4,
+    X: 8,
+    Y: 4,
+    Z: 10,
+  };
+
+  const BONUS = 8;
+  const pointsForEachLetter = [];
+
+  if (word.length === 0) {
+    return 0;
+  }
+
+  for (let letter of word.toUpperCase()) {
+    pointsForEachLetter.push(LETTERS_POINT_VALUES[letter]);
+  }
+
+  if (word.toUpperCase().length >= 7 && word.toUpperCase().length <= 10) {
+    let sum = pointsForEachLetter.reduce(
+      (point1, point2) => point1 + point2,
+      0
+    );
+    return sum + BONUS;
+  } else {
+    let sum = pointsForEachLetter.reduce(
+      (point1, point2) => point1 + point2,
+      0
+    );
+    return sum;
+  }
 };
 
 export const highestScoreFrom = (words) => {
