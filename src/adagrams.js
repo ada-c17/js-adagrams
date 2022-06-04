@@ -29,7 +29,7 @@ const LETTER_POOL = {
   Z: 1,
 };
 
-const LETTER_POINTS = {
+const LETTER_SCORE = {
   A: 1,
   B: 3,
   C: 3,
@@ -63,23 +63,25 @@ export const drawLetters = () => {
   const lettersArray = [];
   let dictIndex = 0;
 
-  while (lettersArray.filter(x => x === Object.keys(LETTER_POOL)[dictIndex]).length <= Object.values(LETTER_POOL)[dictIndex]) {
+  while (
+    lettersArray.filter((x) => x === Object.keys(LETTER_POOL)[dictIndex])
+      .length <= Object.values(LETTER_POOL)[dictIndex]
+  ) {
     lettersArray.push(Object.keys(LETTER_POOL)[dictIndex]);
     dictIndex++;
   }
-  
-  return _.sample(lettersArray,10);
 
+  return _.sample(lettersArray, 10);
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
-  const lettersInHandCopy = JSON.parse(JSON.stringify(lettersInHand)); 
-  let UppercasePool = lettersInHandCopy.map(letter => letter.toUpperCase());
-  for (let i = 0; i < input.length; i++){
-    if (UppercasePool.includes(input[i])){
-      UppercasePool.splice(UppercasePool.indexOf(input[i]), 1); 
-    } else{
+  const lettersInHandCopy = JSON.parse(JSON.stringify(lettersInHand));
+  let uppercasePool = lettersInHandCopy.map((letter) => letter.toUpperCase());
+  for (let i = 0; i < input.length; i++) {
+    if (uppercasePool.includes(input[i])) {
+      uppercasePool.splice(uppercasePool.indexOf(input[i]), 1);
+    } else {
       return false;
     }
   }
@@ -88,8 +90,30 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
+  const uppercaseWord = word.toUpperCase();
+  let wordScore = 0;
+  for (let letter of uppercaseWord){
+    wordScore += LETTER_SCORE[letter];
+  }
+  if (word.length > 6 && word.length < 11) {
+    wordScore += 8;
+  }
+  return wordScore;
 };
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
+  let bestScore = 0;
+  let bestWord = null;
+  for (let word of words){
+    if (scoreWord(word) > bestScore){
+      bestScore = scoreWord(word);
+      bestWord = word;
+    } else if (scoreWord(word) === bestScore && bestWord.length !== 10) {
+      if (word.length === 10 || word.length < bestWord.length){
+        bestWord = word;
+      }
+    }
+  }
+  return {word:bestWord, score:bestScore};
 };
