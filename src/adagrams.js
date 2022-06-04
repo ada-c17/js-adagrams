@@ -137,12 +137,25 @@ export const highestScoreFrom = (words) => {
     };
     const highestScoringWords = getMaxScore(scores);
     if (highestScoringWords.length > 1) {
-        // get longest word, and if 10 in length, return it
+        // get longest word
         const longestWord = highestScoringWords.reduce(function(a, b) {
-            return a.length > b.length ? b : a;
+            return a.length > b.length ? a : b;
         });
+        // if the longest word is 10 characters long, return it - if there are more than one, return the first one
         if (longestWord.length === 10) {
-            return { word: longestWord, score: scoreWord(longestWord) };
+            let tenLongWordCount = 0;
+            const tenLongWords = [];
+            for (const word of highestScoringWords) {
+                if (word.length === 10) {
+                    tenLongWordCount += 1;
+                    tenLongWords.push(word);
+                }
+            }
+            if (tenLongWordCount > 1) {
+                return { word: tenLongWords[0], score: scoreWord(tenLongWords[0]) };
+            } else {
+                return { word: longestWord, score: scoreWord(longestWord) };
+            }
         } else {
             // get shortest word
             const shortestWord = highestScoringWords.reduce((a, b) =>
@@ -151,9 +164,4 @@ export const highestScoreFrom = (words) => {
             return { word: shortestWord, score: scoreWord(shortestWord) };
         }
     }
-    // This is here in case there is only one word submitted or two with the same length
-    return {
-        word: highestScoringWords[0],
-        score: scoreWord(highestScoringWords[0]),
-    };
 };
