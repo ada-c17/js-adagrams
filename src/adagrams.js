@@ -58,6 +58,7 @@ export const drawLetters = () => {
 export const usesAvailableLetters = (input, lettersInHand) => {
   const usersWord = input.toUpperCase();
 
+  // Create shallow copy of lettersInHand
   const lettersInHandCopy = [...lettersInHand];
 
   let found = true;
@@ -70,16 +71,29 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   //   console.log(usersWord.charAt(i));
   // }
 
-  for (let i = 0; i < lettersInHandCopy.length; i++) {
-    // console.log(lettersInHand[i]);
-    let ele = lettersInHand[i];
+  // for (let i = 0; i < lettersInHandCopy.length; i++) {
+  //   // console.log(lettersInHand[i]);
+  //   let ele = lettersInHandCopy[i];
 
-    if (!ele.includes(usersWord)) {
-      found = false;
+  //   if (!ele.includes(usersWord)) {
+  //     found = false;
+  //     continue;
+  //   }
+  // }
+  // return found;
+
+  for (let letter in usersWord) {
+    // console.log(letter);
+    if (lettersInHandCopy.includes(usersWord[letter])) {
+      // continue;
+      // splice
+      lettersInHandCopy.splice(usersWord[letter], 1)
       continue;
+      // return true;
     }
+    return false;
   }
-  return found;
+  return true;
 
 
 
