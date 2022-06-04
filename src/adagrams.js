@@ -124,6 +124,20 @@ export const highestScoreFrom = (words) => {
       winningScore = score;
       let winningIndex = scores.indexOf(score);
       winningWord = words[winningIndex];
+    } else if (score === winningScore) {
+      let tieIndex = scores.indexOf(score, 1);
+      let tieWord = words[tieIndex];
+      if (winningWord.length === 10) {
+        continue;
+      } else {
+        if (tieWord.length === 10) {
+          winningWord = tieWord;
+        } else {
+          if (tieWord.length < winningWord.length) {
+            winningWord = tieWord;
+          }
+        }
+      }
     }
   }
 
@@ -134,18 +148,3 @@ export const highestScoreFrom = (words) => {
 
   return highestScore;
 };
-
-// highestScoreFrom: return {word: winningWord (string), score: winningScore (int)}
-
-// create an empty list called scores
-// create two variables: winningScore: initialized to 0, and winningWord: initialized to ''
-
-// forEach word in words, call scoreWord():
-//  push score to the list called scores
-
-// for score of scores:
-//  if score is greater than winningScore:
-//    reassign score to WinningScore
-//    reassign winningWord to the element at the current index in the list called words
-
-// add winningWord and winningScore to an object and return it
