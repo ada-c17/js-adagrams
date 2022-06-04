@@ -70,10 +70,10 @@ export const drawLetters = () => {
     in the 98 letters in the availableLetters array, and the letter at that index;
     then remove chosen letter from availableLetters array, and add to userHand.
   */
-  for (var i = 0; i < 10; i++) {
-    var chosenLetterIdx = Math.floor(Math.random() * availableLetters.length)
+  for (let i = 0; i < 10; i++) {
+    let chosenLetterIdx = Math.floor(Math.random() * availableLetters.length)
     // chosenLetter = availableLetters[chosenLetterIdx];
-    var chosenLetter = availableLetters.splice(chosenLetterIdx, 1);
+    let chosenLetter = availableLetters.splice(chosenLetterIdx, 1);
     // console.log("chosen Letter", chosenLetter);
     // console.log("index", chosenLetterIdx);
     userHand = userHand.concat(chosenLetter);
@@ -85,7 +85,7 @@ export const drawLetters = () => {
 export const hashingFun = (str) => {
   let frequencyDict = {};
 
-  for (var i = 0; i < str.length; i++) {
+  for (let i = 0; i < str.length; i++) {
     if (frequencyDict[str[i]] === undefined) {
       frequencyDict[str[i]] = 1;
     } else {
@@ -100,7 +100,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   const userHandFrequency= hashingFun(lettersInHand);
   const wordFrequency = hashingFun(input);
 
-  for (var key in wordFrequency) {
+  for (let key in wordFrequency) {
     if (userHandFrequency[key] === undefined || userHandFrequency[key] < wordFrequency[key]) {
       return false;
     }
@@ -125,12 +125,12 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  var winningWordData = {};
-  var topScore = scoreWord(words[0]);
-  var topWords = [];
+  let winningWordData = {};
+  let topScore = scoreWord(words[0]);
+  let topWords = [];
 
-  for (var i = 0; i < words.length; i++) {
-    var currentWordScore = scoreWord(words[i]);
+  for (let i = 0; i < words.length; i++) {
+    let currentWordScore = scoreWord(words[i]);
 
     if (currentWordScore === topScore) {
       topWords.push(words[i]);
@@ -142,8 +142,8 @@ export const highestScoreFrom = (words) => {
     }
   }
 
-  var shortestWord = topWords[0];
-  for (var i = 0; i < topWords.length; i++) {
+  let shortestWord = topWords[0];
+  for (let i = 0; i < topWords.length; i++) {
     if (topWords[i].length === 10 && winningWordData['word'] === undefined) {
       winningWordData['word'] = topWords[i];
       winningWordData['score'] = scoreWord(topWords[i]);
