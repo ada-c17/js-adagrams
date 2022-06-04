@@ -27,6 +27,35 @@ const LETTER_POOL = {
   Z: 1,
 };
 
+const letterScores = {
+  A: 1,
+  B: 3,
+  C: 3,
+  D: 2,
+  E: 1,
+  F: 4,
+  G: 2,
+  H: 4,
+  I: 1,
+  J: 8,
+  K: 5,
+  L: 1,
+  M: 3,
+  N: 1,
+  O: 1,
+  P: 3,
+  Q: 10,
+  R: 1,
+  S: 1,
+  T: 1,
+  U: 1,
+  V: 4,
+  W: 4,
+  X: 8,
+  Y: 4,
+  Z: 10,
+};
+
 // draw hand of 10 letters, with likelihood relative to that describe in LetterPool object
 export const drawLetters = () => {
   let allLetters = [];
@@ -50,22 +79,29 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   lettersInHand = drawLetters(); //array of 10 letters
-  //make input into array of strings
+  //make input into array of upper case strings
+  input = input.toUpperCase();
   let inputList = [];
-  for (let letter in input) {
+  for (let letter of input) {
     inputList.push(letter);
   }
   // check if lettersInHand.includes(input)
   for (let letter of inputList) {
     if (lettersInHand.includes(letter)) {
-      let index = lettersInHand.findIndex(letter); //find index of first occurance
+      let index = lettersInHand.findIndex((letter) => {
+        for (let i = 0; i < lettersInHand.length; i++) {
+          //find index of first occurance
+          return letter === lettersInHand[i];
+        }
+      });
       lettersInHand.splice(index, 1); //remove item from list
     } else {
       return false;
     }
-    return true;
   }
+  return true;
 };
+// usesAvailableLetters("llo", ["E", "P", "A", "O", "T", "M", "B", "Y", "E", "S"]);
 //input: word (string); lettersInHand
 // lettersInHand, the second parameter, describes an array of drawn letters in a hand.
 // Returns either true or false
@@ -73,7 +109,19 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 //Returns false if not; if there is a letter in input that is not present in the lettersInHand or has too much of compared to the lettersInHand
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  let score = 0;
+  word = word.toUpperCase();
+  if (word === "") {
+    // still not passing test to return score of 0 for empty input
+    return score;
+  }
+  for (let letter of word) {
+    score += letterScores[letter];
+  }
+  if (word.length >= 7) {
+    score += 8;
+  }
+  return score;
 };
 
 export const highestScoreFrom = (words) => {
