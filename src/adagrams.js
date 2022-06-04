@@ -1,113 +1,117 @@
-const LETTER_POOL = {
-  A: 9,
-  B: 2,
-  C: 2,
-  D: 4,
-  E: 12,
-  F: 2,
-  G: 3,
-  H: 2,
-  I: 9,
-  J: 1,
-  K: 1,
-  L: 4,
-  M: 2,
-  N: 6,
-  O: 8,
-  P: 2,
-  Q: 1,
-  R: 6,
-  S: 4,
-  T: 6,
-  U: 4,
-  V: 2,
-  W: 2,
-  X: 1,
-  Y: 2,
-  Z: 1,
-};
+class Adagrams {
+  static LETTER_POOL = {
+    A: 9,
+    B: 2,
+    C: 2,
+    D: 4,
+    E: 12,
+    F: 2,
+    G: 3,
+    H: 2,
+    I: 9,
+    J: 1,
+    K: 1,
+    L: 4,
+    M: 2,
+    N: 6,
+    O: 8,
+    P: 2,
+    Q: 1,
+    R: 6,
+    S: 4,
+    T: 6,
+    U: 4,
+    V: 2,
+    W: 2,
+    X: 1,
+    Y: 2,
+    Z: 1,
+  };
 
-const SCORE_CHART = {
-  A: 1,
-  B: 3,
-  C: 3,
-  D: 2,
-  E: 1,
-  F: 4,
-  G: 2,
-  H: 4,
-  I: 1,
-  J: 8,
-  K: 5,
-  L: 1,
-  M: 3,
-  N: 1,
-  O: 1,
-  P: 3,
-  Q: 10,
-  R: 1,
-  S: 1,
-  T: 1,
-  U: 1,
-  V: 4,
-  W: 4,
-  X: 8,
-  Y: 4,
-  Z: 10,
-};
+  static SCORE_CHART = {
+    A: 1,
+    B: 3,
+    C: 3,
+    D: 2,
+    E: 1,
+    F: 4,
+    G: 2,
+    H: 4,
+    I: 1,
+    J: 8,
+    K: 5,
+    L: 1,
+    M: 3,
+    N: 1,
+    O: 1,
+    P: 3,
+    Q: 10,
+    R: 1,
+    S: 1,
+    T: 1,
+    U: 1,
+    V: 4,
+    W: 4,
+    X: 8,
+    Y: 4,
+    Z: 10,
+  };
 
-export const drawLetters = () => {
-  let pool = Object.entries(LETTER_POOL).flatMap(([letter, qty]) =>
-    Array(qty).fill(letter)
-  );
-  let hand = [];
-  while (hand.length < 10) {
-    let draw = Math.floor(Math.random * pool.length);
-    let [letter] = pool.splice(draw, 1);
-    hand.push(letter);
+  static drawLetters() {
+    let pool = Object.entries(this.LETTER_POOL).flatMap(([letter, qty]) =>
+      Array(qty).fill(letter)
+    );
+    let hand = [];
+    while (hand.length < 10) {
+      let draw = Math.floor(Math.random() * pool.length);
+      let [letter] = pool.splice(draw, 1);
+      hand.push(letter);
+    }
+    return hand;
   }
-  return hand;
-};
 
-export const usesAvailableLetters = (input, lettersInHand) => {
-  const word = input.toUpperCase();
-  let letterBank = lettersInHand.slice();
-  for (const letter of word) {
-    let index = letterBank.findIndex((item) => item === letter);
-    if (index == -1) {
-      return false;
+  static usesAvailableLetters(input, lettersInHand) {
+    const word = input.toUpperCase();
+    let letterBank = lettersInHand.slice();
+    for (const letter of word) {
+      let index = letterBank.findIndex((item) => item === letter);
+      if (index == -1) {
+        return false;
+      } else {
+        letterBank.splice(index, 1);
+      }
+    }
+    return true;
+  }
+
+  static scoreWord(word) {
+    const bonusScore = word.length > 6 ? 8 : 0;
+    const totalScore = Array.from(word.toUpperCase())
+      .map((letter) => this.SCORE_CHART[letter])
+      .reduce((prev, cur) => prev + cur, bonusScore);
+    return totalScore;
+  }
+
+  static higher(a, b) {
+    if (a.score !== b.score) {
+      return a.score > b.score ? a : b;
+    } else if (a.word.length === 10) {
+      return a;
+    } else if (b.word.length === 10) {
+      return b;
+    } else if (a.word.length === b.word.length) {
+      return a;
     } else {
-      letterBank.splice(index, 1);
+      return a.word.length < b.word.length ? a : b;
     }
   }
-  return true;
-};
 
-export const scoreWord = (word) => {
-  const bonusScore = word.length > 6 ? 8 : 0;
-  const totalScore = Array.from(word.toUpperCase())
-    .map((letter) => SCORE_CHART[letter])
-    .reduce((prev, cur) => prev + cur, bonusScore);
-  return totalScore;
-};
-
-const higher = (a, b) => {
-  if (a.score !== b.score) {
-    return a.score > b.score ? a : b;
-  } else if (a.word.length === 10) {
-    return a;
-  } else if (b.word.length === 10) {
-    return b;
-  } else if (a.word.length === b.word.length) {
-    return a;
-  } else {
-    return a.word.length < b.word.length ? a : b;
+  static highestScoreFrom(words) {
+    const winner = words
+      .map((word) => ({ word: word, score: this.scoreWord(word) }))
+      .reduce((prev, cur) => this.higher(prev, cur));
+    return winner;
   }
-};
+}
 
-export const highestScoreFrom = (words) => {
-  const winner = words
-    .map((word) => ({ word: word, score: scoreWord(word) }))
-    .reduce((prev, cur) => higher(prev, cur));
-  return winner;
-};
+export default Adagrams;
