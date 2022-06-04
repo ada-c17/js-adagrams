@@ -172,11 +172,12 @@ const buildLengthsDict = (maxScoreWords) => {
 const resolveTies = (maxScoreWords, scoreDict) => {
   const wordLengths = buildLengthsDict(maxScoreWords);
   const shortestWord = keyWithMinValue(wordLengths);
+  const result = {};
   for (const [key, value] of Object.entires(wordLengths)) {
     if (value === 10) {
-      const result = (key, scoreDict[key]);
+      result = { score: scoreDict[key], word: key };
     } else {
-      const result = (shortestWord, scoreDict[shortestWord]);
+      result = { score: scoreDict[shortestWord], word: shortestWord };
     }
   }
   return result;
@@ -198,7 +199,7 @@ export const highestScoreFrom = (words) => {
   }
 
   if (maxScoreWords.length === 1) {
-    return maxScoreWord, maxScore;
+    return { score: maxScore, word: maxScoreWord };
   }
 
   return resolveTies(maxScoreWords, scoreDict);
