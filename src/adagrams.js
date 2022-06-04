@@ -58,7 +58,7 @@ class Adagrams {
   };
 
   static drawLetters() {
-    let pool = Object.entries(this.LETTER_POOL).flatMap(([letter, qty]) =>
+    const pool = Object.entries(this.LETTER_POOL).flatMap(([letter, qty]) =>
       Array(qty).fill(letter)
     );
     const hand = [];
@@ -72,7 +72,7 @@ class Adagrams {
 
   static usesAvailableLetters(input, lettersInHand) {
     const word = input.toUpperCase();
-    let letterBank = lettersInHand.slice();
+    const letterBank = lettersInHand.slice();
     for (const letter of word) {
       const index = letterBank.findIndex((item) => item === letter);
       if (index === -1) {
