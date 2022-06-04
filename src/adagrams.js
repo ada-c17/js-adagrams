@@ -110,5 +110,42 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+  const scores = [];
+  let winningScore = 0;
+  let winningWord = "";
+
+  words.forEach((word) => {
+    let score = scoreWord(word);
+    scores.push(score);
+  });
+
+  for (const score of scores) {
+    if (score > winningScore) {
+      winningScore = score;
+      let winningIndex = scores.indexOf(score);
+      winningWord = words[winningIndex];
+    }
+  }
+
+  const highestScore = {
+    word: winningWord,
+    score: winningScore,
+  };
+
+  return highestScore;
 };
+
+// highestScoreFrom: return {word: winningWord (string), score: winningScore (int)}
+
+// create an empty list called scores
+// create two variables: winningScore: initialized to 0, and winningWord: initialized to ''
+
+// forEach word in words, call scoreWord():
+//  push score to the list called scores
+
+// for score of scores:
+//  if score is greater than winningScore:
+//    reassign score to WinningScore
+//    reassign winningWord to the element at the current index in the list called words
+
+// add winningWord and winningScore to an object and return it
