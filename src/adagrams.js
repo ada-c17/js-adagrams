@@ -3,6 +3,13 @@ import _ from "lodash";
 export const drawLetters = () => {
   // Implement this method for wave 1
 
+  /**
+   * create array eachLetterPool to keep all 98 letters from letterPool
+   * run through key of letterPool and add letter to eachLetterPool letterPool[letter] times
+   * while handPool length less than 10, random take letter from eachLetterPool, add to handPool and remove it from eachLetterPool
+   * return true if length of input word and handPool are the same, otherwise return false
+   */
+
   const letterPool = {
     'A': 9, 
     'B': 2, 
@@ -130,4 +137,37 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
+
+  /**
+   * set highest score to the score of the first word
+   * use loop to get the highest score: if current score is greater or equal 
+      to highest score, set highest score to current score
+   * get the list of words with highest score from whole list of word (use filter method)
+   * from the list of highest score words we need return word with length of 10
+    if exist, or word with minimum length if there is no 10 length word, so:
+        get list of len 10 words (or empty if no such word)
+        get word with min length using reduce method
+    # if list of words with length of ten exist: return it's first element
+        otherwise return word of minimum length
+   */
+
+    let highestScore = scoreWord(words[0]);
+
+    for (const word of words) {
+      if (scoreWord(word) >= highestScore) {
+        highestScore = scoreWord(word);
+      }
+    }
+  
+    const highestScoreWords = words.filter(word => scoreWord(word) === highestScore);
+  
+    const tenLenWords  = highestScoreWords.filter(word => word.length === 10);
+
+    const minLenWord = highestScoreWords.reduce((shortest, currentWord) => {
+      return currentWord.length < shortest.length ? currentWord : shortest
+    });
+  
+    return tenLenWords.length > 0 ? {'word': tenLenWords[0], 'score': highestScore} : {'word': minLenWord, 'score': highestScore};
+    
+
 };
