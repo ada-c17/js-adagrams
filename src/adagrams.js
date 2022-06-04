@@ -163,5 +163,10 @@ export const highestScoreFrom = (words) => {
             );
             return { word: shortestWord, score: scoreWord(shortestWord) };
         }
+    } else {
+        return {
+            word: highestScoringWords[0],
+            score: scoreWord(highestScoringWords[0]),
+        };
     }
 };
