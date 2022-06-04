@@ -13,7 +13,7 @@ import A from "adagrams";
 //   A.highestScoreFrom,
 // ];
 
-console.log(`Result of calling drawLetters: ${A.drawLetters()}`);
+// console.log(`Result of calling drawLetters: ${A.drawLetters()}`);
 // console.log(`Result of calling drawLetters: ${drawLetters()}`);
 
 const LETTER_POOL = {

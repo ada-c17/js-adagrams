@@ -61,10 +61,10 @@ class Adagrams {
     let pool = Object.entries(this.LETTER_POOL).flatMap(([letter, qty]) =>
       Array(qty).fill(letter)
     );
-    let hand = [];
+    const hand = [];
     while (hand.length < 10) {
-      let draw = Math.floor(Math.random() * pool.length);
-      let [letter] = pool.splice(draw, 1);
+      const draw = Math.floor(Math.random() * pool.length);
+      const [letter] = pool.splice(draw, 1);
       hand.push(letter);
     }
     return hand;
@@ -74,43 +74,42 @@ class Adagrams {
     const word = input.toUpperCase();
     let letterBank = lettersInHand.slice();
     for (const letter of word) {
-      let index = letterBank.findIndex((item) => item === letter);
-      if (index == -1) {
+      const index = letterBank.findIndex((item) => item === letter);
+      if (index === -1) {
         return false;
-      } else {
-        letterBank.splice(index, 1);
       }
+      letterBank.splice(index, 1);
     }
     return true;
   }
 
   static scoreWord(word) {
     const bonusScore = word.length > 6 ? 8 : 0;
-    const totalScore = Array.from(word.toUpperCase())
+    return Array.from(word.toUpperCase())
       .map((letter) => this.SCORE_CHART[letter])
       .reduce((prev, cur) => prev + cur, bonusScore);
-    return totalScore;
   }
 
   static higher(a, b) {
     if (a.score !== b.score) {
       return a.score > b.score ? a : b;
-    } else if (a.word.length === 10) {
-      return a;
-    } else if (b.word.length === 10) {
-      return b;
-    } else if (a.word.length === b.word.length) {
-      return a;
-    } else {
-      return a.word.length < b.word.length ? a : b;
     }
+    if (a.word.length === 10) {
+      return a;
+    }
+    if (b.word.length === 10) {
+      return b;
+    }
+    if (a.word.length === b.word.length) {
+      return a;
+    }
+    return a.word.length < b.word.length ? a : b;
   }
 
   static highestScoreFrom(words) {
-    const winner = words
+    return words
       .map((word) => ({ word: word, score: this.scoreWord(word) }))
       .reduce((prev, cur) => this.higher(prev, cur));
-    return winner;
   }
 }
 
