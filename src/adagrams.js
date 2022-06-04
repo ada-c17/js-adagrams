@@ -25,12 +25,9 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
   let score = 0;
   const upper = word.toUpperCase();
-  console.log(upper);
   for (let i = 0; i < word.length; i++) {
-    console.log(letterValue[upper[i]]);
     score += letterValue[upper[i]];
   }
   if (word.length >= 7) {
@@ -40,9 +37,6 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
-  // let bestScore = 0;
-  // let bestWord = words[0];
   let best = {
     word: words[0],
     score: 0,
