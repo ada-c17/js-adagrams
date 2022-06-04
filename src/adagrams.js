@@ -52,10 +52,54 @@ export const drawLetters = () => {
   return currentHand;
 };
 
-drawLetters();
+// Helper functions for counting instances
+const countArray = (array, value) => {
+  let count = 0;
+
+  array.forEach((item) => {
+    if (item === value) {
+      count++;
+    }
+  });
+
+  return count;
+};
+
+// const countSet = (set, value) => {
+//   let count = 0;
+
+//   set.forEach((item) => {
+//     if (item === value) {
+//       count++;
+//     }
+//   });
+
+//   return count;
+// };
+
+const countString = (string, value) => {
+  let count = 0;
+
+  for (let i = 0; i < string.length; i++) {
+    if (string[i] === value) {
+      count++;
+    }
+  }
+  return count;
+};
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  const upperInput = input.toUpperCase();
+  const letters = new Set(upperInput);
+
+  for (let letter of letters) {
+    const inputCount = countString(upperInput, letter);
+    const handCount = countArray(lettersInHand, letter);
+    if (handCount < inputCount) {
+      return false;
+    }
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
@@ -63,5 +107,5 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+  // Implement this method for wave 4
 };
