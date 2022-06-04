@@ -36,33 +36,22 @@ export const drawLetters = () => {
 
   // Add letters to letterDistribution array
   for (const letter in LETTER_POOL){
-    // console.log(letter);
     for (let i = 0; i < LETTER_POOL[letter]; i++){
       letterDistribution.push(letter);
     }
   }
 
   // Pick 10 random letters from letterDistribution
-  // for (const i = 1; i <= 10; i++){
-  //   let randomLet = letterDistribution[Math.floor(Math.random()*letterDistribution.length)];
-  //   usersDraw.push(randomLet);
-
-  // }
-
   while (usersDraw.length < 10) {
-    let randomLet = letterDistribution[Math.floor(Math.random()*letterDistribution.length)];
-    usersDraw.push(randomLet);
-    
-    // letterDistribution = delete letterDistribution[randomLet];
-    // letterDistribution.splice(randomLet);
-    // letterDistribution = letterDistribution.filter(function(alpha){
-    //   return alpha != randomLet;
-    // });
+    const randomIndex = Math.floor(Math.random()*letterDistribution.length);
+    const randomLetter = letterDistribution[randomIndex];
+
+    usersDraw.push(randomLetter);
+    // Remove the selected letter from the letter distribution --> avoids picking it again
+    letterDistribution.splice(randomIndex, 1);
 
   }
 
-  // console.log(letterDistribution);
-  // console.log(usersDraw);
   return usersDraw;
 };
 
