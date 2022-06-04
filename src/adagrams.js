@@ -104,6 +104,18 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
+  if (!word) {
+    return 0;
+  }
+  let upperWord = word.toUpperCase();
+  let score = 0;
+  for (let letter of upperWord) {
+    score += scoreChart[letter];
+  }
+  if (word.length >= 7) {
+    score += 8;
+  }
+  return score;
 };
 
 export const highestScoreFrom = (words) => {
