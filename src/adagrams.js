@@ -1,4 +1,5 @@
 export const drawLetters = () => {
+  // Implement this method for wave 1
   const LETTER_POOL = {
     A: 9,
     B: 2,
@@ -57,6 +58,33 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
+  let usersWord = input.toUpperCase();
+
+  let found = true;
+
+  // Loop through input
+  // if letter in input is present in lettersInHand --> remove letter
+  // if not present, return false
+
+  // for (let i = 0; i < usersWord.length; i++) {
+  //   console.log(usersWord.charAt(i));
+  // }
+
+  for (let i = 0; i < lettersInHand.length; i++) {
+    // console.log(lettersInHand[i]);
+    let ele = lettersInHand[i];
+
+    if (!ele.includes(usersWord)){
+      continue;
+    }
+    return true;
+  }
+  return false;
+
+
+
+  // console.log(`users word: ${usersWord}`);
+  // console.log(`letters drawn: ${lettersInHand}`);
 };
 
 export const scoreWord = (word) => {
