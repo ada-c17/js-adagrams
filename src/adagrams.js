@@ -130,8 +130,11 @@ export const scoreWord = (word) => {
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 4
   const scoreDict = buildScoreDict(words);
+
   const maxScoreWord = keyWithMaxValue(scoreDict);
+
   const maxScore = scoreDict[maxScoreWord];
+
   const maxScoreWords = [];
   for (let word of words) {
     if (scoreDict[word] >= maxScore) {
@@ -139,9 +142,11 @@ export const highestScoreFrom = (words) => {
     }
   }
 
-  if len(maxScoreWords) == 1:
-      return (maxScoreWord, maxScore)
-  return resolve_ties(maxScoreWords, scoreDict)
+  if (maxScoreWords.length === 1) {
+    return (maxScoreWord, maxScore)
+  }
+
+  return resolveTies(maxScoreWords, scoreDict)
 };
 
 const buildScoreDict = (words) => {
@@ -150,10 +155,9 @@ const buildScoreDict = (words) => {
         scoreDict[word] = scoreWord(word)
     }
     return scoreDict;
-}
+};
 
-
-def resolve_ties(maxScoreWords, scoreDict):
+def resolveTies(maxScoreWords, scoreDict):
     word_lengths = build_lengths_dict(maxScoreWords)
     shortest_word = min(word_lengths, key=word_lengths.get)
     for key, value in word_lengths.items():
@@ -162,7 +166,6 @@ def resolve_ties(maxScoreWords, scoreDict):
         else:
             result = (shortest_word, scoreDict[shortest_word])
     return result
-
 
 def build_lengths_dict(maxScoreWords):
     word_lengths = {}
