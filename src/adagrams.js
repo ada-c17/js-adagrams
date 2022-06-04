@@ -41,38 +41,37 @@ export const drawLetters = () => {
   // Implement this method for wave 1
 
   const poolArr = [];
-  for (let [letter, freq] of Object.entries(poolHash)) {
-    //loops over poolHash
-    for (let i = 0; i < freq; i++) {
-      //while i is less than the frequencey of the letter
+
+  for (let letter in poolHash) {
+    for (let i = 0; i < poolHash[letter]; i++) {
+      //while i is less than the frequency of the letter
       poolArr.push(letter); //it appends that letter to poolArr
     } //it creates an array of the form [A,A,A,A,A,A,A,A,A,B.B.C,C,...]
   }
 
   const shufflePool = (poolArr) => {
-    //https://javascript.info/task/shuffle//
+    //javascript.info/task/shuffle
     for (let i = poolArr.length - 1; i > 0; i--) {
       //assigns length of array minus one to i and while i is posititve it loops subrtracting one from i each iteration
       let j = Math.floor(Math.random() * (i + 1)); // math.random returns a value from 0-1, add 1 to i so we can caputre last index in poolArr, the result is a random number from 0-(len-1)
       [poolArr[i], poolArr[j]] = [poolArr[j], poolArr[i]]; //the two letters switch their index
     }
+    return poolArr.slice(0, 10); //after shuffle the first 10 are returned
   };
-  const draw = poolArr.slice(0, 10); //after shuffle the first 10 are returned
-  return draw;
+  return shufflePool(poolArr);
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
 
   const wordUp = input.toUpperCase();
+  const lettersInHandCopy = lettersInHand.slice(); //creates a copy that can be editted without copy I couldn't reuse a letter while playing
 
   for (const letter of wordUp) {
-    if (lettersInHand.includes(letter)) {
-      //checking if letter from word in hand
-      lettersInHand.splice(lettersInHand.indexOf(letter), 1); //using splice to remove that letter from hand
-    } else {
+    if (!lettersInHandCopy.includes(letter)) {
       return false;
     }
+    lettersInHandCopy.splice(lettersInHandCopy.indexOf(letter), 1);
   }
   return true;
 };
@@ -90,7 +89,6 @@ export const scoreWord = (word) => {
   for (const letter of wordUp) {
     for (const letterScore in scoreChart) {
       if (scoreChart[letterScore].includes(letter)) {
-        //looking in the list value of that key to see if letter in list
         score += parseInt(letterScore); //the key is not an int so it needs to be converted before it is added
       }
     }
@@ -100,22 +98,36 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
-  //for word of words call the scoreWord function
-  //store in an object such as ==> word:score
-
   //set variable with highest score equal to value of first word in object
-  //set variable called winning word equal to the first word in object
-  //loop through object and if a score is higher than the highest score update the score and the word
+  //loop through object and if a score is higher than the highest score update the score
+  //find all words that have that score and then check if equal to 10 and for shorter word
   // return the word and score
-  const scoreHash = {};
+  const tiedWords = [];
   let winningScore = scoreWord(words[0]);
-  let winningWord = words[0];
 
   for (const word of words) {
     let currentScore = scoreWord(word);
     if (currentScore > winningScore) {
-      winningWord = word;
       winningScore = currentScore;
+    }
+  }
+
+  for (const word of words) {
+    let currentScore = scoreWord(word);
+    if (currentScore === winningScore) {
+      tiedWords.push(word);
+    }
+  }
+
+  let winningWord = tiedWords[0];
+
+  for (const word of tiedWords) {
+    if (word.length === winningWord.length) {
+      winningWord = winningWord;
+    } else if (word.length === 10) {
+      winningWord = word;
+    } else if (word.length < winningWord.length && winningWord.length !== 10) {
+      winningWord = word;
     }
   }
   return { score: winningScore, word: winningWord };
