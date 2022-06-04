@@ -137,17 +137,26 @@ export const scoreWord = (word) => {
 
   const inputWord = word.toUpperCase();
 
-  let usersScore = 0;
+  let totalScore = 0;
 
   for (let letter of inputWord){
     // console.log(letter);
     if (scoreChart.hasOwnProperty(letter)) {
       // console.log(scoreChart[letter]);
-      usersScore += scoreChart[letter];
+      totalScore += scoreChart[letter];
     }
     // console.log(`NO`);
   }
-  console.log(usersScore);
+  // console.log(usersScore);
+
+  const extraPoints = [7, 8, 9, 10];
+
+  if (extraPoints.includes(inputWord.length)) {
+    totalScore += 8;
+  }
+
+  // console.log(totalScore);
+  return totalScore;
 
 };
 
