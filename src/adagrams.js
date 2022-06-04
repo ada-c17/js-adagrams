@@ -52,10 +52,18 @@ export const drawLetters = () => {
   while (usersDraw.length < 10) {
     let randomLet = letterDistribution[Math.floor(Math.random()*letterDistribution.length)];
     usersDraw.push(randomLet);
+    
+    // letterDistribution = delete letterDistribution[randomLet];
+    // letterDistribution.splice(randomLet);
+    // letterDistribution = letterDistribution.filter(function(alpha){
+    //   return alpha != randomLet;
+    // });
+
   }
 
   // console.log(letterDistribution);
-  console.log(usersDraw);
+  // console.log(usersDraw);
+  return usersDraw;
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
