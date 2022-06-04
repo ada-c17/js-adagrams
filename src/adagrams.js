@@ -76,6 +76,25 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
+  const lettersFreq = {};
+  for (const letter of lettersInHand) {
+    if (letter in lettersFreq) {
+      lettersFreq[letter] += 1;
+    } else {
+      lettersFreq[letter] = 1;
+    }
+  }
+  if (input.length > lettersInHand) {
+    return false;
+  }
+  for (let i = 0; i < input.length; i++) {
+    if (input[i] in lettersFreq && lettersFreq[input[i]] > 0) {
+      lettersFreq[input[i]] -= 1;
+    } else {
+      return false;
+    }
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
