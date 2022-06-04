@@ -1,16 +1,18 @@
-import {
-  drawLetters,
-  usesAvailableLetters,
-  scoreWord,
-  highestScoreFrom,
-} from "adagrams";
+// import {
+//   drawLetters,
+//   usesAvailableLetters,
+//   scoreWord,
+//   highestScoreFrom,
+// } from "adagrams";
 
-const Real = {
-  drawLetters,
-  usesAvailableLetters,
-  scoreWord,
-  highestScoreFrom,
-};
+// const Real = {
+//   drawLetters,
+//   usesAvailableLetters,
+//   scoreWord,
+//   highestScoreFrom,
+// };
+
+import Real from "adagrams";
 
 const Stub = {
   drawLetters() {

@@ -1,9 +1,10 @@
-import Adagrams from 'demo/adagrams';
+// import Adagrams from 'demo/adagrams';
+import Adagrams from "adagrams";
 
 class Model {
   constructor(config) {
-    if(!config) {
-      throw new Error('Model requires a config parameter.');
+    if (!config) {
+      throw new Error("Model requires a config parameter.");
     }
 
     this.config = config;
@@ -33,7 +34,7 @@ class Model {
   }
 
   currentPlayerName() {
-    if(this.currentPlayer === null) return null;
+    if (this.currentPlayer === null) return null;
 
     return this._playerName(this.currentPlayer);
   }
@@ -44,7 +45,7 @@ class Model {
     this.currentPlayer = 0;
 
     const gameOver = this.round > this.config.rounds;
-    if(gameOver) {
+    if (gameOver) {
       return { gameOver, winner: this._gameWinner() };
     }
 
@@ -71,7 +72,7 @@ class Model {
   playWord(word) {
     word = word.toUpperCase();
 
-    if(!this._valid(word)) return null;
+    if (!this._valid(word)) return null;
 
     this._recordPlay(word);
 
@@ -79,7 +80,7 @@ class Model {
   }
 
   _valid(word, letterBank = this.letterBank) {
-    if(word.length < 1) return false;
+    if (word.length < 1) return false;
     return Adagrams.usesAvailableLetters(word, letterBank);
   }
 
@@ -93,7 +94,7 @@ class Model {
 
   _bestPlay(round, player) {
     const plays = this.plays[player][round - 1];
-    if(plays.length < 1) {
+    if (plays.length < 1) {
       return null;
     }
 
@@ -102,38 +103,45 @@ class Model {
 
   _roundWinner(round) {
     const bestPlays = this.config.players
-                        .map((player) => ({ player, ...this._bestPlay(round, player) }))
-                        .filter(({ player, word, score }) => word !== undefined);
+      .map((player) => ({ player, ...this._bestPlay(round, player) }))
+      .filter(({ player, word, score }) => word !== undefined);
 
-    if(bestPlays.length < 1) {
-      return { player: '<NOBODY>', word: '<NONE>', score: 0 };
+    if (bestPlays.length < 1) {
+      return { player: "<NOBODY>", word: "<NONE>", score: 0 };
     }
 
-    const { word: winningWord } = Adagrams.highestScoreFrom(bestPlays.map(({ word }) => word));
+    const { word: winningWord } = Adagrams.highestScoreFrom(
+      bestPlays.map(({ word }) => word)
+    );
     return bestPlays.find(({ word }) => word === winningWord);
   }
 
   _gameWinner() {
     // Add up the scores for each player, counting only the rounds where they won
     const roundWinners = [];
-    for(let round = 1; round <= this.config.rounds; round++) {
+    for (let round = 1; round <= this.config.rounds; round++) {
       const winner = this._roundWinner(round);
-      const existing = roundWinners.find(({ player }) => player === winner.player);
+      const existing = roundWinners.find(
+        ({ player }) => player === winner.player
+      );
 
-      if(existing) {
+      if (existing) {
         existing.score += winner.score;
       } else {
         roundWinners.push(winner);
       }
     }
 
-    return roundWinners.reduce((gameWinner, roundWinner) => {
-      if(roundWinner.score > gameWinner.score) {
-        gameWinner = roundWinner;
-      }
+    return roundWinners.reduce(
+      (gameWinner, roundWinner) => {
+        if (roundWinner.score > gameWinner.score) {
+          gameWinner = roundWinner;
+        }
 
-      return gameWinner;
-    }, { player: '<NOBODY>', score: 0 });
+        return gameWinner;
+      },
+      { player: "<NOBODY>", score: 0 }
+    );
   }
 }
 
