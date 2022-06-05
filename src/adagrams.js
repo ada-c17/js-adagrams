@@ -37,6 +37,13 @@ const letterScores = {
   10: ["Q", "Z"],
 };
 
+
+/**
+  input: none
+  output: return list of 10 strings, 1 letter each
+  frequency of each letter cannot exceed the value of 
+  each letter in the LETTER_POOL
+*/
 export const drawLetters = () => {
   const drawn = [];
   const letterFreq = {};
@@ -58,6 +65,11 @@ export const drawLetters = () => {
   return drawn;
 };
 
+/** 
+  input: word (a string) and hand (a list of strings, one char each)
+  output: Returns True if each char is uniquely in hand. Returns
+  False otherwise or if char in word is not in hand.
+*/
 export const usesAvailableLetters = (input, lettersInHand) => {
   const clonedHand = JSON.parse(JSON.stringify(lettersInHand));
   const wordPlayed = input.toUpperCase();
@@ -73,6 +85,12 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   return true;
 };
 
+/** 
+  input: word (a string of characters)
+  output: Returns a total score based on the value of each char in
+  word, as defined in LETTER_SCORES. Words between 7 and 10 
+  char score an extra 8 points. 
+*/
 export const scoreWord = (word) => {
   let score = 0;
   const wordPlayed = word.toUpperCase();
@@ -90,6 +108,10 @@ export const scoreWord = (word) => {
   return score;
 };
 
-// export const highestScoreFrom = (words) => {
-//   // Implement this method for wave 1
-// }:
+/** 
+  input: list of strings representing each word user has created
+  output: returns tuple with highest scoring word and score. If tied: 
+  shortest length word is preferred, unless length is 10 char
+*/
+export const highestScoreFrom = (words) => {
+}:
