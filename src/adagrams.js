@@ -43,7 +43,6 @@ export const drawLetters = () => {
     const selectedLetter = allLetters[randomIndex];
     listOfstrings.push(selectedLetter);
     allLetters.splice(randomIndex, 1);
-    //console.log(randomIndex);
   }
   return listOfstrings;
 };
@@ -51,7 +50,6 @@ export const drawLetters = () => {
 export const usesAvailableLetters = (input, lettersInHand) => {
   for (const letter in input) {
     if (!lettersInHand.includes(input[letter])) {
-      // IF IN ONLY WORKS FOR OBJ
       return false;
     } else {
       lettersInHand.splice(input[letter], 1);
@@ -92,7 +90,6 @@ export const scoreWord = (word) => {
   const bonus = 8;
   let pointsSum = 0;
   for (const letter of word.toUpperCase()) {
-    //word is a string
     let pointsPerletter = lettersAndpointValues[letter];
     pointsSum += pointsPerletter;
   }
@@ -105,35 +102,21 @@ export const scoreWord = (word) => {
 export const highestScoreFrom = (words) => {
   const scoreAndword = {};
   let maxScore = 0;
-  let lenFewerletters = 1000; //setting it to large num
   for (const word of words) {
-    //array of strings
-    //word is a string
     let totalScore = scoreWord(word);
     if (totalScore > maxScore) {
       maxScore = totalScore;
       scoreAndword["word"] = word;
-      // if (totalScore === maxScore) { #tr
-      //   scoreAndword["word"] = word;
-      //   console.log(scoreAndword["word"]);
-      // }
-      //scoreAndword["word"] = word; //rn this is choosing the last word, need to choose first for tied test
-
-      if (word.length === 10) {
-        scoreAndword["word"] = word; //make them select FIRST WORD when same length
-      } else if (word.length !== 10) {
-        word.length < lenFewerletters; //5 <1000, 4 <5 2 < 4,
-        lenFewerletters = word.length; //5, 4,2,6
+    } else if (totalScore === maxScore) {
+      if (word.length === 10 && scoreAndword["word"].length !== 10) {
         scoreAndword["word"] = word;
+      } else if (scoreAndword["word"].length !== 10) {
+        if (word.length < scoreAndword["word"].length) {
+          scoreAndword["word"] = word;
+        }
       }
-      // console.log(scoreAndword["word"]);
-      // console.log("new test");
     }
   }
-  // console.log(scoreAndword["word"]);
-  // console.log(maxScore);
-  // console.log("NExt test");
   scoreAndword["score"] = maxScore;
-  //console.log(scoreAndword); //correctly printing max score/word of all test cases
   return scoreAndword;
 };
