@@ -124,7 +124,7 @@ Our first job is to build a hand of 10 letters. To do so, implement the function
 |     B : 2     |     O : 8     |
 |     C : 2     |     P : 2     |
 |     D : 4     |     Q : 1     |
-|    E : 12     |     R : 6     |
+|     E : 12    |     R : 6     |
 |     F : 2     |     S : 4     |
 |     G : 3     |     T : 6     |
 |     H : 2     |     U : 4     |
