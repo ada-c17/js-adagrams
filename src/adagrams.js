@@ -81,7 +81,6 @@ export const drawLetters = () => {
   return hand;
 };
 
-// Add to package.json to enable debugger to work on this file: "type": "module"
 const letterFreq = (entity) => {
   const letterCount = {};
   for (let letter of entity) {
