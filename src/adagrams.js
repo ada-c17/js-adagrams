@@ -117,6 +117,52 @@ export const scoreWord = (word) => {
   return score;
 };
 
+// input: array of words
+// ouput: object for highest scored word: {word: 'actual word', score: points}
+// if a tie: prefer any word with 10 letters, then prefer word with fewest letters.
+// if tie of score and length, prefer whichever came first
+
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+  // for word in words array, call scoreWord() func on each word
+  const scoreDict = {};
+  for (const word of words) {
+    scoreDict[word] = scoreWord(word);
+  }
+  // { HELLO: 8, HI: 5, MY: 7, MYA: 8 }
+
+  // use Objects.value(dictName) to get list of values only.
+  const scoreList = Object.values(scoreDict);
+  // find the largest value with Math.max()
+  const highScore = Math.max(...scoreList);
+  // initialize an empty list to hold all words of w this score: let winningWords = [];
+  let winningWords = [];
+  // find words that match the score using
+  for (const [key, value] of Object.entries(scoreDict)) {
+    if (value == highScore) {
+      winningWords.push(key);
+    }
+  }
+  let winningObject = {};
+  let shortestWord;
+  // loop through winningWords, check for length(10), then for longest length
+  winningWords.forEach((word) => {
+    if (word.length === 10) {
+      winningObject["word"] = word;
+      winningObject["score"] = highScore;
+      return winningObject;
+    } else {
+      if (word.length < shortestWord.length) {
+        // will find shortest word, will not replace with later words of same length
+        word = shortestWord;
+      }
+    }
+    winningObject["word"] = shortestword;
+    winningObject["score"] = highScore;
+    return winningObject;
+  });
 };
+
+// const artists = ['Picasso', 'Kahlo', 'Matisse', 'Utamaro'];
+// artists.forEach(artist => {
+//   console.log(artist + ' is one of my favorite artists.');
+// });
