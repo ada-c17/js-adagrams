@@ -89,8 +89,8 @@ export const drawLetters = () => {
   return letterHand;
 };
 
-export const usesAvailableLetters = (input, lettersInHand) => {
-  let availableLetters = {};
+const buildAvailableLetters = (lettersInHand) => {
+  const availableLetters = {};
   for (let letter of lettersInHand) {
     if (letter in availableLetters) {
       availableLetters[letter] += 1;
@@ -98,6 +98,11 @@ export const usesAvailableLetters = (input, lettersInHand) => {
       availableLetters[letter] = 1;
     }
   }
+  return availableLetters;
+};
+
+export const usesAvailableLetters = (input, lettersInHand) => {
+  const availableLetters = buildAvailableLetters(lettersInHand);
 
   for (const letter of input) {
     if (letter in availableLetters) {
@@ -126,6 +131,21 @@ export const scoreWord = (word) => {
   return total;
 };
 
+const getHighestScoring = (words) => {};
+
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+  const word_scores = {};
+  const top_words = {};
+  for (const word of word_list) {
+    word_scores[word] = scoreWord(word);
+  }
+
+  highestScore = Math.max(Object.values(word_scores));
+
+  for (const word in word_scores) {
+    if (word_scores[word] === highestScore) {
+      top_words[word] = highestScore;
+    }
+  }
+  console.log(top_words);
 };
