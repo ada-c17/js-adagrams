@@ -131,21 +131,36 @@ export const scoreWord = (word) => {
   return total;
 };
 
-const getHighestScoring = (words) => {};
+const tieBreaking = (top_words) => {
+  let highestScoringWord = Object.keys(top_words)[0];
+  for (const word in top_words) {
+    if (word.length === 10) {
+      return { score: top_words[word], word: word };
+    }
+    if (
+      word.length < highestScoringWord.length &&
+      highestScoringWord.length !== 10
+    ) {
+      highestScoringWord = word;
+    }
+  }
+  return { score: top_words[highestScoringWord], word: highestScoringWord };
+};
 
 export const highestScoreFrom = (words) => {
   const word_scores = {};
+  const scores = [];
   const top_words = {};
-  for (const word of word_list) {
+  for (const word of words) {
     word_scores[word] = scoreWord(word);
+    scores.push(scoreWord(word));
   }
-
-  highestScore = Math.max(Object.values(word_scores));
+  const highestScore = Math.max(...scores);
 
   for (const word in word_scores) {
     if (word_scores[word] === highestScore) {
       top_words[word] = highestScore;
     }
   }
-  console.log(top_words);
+  return tieBreaking(top_words);
 };
