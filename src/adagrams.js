@@ -145,6 +145,24 @@ export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
 };
 
+// highest_scoring_word = ""
+// highest_score = 0
+
+// for word in word_list:
+//     word_score = score_word(word)
+//     if word_score > highest_score:
+//         highest_score = word_score
+//         highest_scoring_word = word
+//     elif word_score == highest_score:
+//         if len(highest_scoring_word) == 10:
+//             continue
+//         elif len(word) == 10:
+//             highest_scoring_word = word
+//         elif len(word) < len(highest_scoring_word):
+//             highest_scoring_word = word
+
+// return highest_scoring_word , highest_score
+
 //FROM PYTHON
 // '''
 //     parameters:
@@ -168,20 +186,3 @@ export const highestScoreFrom = (words) => {
 //     --string (highest scoring word)
 //     --integer (highest score)
 //     '''
-//     highest_scoring_word = ""
-//     highest_score = 0
-
-//     for word in word_list:
-//         word_score = score_word(word)
-//         if word_score > highest_score:
-//             highest_score = word_score
-//             highest_scoring_word = word
-//         elif word_score == highest_score:
-//             if len(highest_scoring_word) == 10:
-//                 continue
-//             elif len(word) == 10:
-//                 highest_scoring_word = word
-//             elif len(word) < len(highest_scoring_word):
-//                 highest_scoring_word = word
-
-//     return highest_scoring_word , highest_score
