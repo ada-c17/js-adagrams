@@ -34,6 +34,8 @@ const LETTER_POOL = {
   Z: 1,
 };
 
+
+// Test One
 describe("Adagrams", () => {
   describe("drawLetters", () => {
     it("draws ten letters from the letter pool", () => {
@@ -70,6 +72,9 @@ describe("Adagrams", () => {
     });
   });
 
+
+
+  // Test Two 
   describe("usesAvailableLetters", () => {
     it("returns true if the submitted letters are valid against the drawn letters", () => {
       const drawn = ["D", "O", "G", "X", "X", "X", "X", "X", "X", "X"];
@@ -96,6 +101,9 @@ describe("Adagrams", () => {
     });
   });
 
+
+
+  // Test Three
   describe("scoreWord", () => {
     const expectScores = (wordScores) => {
       Object.entries(wordScores).forEach(([word, score]) => {
@@ -120,7 +128,9 @@ describe("Adagrams", () => {
     });
 
     it("returns a score of 0 if given an empty input", () => {
-      throw "Complete test";
+      expectScores({
+        "" : 0
+      });
     });
 
     it("adds an extra 8 points if word is 7 or more characters long", () => {
@@ -133,7 +143,11 @@ describe("Adagrams", () => {
     });
   });
 
-  describe.skip("highestScoreFrom", () => {
+
+
+
+  // Test Four
+  describe("highestScoreFrom", () => {
     it("returns a hash that contains the word and score of best word in an array", () => {
       const words = ["X", "XX", "XXX", "XXXX"];
       const correct = { word: "XXXX", score: scoreWord("XXXX") };
@@ -145,7 +159,7 @@ describe("Adagrams", () => {
       const words = ["XXX", "XXXX", "X", "XX"];
       const correct = { word: "XXXX", score: scoreWord("XXXX") };
 
-      throw "Complete test by adding an assertion";
+      expect(highestScoreFrom(words)).toEqual(correct);
     });
 
     describe("in case of tied score", () => {
