@@ -142,8 +142,8 @@ const keyWithMaxValue = (aDict) => {
 };
 
 const keyWithMinValue = (aDict) => {
-  let min = aDict[0];
-  let minKey = "";
+  let min = Object.values(aDict)[0];
+  let minKey = Object.keys(aDict)[0];
   for (let char in aDict) {
     if (aDict[char] < min) {
       min = aDict[char];
@@ -162,9 +162,9 @@ const buildScoreDict = (words) => {
 };
 
 const buildLengthsDict = (maxScoreWords) => {
-  wordLengths = {};
-  for (word in maxScoreWords) {
-    wordLengths[word] = len(word);
+  const wordLengths = {};
+  for (let word of maxScoreWords) {
+    wordLengths[word] = word.length;
   }
   return wordLengths;
 };
@@ -172,10 +172,10 @@ const buildLengthsDict = (maxScoreWords) => {
 const resolveTies = (maxScoreWords, scoreDict) => {
   const wordLengths = buildLengthsDict(maxScoreWords);
   const shortestWord = keyWithMinValue(wordLengths);
-  const result = {};
-  for (const [key, value] of Object.entires(wordLengths)) {
+  let result = {};
+  for (let [key, value] of Object.entries(wordLengths)) {
     if (value === 10) {
-      result = { score: scoreDict[key], word: key };
+      return { score: scoreDict[key], word: key };
     } else {
       result = { score: scoreDict[shortestWord], word: shortestWord };
     }
