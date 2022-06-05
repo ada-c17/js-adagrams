@@ -27,6 +27,35 @@ const letterPool = {
   Z: 1,
 };
 
+const letterScores = {
+  A: 1,
+  B: 3,
+  C: 3,
+  D: 2,
+  E: 1,
+  F: 4,
+  G: 2,
+  H: 4,
+  I: 1,
+  J: 8,
+  K: 5,
+  L: 1,
+  M: 3,
+  N: 1,
+  O: 1,
+  P: 3,
+  Q: 10,
+  R: 1,
+  S: 1,
+  T: 1,
+  U: 1,
+  V: 4,
+  W: 4,
+  X: 8,
+  Y: 4,
+  Z: 10,
+};
+
 const makeLetterArr = (letterObj) => {
   let letterArr = [];
   for (const letter in letterObj) {
@@ -37,7 +66,6 @@ const makeLetterArr = (letterObj) => {
 };
 
 export const drawLetters = () => {
-  // Implement this method for wave 1
   const letters = { ...letterPool };
   const letterArr = makeLetterArr(letters);
   const hand = [];
@@ -53,7 +81,7 @@ export const drawLetters = () => {
   return hand;
 };
 
-// Add to package.json to enable debugger to work on this file "type": "module"
+// Add to package.json to enable debugger to work on this file: "type": "module"
 const letterFreq = (entity) => {
   const letterCount = {};
   for (let letter of entity) {
@@ -70,8 +98,6 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   const handCount = letterFreq(lettersInHand);
   const inputCount = letterFreq(input);
   for (let letter in inputCount) {
-    console.log("The current letter is", letter);
-    console.log("The count of the letter in the hand is", handCount[letter]);
     if (inputCount[letter] > handCount[letter] || !handCount[letter]) {
       return false;
     }
@@ -80,9 +106,39 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  let score = 0;
+  if (word.length >= 7) {
+    score += 8;
+  }
+  for (let letter of word.toUpperCase()) {
+    score += letterScores[letter];
+  }
+  return score;
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+  let bestWord = "";
+  let bestScore = 0;
+  /* Compare score of current word, with score of previous word
+  If score is larger, reassign value of bestScore & bestWord
+  If the scores are the same, compare their length
+    If their lengths are the same, then do not reassign best word/score
+    If the length of new word is 10, then reassign value of best word/score,
+    but only if it is the first word to have a length of 10
+    Otherwise, choose the shortest word */
+  for (let word of words) {
+    let currScore = scoreWord(word);
+    if (currScore > bestScore) {
+      bestScore = currScore;
+      bestWord = word;
+    } else if (currScore == bestScore) {
+      if (
+        (word.length === 10 && word.length !== bestWord.length) ||
+        (word.length < bestWord.length && bestWord.length !== 10)
+      ) {
+        bestWord = word;
+      }
+    }
+  }
+  return { word: bestWord, score: bestScore };
 };
