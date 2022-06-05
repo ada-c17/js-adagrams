@@ -1,4 +1,4 @@
-const letterPool = {
+export const LETTER_POOL = {
   A: 9,
   B: 2,
   C: 2,
@@ -27,16 +27,26 @@ const letterPool = {
   Z: 1,
 };
 
+const letterScores = {
+  1: ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"],
+  2: ["D", "G"],
+  3: ["B", "C", "M", "P"],
+  4: ["F", "H", "V", "W", "Y"],
+  5: ["K"],
+  8: ["J", "X"],
+  10: ["Q", "Z"],
+};
+
 export const drawLetters = () => {
   const drawn = [];
   const letterFreq = {};
-  const letterKeys = Object.keys(letterPool);
+  const letterKeys = Object.keys(LETTER_POOL);
 
   for (let i = 0; i < 10; i++) {
     var randomLetter =
       letterKeys[Math.floor(Math.random() * letterKeys.length)];
     if (randomLetter in letterFreq) {
-      if (letterFreq[randomLetter] < letterPool[randomLetter]) {
+      if (letterFreq[randomLetter] < LETTER_POOL[randomLetter]) {
         letterFreq[randomLetter] += 1;
         drawn.push(randomLetter);
       }
@@ -63,7 +73,22 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   return true;
 };
 
-export const scoreWord = (word) => {};
+export const scoreWord = (word) => {
+  let score = 0;
+  const wordPlayed = word.toUpperCase();
+
+  for (const letter of wordPlayed) {
+    for (const [key, value] of Object.entries(letterScores)) {
+      if (value.includes(letter)) {
+        score += parseInt(key);
+      }
+    }
+  }
+  if (7 <= wordPlayed.length && wordPlayed.length <= 10) {
+    score += 8;
+  }
+  return score;
+};
 
 // export const highestScoreFrom = (words) => {
 //   // Implement this method for wave 1
