@@ -63,9 +63,29 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
-};
+  const letterValues = {
+    "AEIOULNRST":1,
+    "DG":2,
+    "BCMP":3,
+    "FHVWY":4,
+    "K":5,
+    "JX":8,
+    "QZ":10,
+  };
+  let score = 0;
 
+  for (let charIndex = 0; charIndex < word.length; charIndex++) {
+    for (const letterGroup in letterValues) {
+      if (letterGroup.includes(word.charAt(charIndex).toUpperCase())) {
+        score += letterValues[letterGroup];
+      }
+    }
+  }
+  if (word.length >= 7) {
+    score += 8;
+  }
+  return score
+};
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
 };
