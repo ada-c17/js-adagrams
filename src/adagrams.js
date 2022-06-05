@@ -79,7 +79,7 @@ export const drawLetters = () => {
 
 //returns true if input letters all avail in lettersInHand; else returns false
 export const usesAvailableLetters = (input, lettersInHand) => {
-  lettersInHand = drawLetters(); //array of 10 letters
+  // lettersInHand = drawLetters(); //array of 10 letters
   //make input into array of upper case strings
   input = input.toUpperCase();
   let inputList = [];
@@ -90,12 +90,18 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   for (let letter of inputList) {
     if (lettersInHand.includes(letter)) {
       {
-        let index = lettersInHand.findIndex((letter) => {
-          for (let i = 0; i < lettersInHand.length; i++) {
-            //find index of first occurance
-            return letter === lettersInHand[i];
-          }
-        });
+        let index = lettersInHand.indexOf(letter);
+
+        // why doesn't this work?
+        // let index = lettersInHand.findIndex((letter) => {
+        //   for (let i = 0; i < lettersInHand.length; i++) {
+        //     //find index of first occurance
+        //     if (letter === lettersInHand[i]) {
+        //       return i;
+        //     }
+        //     // return letter === lettersInHand[i]; //what am i doing???
+        //   }
+        // });
         lettersInHand.splice(index, 1); //remove item from list
       }
     } else {
@@ -145,7 +151,8 @@ export const highestScoreFrom = (words) => {
   let winningObject = {};
   let shortestWord = "thisistenn";
   // loop through winningWords, check for length(10), then for longest length
-  winningWords.forEach((word) => {
+
+  for (let word of winningWords) {
     if (word.length === 10) {
       winningObject["score"] = highScore;
       winningObject["word"] = word;
@@ -156,7 +163,24 @@ export const highestScoreFrom = (words) => {
         shortestWord = word;
       }
     }
-  });
+  }
+  winningObject["score"] = highScore;
+  winningObject["word"] = shortestWord; //this is re-assignig to "thisistenn".
+  return winningObject;
+
+  // why doesn't my forEach loop work??
+  // winningWords.forEach((word) => {
+  //   if (word.length === 10) {
+  //     winningObject["score"] = highScore;
+  //     winningObject["word"] = word;
+  //     return winningObject;
+  //   } else {
+  //     if (word.length < shortestWord.length) {
+  //       // will find shortest word, will not replace with later words of same length
+  //       shortestWord = word;
+  //     }
+  //   }
+  // });
   winningObject["score"] = highScore;
   winningObject["word"] = shortestWord; //this is re-assignig to "thisistenn".
   return winningObject;
