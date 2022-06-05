@@ -124,12 +124,10 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // for word in words array, call scoreWord() func on each word
-  const scoreDict = {};
+  const scoreDict = {}; // { HELLO: 8, HI: 5, MY: 7, MYA: 8 }
   for (const word of words) {
     scoreDict[word] = scoreWord(word);
   }
-  // { HELLO: 8, HI: 5, MY: 7, MYA: 8 }
-
   // use Objects.value(dictName) to get list of values only.
   const scoreList = Object.values(scoreDict);
   // find the largest value with Math.max()
@@ -142,27 +140,45 @@ export const highestScoreFrom = (words) => {
       winningWords.push(key);
     }
   }
+  // declareWinner(winningWords, highScore);  //make helper function??
+
   let winningObject = {};
-  let shortestWord;
+  let shortestWord = "thisistenn";
   // loop through winningWords, check for length(10), then for longest length
   winningWords.forEach((word) => {
     if (word.length === 10) {
-      winningObject["word"] = word;
       winningObject["score"] = highScore;
+      winningObject["word"] = word;
       return winningObject;
     } else {
       if (word.length < shortestWord.length) {
         // will find shortest word, will not replace with later words of same length
-        word = shortestWord;
+        shortestWord = word;
       }
     }
-    winningObject["word"] = shortestword;
-    winningObject["score"] = highScore;
-    return winningObject;
   });
+  winningObject["score"] = highScore;
+  winningObject["word"] = shortestWord; //this is re-assignig to "thisistenn".
+  return winningObject;
 };
 
-// const artists = ['Picasso', 'Kahlo', 'Matisse', 'Utamaro'];
-// artists.forEach(artist => {
-//   console.log(artist + ' is one of my favorite artists.');
-// });
+// const declareWinner = (winningWords, highScore) => {
+//   let winningObject = {};
+//   let shortestWord = "thisistenn";
+//   // loop through winningWords, check for length(10), then for longest length
+//   winningWords.forEach((word) => {
+//     if (word.length === 10) {
+//       winningObject["score"] = highScore;
+//       winningObject["word"] = word;
+//       return winningObject;
+//     } else {
+//       if (word.length < shortestWord.length) {
+//         // will find shortest word, will not replace with later words of same length
+//         shortestWord = word;
+//       }
+//     }
+//   });
+//   winningObject["score"] = highScore;
+//   winningObject["word"] = shortestWord;
+//   return winningObject;
+// };
