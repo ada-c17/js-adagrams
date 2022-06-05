@@ -1,44 +1,43 @@
 
-var LETTERQUANTITY = {
-  letters: [
-    {letter: "A", quantity: 9},
-    {letter: "B", quantity: 2},
-    {letter: "C", quantity: 2},
-    {letter: "D", quantity: 4},
-    {letter: "E", quantity: 12},
-    {letter: "F", quantity: 2},
-    {letter: "G", quantity: 3},
-    {letter: "H", quantity: 2},
-    {letter: "I", quantity: 9},
-    {letter: "J", quantity: 1},
-    {letter: "K", quantity: 1},
-    {letter: "L", quantity: 4},
-    {letter: "M", quantity: 2},
-    {letter: "N", quantity: 6},
-    {letter: "O", quantity: 8},
-    {letter: "P", quantity: 2},
-    {letter: "Q", quantity: 1},
-    {letter: "R", quantity: 6},
-    {letter: "S", quantity: 4},
-    {letter: "T", quantity: 6},
-    {letter: "U", quantity: 4},
-    {letter: "V", quantity: 2},
-    {letter: "W", quantity: 2},
-    {letter: "X", quantity: 1},
-    {letter: "Y", quantity: 2},
-    {letter: "Z", quantity: 1},
-  ]
-};
 
 export const drawLetters = () => {
-  let letterBank = [];
+
+  var LETTERQUANTITY = {
+    letters: [
+      {letter: "A", quantity: 9},
+      {letter: "B", quantity: 2},
+      {letter: "C", quantity: 2},
+      {letter: "D", quantity: 4},
+      {letter: "E", quantity: 12},
+      {letter: "F", quantity: 2},
+      {letter: "G", quantity: 3},
+      {letter: "H", quantity: 2},
+      {letter: "I", quantity: 9},
+      {letter: "J", quantity: 1},
+      {letter: "K", quantity: 1},
+      {letter: "L", quantity: 4},
+      {letter: "M", quantity: 2},
+      {letter: "N", quantity: 6},
+      {letter: "O", quantity: 8},
+      {letter: "P", quantity: 2},
+      {letter: "Q", quantity: 1},
+      {letter: "R", quantity: 6},
+      {letter: "S", quantity: 4},
+      {letter: "T", quantity: 6},
+      {letter: "U", quantity: 4},
+      {letter: "V", quantity: 2},
+      {letter: "W", quantity: 2},
+      {letter: "X", quantity: 1},
+      {letter: "Y", quantity: 2},
+      {letter: "Z", quantity: 1},
+    ]
+  };
+
+  var letterBank = [];
   let counter = 10;
   let letters = LETTERQUANTITY.letters;
   while (counter > 0) {
-    //let rand_i = parseInt(Math.random() * (91 - 65) + 65);
-    //let letter = String.fromCharCode(rand_i);
     let randI = Math.trunc(Math.random()* letters.length);
-    //console.log(randI);
 
     if (letters[randI].quantity === 0) {
       continue;
