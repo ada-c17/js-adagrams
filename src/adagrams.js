@@ -1,4 +1,5 @@
 /**
+ *
  * creates an array of 10 random letters selected from LETTER_POOL
  * @return {array of 10 random letters} output
  */
