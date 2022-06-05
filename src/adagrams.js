@@ -1,5 +1,7 @@
-
-import { LETTER_POOL } from "constants.js";
+import { 
+  LETTER_POOL,
+  LETTER_SCORE,
+} from "constants.js";
 
 
 export const drawLetters = () => {
@@ -16,7 +18,6 @@ export const drawLetters = () => {
   }
   return hand;
 };
-
 
 
 export const usesAvailableLetters = (input, lettersInHand) => {
@@ -42,14 +43,26 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 
-
-
-
-
 export const scoreWord = (word) => {
   // Implement this method for wave 3
+  let score = 0 
+  word = word.toUpperCase();
+  const wordArray = Array.from(word);
+  for (const char of wordArray) {
+    if(LETTER_SCORE[char] === undefined) {
+      return 0;
+    } else {
+      score += LETTER_SCORE[char];
+    }
+  }
+  if (word.length >= 7 && word.length <= 10) {
+    score += 8;
+  }
+  return score;
 };
 
+
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+  // Implement this method for wave 4
 };
+
