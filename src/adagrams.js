@@ -70,7 +70,6 @@ const letter_scores = {
 
 // #     returns: letter_list which is a list of 10 letters
 // #     '''
-
 export const drawLetters = () => {
   let letterPoolArray = [];
   for (const [key, value] of Object.entries(letterPool)) {
@@ -87,10 +86,7 @@ export const drawLetters = () => {
   return lettersSelected;
 };
 
-export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
-};
-
+//DOCSTRING
 //FROM PYTHON
 // '''
 // parameters:
@@ -106,16 +102,17 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
 // returns: Boolean
 // '''
-// list_copy = letter_bank.copy()
-
-// for character in word:
-//     character = character.capitalize()
-//     if character in list_copy:
-//         list_copy.remove(character)
-//     else:
-//         return False
-
-// return True
+export const usesAvailableLetters = (input, lettersInHand) => {
+  for (let char of input) {
+    const capitalChar = char.toUpperCase();
+    if (lettersInHand.includes(capitalChar)) {
+      lettersInHand.splice(lettersInHand.indexOf(capitalChar), 1);
+    } else {
+      return false;
+    }
+  }
+  return true;
+};
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
