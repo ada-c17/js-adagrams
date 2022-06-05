@@ -108,10 +108,10 @@ export const highestScoreFrom = (words) => {
       maxScore = totalScore;
       scoreAndword["word"] = word;
     } else if (totalScore === maxScore) {
-      if (word.length === 10 && scoreAndword["word"].length !== 10) {
-        scoreAndword["word"] = word;
-      } else if (scoreAndword["word"].length !== 10) {
-        if (word.length < scoreAndword["word"].length) {
+      if (scoreAndword["word"].length !== 10) {
+        if (word.length === 10) {
+          scoreAndword["word"] = word;
+        } else if (word.length < scoreAndword["word"].length) {
           scoreAndword["word"] = word;
         }
       }
