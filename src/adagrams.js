@@ -219,23 +219,11 @@ export const highestScoreFrom = (words) => {
         winner["word"] = key;
         winner["score"] = scores[key];
       }
-
-
-
-        // winner["word"] = key;
-        // winner["score"] = scores[key];
-      // } else if (winner["word"].length === 10) {
-      //   console.log("win!");
-      // }
-      // if (key.length === 10) {
-      // }
-
-      // console.log(`word: ${key}`);
-      // console.log(`score: ${scores[key]}`);
-
     
+    }
   }
+  
+  return winner;
 
-    return winner;
 
-};
+}
