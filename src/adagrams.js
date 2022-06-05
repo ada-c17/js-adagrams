@@ -177,7 +177,7 @@ export const scoreWord = (word) => {
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 4
   const wordsPoints = {};
-  let tiedWords = [];
+  const tiedWords = [];
   let maxWord = "";
 
   words.forEach((element) => {
