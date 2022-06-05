@@ -35,48 +35,48 @@ const generateRandomLetter = () => {
 }
 
 
-export const drawLetters = () => {
-  // Implement this method for wave 1
-  let userHand = [];
-  // make a deep copy of the letter pool
-  let tempPool = JSON.parse(JSON.stringify(letterPool));
+// export const drawLetters = () => {
+//   // Implement this method for wave 1
+//   let userHand = [];
+//   // make a deep copy of the letter pool
+//   let tempPool = JSON.parse(JSON.stringify(letterPool));
 
-  while (userHand.length < 10){
-    let letter = generateRandomLetter();
-    let letterCount = tempPool[letter];
-    if (letterCount == 0){
-      continue;
-    } else {
-      tempPool[letter] -= 1;
-      userHand.push(letter);
-    }
-  } return userHand;
-};  
+//   while (userHand.length < 10){
+//     let letter = generateRandomLetter();
+//     let letterCount = tempPool[letter];
+//     if (letterCount == 0){
+//       continue;
+//     } else {
+//       tempPool[letter] -= 1;
+//       userHand.push(letter);
+//     }
+//   } return userHand;
+// };  
 
-const letterCounter = (input, lettersInHand) => {
-  let upperCase = input.toUpperCase();
-  let letterCount = 0;
+// const letterCounter = (input, lettersInHand) => {
+//   let upperCase = input.toUpperCase();
+//   let letterCount = 0;
 
-  for (let letter in upperCase){
-    for (let pos = 0; pos < upperCase.length; pos++){
-      if (upperCase.charAt(pos) == lettersInHand(letter)){
-        letterCount += 1;
-      };
-    } return letterCount;
-  };
-};
+//   for (let letter in upperCase){
+//     for (let pos = 0; pos < upperCase.length; pos++){
+//       if (upperCase.charAt(pos) == lettersInHand(letter)){
+//         letterCount += 1;
+//       };
+//     } return letterCount;
+//   };
+// };
 
-const bankCounter = (input, lettersInHand) => {
-  let upperCase = input.toUpperCase();
-  let bankCount = 0;
-  for (let letter in upperCase){
-    for (let pos = 0; pos < upperCase.length; pos++){
-      if (upperCase.charAt(pos) == lettersInHand(letter)){
-        bankCount -= 1;
-      };
-    } return bankCount;
-  };
-};
+// const bankCounter = (input, lettersInHand) => {
+//   let upperCase = input.toUpperCase();
+//   let bankCount = 0;
+//   for (let letter in upperCase){
+//     for (let pos = 0; pos < upperCase.length; pos++){
+//       if (upperCase.charAt(pos) == lettersInHand(letter)){
+//         bankCount -= 1;
+//       };
+//     } return bankCount;
+//   };
+// };
 
 
 export const usesAvailableLetters = (input, lettersInHand) => {
