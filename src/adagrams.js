@@ -158,7 +158,7 @@ export const highestScoreFrom = (words) => {
    *  - words: an array of strings
    * 
    * Output:
-   *  - JS Object with winning word (string) and its score
+   *  - JS Object with winning word (string) and its score {word: "example", score: 0}
    * 
    * Tie Breaking Rules:
    *  1. Prefer the word with fewest letters
@@ -174,7 +174,6 @@ export const highestScoreFrom = (words) => {
   // for each individual word --> call scoreWord, add individual word and score to JS object
   for (const word of words) {
     const calculatedScore = scoreWord(word);
-    // console.log(scored);
     scores[word] = calculatedScore;
   }
 
@@ -198,20 +197,45 @@ export const highestScoreFrom = (words) => {
     // let current = key.length;
     // console.log(`${key}: ${scores[key]}`);
     // console.log(key, key.length);
-      if (scores[key] > maxScore) {
-        maxScore = scores[key];
+    if (scores[key] > maxScore) {
+      maxScore = scores[key];
+      winner["word"] = key;
+      winner["score"] = scores[key];
+      // console.log("Printing here");
+      // console.log(winner);
+
+      // If the scores are equal, there's a tie
+    } else if (scores[key] === maxScore) {
+      
+      if (winner["word"].length === 10 && key.length !== 10) {
+        // console.log("printing here!");
+        continue;
+
+      } else if (key.length === 10 && winner["word"].length !== 10) {
         winner["word"] = key;
         winner["score"] = scores[key];
-        // console.log("Printing here");
-        // console.log(winner);
-      } else if (scores[key] === maxScore) {
-        // if (key.length === 10) {
-        // }
-        console.log(`word: ${key}`);
-        console.log(`score: ${scores[key]}`);
 
+      } else if (key.length < winner["word"].length) {
+        winner["word"] = key;
+        winner["score"] = scores[key];
       }
+
+
+
+        // winner["word"] = key;
+        // winner["score"] = scores[key];
+      // } else if (winner["word"].length === 10) {
+      //   console.log("win!");
+      // }
+      // if (key.length === 10) {
+      // }
+
+      // console.log(`word: ${key}`);
+      // console.log(`score: ${scores[key]}`);
+
+    
   }
 
+    return winner;
 
 };
