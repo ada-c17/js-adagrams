@@ -127,6 +127,7 @@ const SCORE_CHART = {
   Y: 4,
   Z: 10,
 };
+
 export const drawLetters = () => {
   // Implement this method for wave 1
   const tenLetters = [];
@@ -169,10 +170,34 @@ export const scoreWord = (word) => {
       totalPoints += SCORE_CHART[item];
     }
   }
-  console.log("hello");
+  
   return totalPoints;
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+  // Implement this method for wave 4
+  const wordsPoints = {};
+  let tiedWords = [];
+  let maxWord = "";
+
+  words.forEach((element) => {
+    wordsPoints[element] = scoreWord(element);
+  });
+
+  const highestScore = Math.max(...Object.values(wordsPoints));
+  for (var word in wordsPoints) {
+    if (wordsPoints[word] === highestScore) {
+      tiedWords.push(word);
+    }
+  }
+
+  for (let word of tiedWords) {
+    if (word.length === 10) {
+      maxWord = word;
+      break;
+    }
+    maxWord = tiedWords.sort((word1, word2) => word1.length - word2.length)[0];
+  }
+
+  return { word: maxWord, score: highestScore };
 };
