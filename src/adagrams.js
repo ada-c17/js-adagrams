@@ -98,19 +98,16 @@ export const usesAvailableLetters = (input, lettersInHand) => {
       availableLetters[letter] = 1;
     }
   }
-  console.log(availableLetters);
 
-  for (let letter of input) {
+  for (const letter of input) {
     if (letter in availableLetters) {
       availableLetters[letter] -= 1;
     } else {
       return false;
     }
   }
-  console.log(`after : ${availableLetters}`);
 
-  for (let letter of availableLetters) {
-    console.log(letter);
+  for (const letter in availableLetters) {
     if (availableLetters[letter] < 0) {
       return false;
     }
@@ -119,7 +116,14 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  let total = 0;
+  for (const letter of word) {
+    total += POINT_SCALE[letter.toUpperCase()];
+  }
+  if (word.length >= 7) {
+    total += 8;
+  }
+  return total;
 };
 
 export const highestScoreFrom = (words) => {
