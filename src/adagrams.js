@@ -170,7 +170,7 @@ export const scoreWord = (word) => {
       totalPoints += SCORE_CHART[item];
     }
   }
-  
+
   return totalPoints;
 };
 
