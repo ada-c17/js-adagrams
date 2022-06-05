@@ -110,14 +110,12 @@ export const highestScoreFrom = (words) => {
         word: "",
         score: 0
     }
-    let highestScore = 0;
     for (let word of words) {
         const score = scoreWord(word)
-        if (score > highestScore) {
-            highestScore = score;
+        if (score > maxScore.score) {
             maxScore.score = score;
             maxScore.word = word;
-        } else if (score === highestScore && maxScore.word.length !== 10) {
+        } else if (score === maxScore.score && maxScore.word.length !== 10) {
             if (word.length < maxScore.word.length) {
                 maxScore.word = word;
             } else if (word.length === 10) {
