@@ -105,6 +105,7 @@ export const scoreWord = (word) => {
 export const highestScoreFrom = (words) => {
   const scoreAndword = {};
   let maxScore = 0;
+  let lenFewerletters = 1000; //setting it to large num
   for (const word of words) {
     //array of strings
     //word is a string
@@ -112,8 +113,27 @@ export const highestScoreFrom = (words) => {
     if (totalScore > maxScore) {
       maxScore = totalScore;
       scoreAndword["word"] = word;
+      // if (totalScore === maxScore) { #tr
+      //   scoreAndword["word"] = word;
+      //   console.log(scoreAndword["word"]);
+      // }
+      //scoreAndword["word"] = word; //rn this is choosing the last word, need to choose first for tied test
+
+      if (word.length === 10) {
+        scoreAndword["word"] = word; //make them select FIRST WORD when same length
+      } else if (word.length !== 10) {
+        word.length < lenFewerletters; //5 <1000, 4 <5 2 < 4,
+        lenFewerletters = word.length; //5, 4,2,6
+        scoreAndword["word"] = word;
+      }
+      // console.log(scoreAndword["word"]);
+      // console.log("new test");
     }
   }
+  // console.log(scoreAndword["word"]);
+  // console.log(maxScore);
+  // console.log("NExt test");
   scoreAndword["score"] = maxScore;
+  //console.log(scoreAndword); //correctly printing max score/word of all test cases
   return scoreAndword;
 };
