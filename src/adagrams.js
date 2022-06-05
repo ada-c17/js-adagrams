@@ -28,7 +28,7 @@ const letterPool = {
 };
 
 export const drawLetters = () => {
-  const lettersInHand = [];
+  const drawn = [];
   const letterFreq = {};
   const letterKeys = Object.keys(letterPool);
 
@@ -38,12 +38,33 @@ export const drawLetters = () => {
     if (randomLetter in letterFreq) {
       if (letterFreq[randomLetter] < letterPool[randomLetter]) {
         letterFreq[randomLetter] += 1;
-        lettersInHand.push(randomLetter);
+        drawn.push(randomLetter);
       }
     } else {
       letterFreq[randomLetter] = 1;
-      lettersInHand.push(randomLetter);
+      drawn.push(randomLetter);
     }
   }
-  return lettersInHand;
+  return drawn;
 };
+
+export const usesAvailableLetters = (input, lettersInHand) => {
+  const clonedHand = JSON.parse(JSON.stringify(lettersInHand));
+  const wordPlayed = input.toUpperCase();
+
+  for (const letter of wordPlayed) {
+    let letterIndex = clonedHand.indexOf(letter);
+    if (letterIndex > -1) {
+      clonedHand.splice(letterIndex, 1);
+    } else if (letterIndex === -1) {
+      return false;
+    }
+  }
+  return true;
+};
+
+export const scoreWord = (word) => {};
+
+// export const highestScoreFrom = (words) => {
+//   // Implement this method for wave 1
+// }:
