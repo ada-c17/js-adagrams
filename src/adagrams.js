@@ -1,4 +1,4 @@
-// import { random } from "core-js/core/number";
+"use strict";
 
 const LETTER_POOL = {
   A: 9,
