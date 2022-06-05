@@ -77,6 +77,7 @@ export const drawLetters = () => {
   return hand;
 };
 
+//returns true if input letters all avail in lettersInHand; else returns false
 export const usesAvailableLetters = (input, lettersInHand) => {
   lettersInHand = drawLetters(); //array of 10 letters
   //make input into array of upper case strings
@@ -103,20 +104,10 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   }
   return true;
 };
-// usesAvailableLetters("llo", ["E", "P", "A", "O", "T", "M", "B", "Y", "E", "S"]);
-//input: word (string); lettersInHand
-// lettersInHand, the second parameter, describes an array of drawn letters in a hand.
-// Returns either true or false
-//Returns true if every letter in the input word is available (in the right quantities) in the lettersInHand
-//Returns false if not; if there is a letter in input that is not present in the lettersInHand or has too much of compared to the lettersInHand
 
 export const scoreWord = (word) => {
   let score = 0;
   word = word.toUpperCase();
-  if (word === "") {
-    // still not passing test to return score of 0 for empty input
-    return score;
-  }
   for (let letter of word) {
     score += letterScores[letter];
   }
