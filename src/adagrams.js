@@ -40,7 +40,7 @@ export const drawLetters = () => {
   let hand = [];
   for (let i = 0; i < 10; i++) {
     let random = Math.random() * letterPool.length;
-    random = Math.round(random)
+    random = Math.round(random);
     hand.push(letterPool[random]);
     letterPool.splice(random, 1);
   }
@@ -114,9 +114,9 @@ export const scoreWord = (word) => {
   let score = 0;
   
   let numberOfLetters = 0;
+  const uppercaseWord = word.toUpperCase();
   // track number of letters because punctuation could be in the string
-
-  for (let letter of word) {
+  for (let letter of uppercaseWord) {
     score += scoreChart[letter];
     numberOfLetters += 1;
   }
@@ -126,9 +126,9 @@ export const scoreWord = (word) => {
   }
 
   return score;
-
 };
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
+
 };
