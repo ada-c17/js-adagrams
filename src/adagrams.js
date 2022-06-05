@@ -29,7 +29,7 @@ const letterPool = {
   Z: 1,
 };
 
-const letter_scores = {
+const letterScores = {
   A: 1,
   B: 3,
   C: 3,
@@ -114,33 +114,32 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   return true;
 };
 
-export const scoreWord = (word) => {
-  // Implement this method for wave 3
-};
+//DIDNT NEED A COPY OF lettersInHand in def above?
 
-//FROM PYTHON
+///DOCSTRING
 // '''
 // parameters:
 // --string (word)
-
 // this function scores the user word by:
 // --sets a running total variable to 0
 // --capitalizes the word
 // --checks if the word is 7 characters or longer
 //     --if so, adds 8 points total score
 // --for each letter, gets the associated points from LETTER_SCORES and adds it to total
-
 // returns: integer (total)
 // '''
-// total = 0
-// word = word.upper()
 
-// if len(word) >= 7:
-//     total += 8
-// for letter in word:
-//     total += LETTER_SCORES[letter]
-
-// return total
+export const scoreWord = (word) => {
+  const capitalWord = word.toUpperCase();
+  let total = 0;
+  if (word.length >= 7) {
+    total += 8;
+  }
+  for (let letter of capitalWord) {
+    total += letterScores[letter];
+  }
+  return total;
+};
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
