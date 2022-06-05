@@ -127,6 +127,80 @@ export const scoreWord = (word) => {
   return totalScore;
 };
 
+// Wave 4
+
+const keyWithMaxValue = (aDict) => {
+  let max = 0;
+  let maxKey = "";
+  for (let char in aDict) {
+    if (aDict[char] > max) {
+      max = aDict[char];
+      maxKey = char;
+    }
+  }
+  return maxKey;
+};
+
+const keyWithMinValue = (aDict) => {
+  let min = Object.values(aDict)[0];
+  let minKey = Object.keys(aDict)[0];
+  for (let char in aDict) {
+    if (aDict[char] < min) {
+      min = aDict[char];
+      minKey = char;
+    }
+  }
+  return minKey;
+};
+
+const buildScoreDict = (words) => {
+  const scoreDict = {};
+  for (let word of words) {
+    scoreDict[word] = scoreWord(word);
+  }
+  return scoreDict;
+};
+
+const buildLengthsDict = (maxScoreWords) => {
+  const wordLengths = {};
+  for (let word of maxScoreWords) {
+    wordLengths[word] = word.length;
+  }
+  return wordLengths;
+};
+
+const resolveTies = (maxScoreWords, scoreDict) => {
+  const wordLengths = buildLengthsDict(maxScoreWords);
+  const shortestWord = keyWithMinValue(wordLengths);
+  let result = {};
+  for (let [key, value] of Object.entries(wordLengths)) {
+    if (value === 10) {
+      return { score: scoreDict[key], word: key };
+    } else {
+      result = { score: scoreDict[shortestWord], word: shortestWord };
+    }
+  }
+  return result;
+};
+
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+  // Implement this method for wave 4
+  const scoreDict = buildScoreDict(words);
+
+  const maxScoreWord = keyWithMaxValue(scoreDict);
+
+  const maxScore = scoreDict[maxScoreWord];
+
+  const maxScoreWords = [];
+  for (let word of words) {
+    if (scoreDict[word] >= maxScore) {
+      maxScoreWords.push(word);
+    }
+  }
+
+  if (maxScoreWords.length === 1) {
+    return { score: maxScore, word: maxScoreWord };
+  }
+
+  return resolveTies(maxScoreWords, scoreDict);
 };
