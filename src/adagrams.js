@@ -36,9 +36,6 @@ export const drawLetters = () => {
     Z: 1,
   };
 
-  // Randomly draw 10 letters from the letter pool
-  // Return: an array of ten string where each string is one letter
-
   const letterDistribution = [];
   const usersDraw = [];
 
@@ -147,6 +144,7 @@ export const scoreWord = (word) => {
       totalScore += scoreChart[letter];
     }
   
+    // Bonus points
     if (extraPoints.includes(word.length)) {
       totalScore += 8;
     }
