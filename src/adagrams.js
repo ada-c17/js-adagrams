@@ -138,15 +138,21 @@ export const scoreWord = (word) => {
   let totalScore = 0;
   const extraPoints = [7, 8, 9, 10];
 
-  for (const letter of word.toUpperCase()){
-    totalScore += scoreChart[letter];
-  }
+  if (!word) {
+    return totalScore;
 
-  if (extraPoints.includes(word.length)) {
-    totalScore += 8;
-  }
+  } else {
 
-  return totalScore;
+    for (const letter of word.toUpperCase()){
+      totalScore += scoreChart[letter];
+    }
+  
+    if (extraPoints.includes(word.length)) {
+      totalScore += 8;
+    }
+  
+    return totalScore;
+  }
 
 };
 
@@ -162,69 +168,53 @@ export const highestScoreFrom = (words) => {
    * 
    * Tie Breaking Rules:
    *  1. Prefer the word with fewest letters
-   *  2. Except if one word has ten letters, choose word with ten letters > word with fewer letters
+   *  2. Except if one word has ten letters, choose word with ten letters over 
+   *      the word with fewer letters
    *  3. Multiple words with same score and same length? Choose the first one in the array
    */
 
 
-  // Empty JS object to fill after getting scores {individual word from words: score}
-  let scores = new Object();
-
   // Loop through words array
   // for each individual word --> call scoreWord, add individual word and score to JS object
-  for (const word of words) {
-    const calculatedScore = scoreWord(word);
-    scores[word] = calculatedScore;
-  }
-
-  // console.log(scores);
-
-  let maxScore = 0;
-
+  // Find key with shortest length
+  // Find key with length of ten
   // go through JS object --> tie breaking stuff
+
   let winner = {
     word: "",
     score: 0
   };
+  
 
-  // Need to use for-in loop to iterate through JS Object
+  for (const word of words) {
 
-  // Find key with shortest length
-  // Find key with length of ten
+    let calculatedScore = scoreWord(word);
 
+    if (calculatedScore > winner["score"]) {
 
-  for (const key in scores) {
-    // let current = key.length;
-    // console.log(`${key}: ${scores[key]}`);
-    // console.log(key, key.length);
-    if (scores[key] > maxScore) {
-      maxScore = scores[key];
-      winner["word"] = key;
-      winner["score"] = scores[key];
-      // console.log("Printing here");
-      // console.log(winner);
+      winner["word"] = word;
+      winner["score"] = calculatedScore;
 
       // If the scores are equal, there's a tie
-    } else if (scores[key] === maxScore) {
-      
-      if (winner["word"].length === 10 && key.length !== 10) {
-        // console.log("printing here!");
+    } else if (calculatedScore === winner["score"]) {
+
+      // If the current winning word has a length of 10, it's still the winning word
+      if (winner["word"].length === 10 && word.length < 10) {
         continue;
 
-      } else if (key.length === 10 && winner["word"].length !== 10) {
-        winner["word"] = key;
-        winner["score"] = scores[key];
+      // If the next word has a length of 10 and the current winning word doesn't, update the winning word
+      } else if (word.length === 10 && winner["word"].length < 10) {
+        winner["word"] = word;
+        winner["score"] = calculatedScore;
 
-      } else if (key.length < winner["word"].length) {
-        winner["word"] = key;
-        winner["score"] = scores[key];
+      // If the next word has a length less than the current winning word, update
+      } else if (word.length < winner["word"].length) {
+        winner["word"] = word;
+        winner["score"] = calculatedScore;
       }
-    
     }
   }
   
   return winner;
-
-  
 
 }
