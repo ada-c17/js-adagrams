@@ -1,3 +1,7 @@
+/**
+ * creates an array of 10 random letters selected from LETTER_POOL
+ * @return {array of 10 random letters} output
+ */
 export const drawLetters = () => {
   const LETTER_POOL = {
     A: 9,
@@ -34,19 +38,26 @@ export const drawLetters = () => {
       letterPoolChoices.push(letter);
     }
   }
-  const output = [];
-  while (output.length < 10) {
+  const lettersToChooseFrom = [];
+  while (lettersToChooseFrom.length < 10) {
     const randomizeLetter = Math.floor(
       Math.random() * letterPoolChoices.length
     );
     let selectedLetter = letterPoolChoices[randomizeLetter];
-    output.push(selectedLetter);
+    lettersToChooseFrom.push(selectedLetter);
     let letterPosition = letterPoolChoices.indexOf(selectedLetter);
     letterPoolChoices.splice(letterPosition, 1);
   }
-  return output;
+  return lettersToChooseFrom;
 };
 
+/**
+ *
+ * checks to see if played word is allowed and valid by checking lettersInHand array
+ * @param {string} input
+ * @param {array} lettersInHand
+ * @returns {boolean} True if input is valid, false if it is not valid.
+ */
 export const usesAvailableLetters = (input, lettersInHand) => {
   const cloneLettersInHand = [...lettersInHand];
   for (let letter of input.toUpperCase()) {
@@ -60,6 +71,12 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   return true;
 };
 
+/**
+ *
+ * sums up points for word played
+ * @param {string} word
+ * @returns {int} sum
+ */
 export const scoreWord = (word) => {
   const LETTERS_POINT_VALUES = {
     A: 1,
@@ -116,6 +133,12 @@ export const scoreWord = (word) => {
   }
 };
 
+/**
+ *
+ * function finds the highest scoring word and evaluates tie logic
+ * @param {string} words
+ * @returns {object} highest scoring word and highest scoring word's score
+ */
 export const highestScoreFrom = (words) => {
   const scores = [];
 
@@ -123,7 +146,7 @@ export const highestScoreFrom = (words) => {
     scores.push(scoreWord(word));
   }
   const zip = (word, score) => word.map((a, i) => [a, score[i]]);
-  const wordAndScore = zip(words, scores); // combining words and scores
+  const wordAndScore = zip(words, scores);
   const sortedWordAndScore = wordAndScore.sort(
     (num1, num2) => num2[1] - num1[1]
   );
