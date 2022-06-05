@@ -29,36 +29,45 @@ const LETTER_POOL = {
 
 export const drawLetters = () => {
   // Implement this method for wave 1
-  let objCopy = (Object.assign = ({}, LETTER_POOL));
+  let objCopy = { ...LETTER_POOL };
   const letters = [];
   while (letters.length < 10) {
-    return objCopy(Math.floor(Math.random() * objCopy.length));
-    objCopy["letter"]--;
-  }
-  if (objCopy["letter"] == 0) {
-    objCopy.pop("letter");
+    let letter =
+      Object.keys(objCopy)[
+        Math.floor(Math.random() * Object.keys(objCopy).length)
+      ];
+    letters.push(letter);
+    objCopy[letter]--;
+    if (objCopy[letter] === 0) {
+      delete objCopy[letter];
+    }
   }
   return letters;
-  // objCopy["letter"]--;
 };
-
-// while (letters.length < 10) {
-//   const letter = Math.random(objCopy);
-
-// letter = random.choice(list(letter_pool))
-// letters.append(letter)
-// print(len(letters), letters)
-
-// letter_pool[letter]-=1
-
-// if letter_pool[letter] == 0:
-//     letter_pool.pop(letter)
-
-// print (len(letter_pool), letter_pool)
-// return letters
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
+  const freqCounter = {};
+  for (const letter of lettersInHand) {
+    if (freqCounter[letter]) {
+      freqCounter[letter]++;
+    } else {
+      freqCounter[letter] = 1;
+    }
+  }
+  for (const letter of input) {
+    if (!freqCounter[letter]) {
+      return false;
+    } else {
+      freqCounter[letter]--;
+      if (freqCounter[letter] === 0) {
+        delete freqCounter[letter];
+      }
+      // if (input[letter] === freqCounter) {
+      //   return true;
+      // }
+    }
+  }
 };
 
 export const scoreWord = (word) => {
