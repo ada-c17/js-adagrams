@@ -268,7 +268,7 @@ describe("Game Model", () => {
       expect(model.playWord).toBeDefined();
     });
 
-    describe.skip("for valid words", () => {
+    describe("for valid words", () => {
       const getWord = (model) => {
         return model.letterBank.slice(0, 5).join("");
       };
@@ -311,7 +311,7 @@ describe("Game Model", () => {
       });
     });
 
-    describe.skip("for invalid words", () => {
+    describe("for invalid words", () => {
       const getWord = (model) => {
         const letter = model.letterBank[0];
         return letter.repeat(
