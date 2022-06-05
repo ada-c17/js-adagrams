@@ -1,16 +1,50 @@
 export const drawLetters = () => {
   // Implement this method for wave 1
   const scoreChart = {
-    1: ['J', 'K', 'Q', 'X', 'Z'],
-    2: ['B', 'C', 'F', 'H', 'M', 'P', 'V', 'W', 'Y'],
-    3: ['G'],
-    4: ['D', 'L', 'S', 'U'],
-    6: ['N', 'R', 'T'],
-    8: ['O'],
-    9: ['A', 'I'],
-    12: ['E']
-  }
-};
+    A: 9,
+    B: 2,
+    C: 2,
+    D: 4,
+    E: 12,
+    F: 2,
+    G: 3,
+    H: 2,
+    I: 9,
+    J: 1,
+    K: 1,
+    L: 4,
+    M: 2,
+    N: 6,
+    O: 8,
+    P: 2,
+    Q: 1,
+    R: 6,
+    S: 4,
+    T: 6,
+    U: 4,
+    V: 2,
+    W: 2,
+    X: 1,
+    Y: 2,
+    Z: 1,
+  };
+  
+  let letters = [];
+
+  for (const[key, value] of Object.entries(scoreChart)) {
+    for (let i = 0; i < value; i++) {
+      letters.push(key);
+    }
+  };
+
+  let drawnLetters = [];
+
+  for (let i = 0; i < 10; i++) {
+    const randomIndex = Math.floor(Math.random() * letters.length);
+    drawnLetters.push(letters[randomIndex]);
+}
+  return drawnLetters;
+}
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
