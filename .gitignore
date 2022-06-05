@@ -1,4 +1,5 @@
 node_modules
 package.json.lock
 .DS_Store
-coverage
+coverages
+scrap.js
