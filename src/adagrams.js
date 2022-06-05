@@ -19,7 +19,19 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  const lettersAvailable = Array.from(lettersInHand);
+  return input
+    .toUpperCase()
+    .split("")
+    .every((letter) => {
+      if (lettersAvailable.includes(letter)) {
+        const index = lettersAvailable.indexOf(letter);
+        lettersAvailable.splice(index, 1);
+        return true;
+      } else {
+        return false;
+      }
+    });
 };
 
 export const scoreWord = (word) => {
