@@ -29,7 +29,7 @@ export const drawLetters = () => {
     Z: 1,
   };
   const letterPicked=[];
-  const letterPoolCopy= {...LETTER_POOL}
+  const letterPoolCopy= {...LETTER_POOL};
   const letterPoolArray= Object.entries(letterPoolCopy);
   const letterPoolWithFrequency= letterPoolArray.map(letter => letter[0].repeat(letter[1])); 
   let fullLetterPool = letterPoolWithFrequency.join('').split('');
@@ -44,32 +44,20 @@ export const drawLetters = () => {
 };
 
 
-
-
-
-
-// export const drawLetters = () => {
-//   // Implement this method for wave 1
-//   const lettersCopy = { ...LETTERS };
-//   const hand = [];
-//   const letterArr = Object.keys(lettersCopy);
-//   for (let i = 0; i < 10; i++) {
-//     const letter = letterArr[Math.floor(Math.random() * letterArr.length)];
-
-//     if (lettersCopy[letter] > 0) {
-//       lettersCopy[letter] -= 1;
-//       hand.push(letter);
-//     } else {
-//       i -= 1;
-//     }
-//   }
-//   return hand;
-// };
-
-
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
+  const lettersInHandCopy = [...lettersInHand];
+  input = input.toUpperCase();
+  for (const letter of input) {
+    if (lettersInHandCopy.includes(letter)){
+      lettersInHandCopy.splice(lettersInHandCopy.indexOf(letter), 1);
+    } else {
+      return false;
+    }
+  }
+  return true;
 };
+
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
