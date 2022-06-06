@@ -1,7 +1,7 @@
 /**
  * The function drawLetters will populate a letter bank allLetters
  * that contains the letter and n frequency from LETTER_POOL.
- * Then, the function will generate 10 random letters and store 
+ * Then, the function will generate 10 random letters and store
  * them in a listOfstrings
  */
 export const drawLetters = () => {
@@ -74,8 +74,8 @@ export const usesAvailableLetters = (input, lettersInHand) => {
  * The function scoreWord checks the word input and determine the
  * points associated with each character determined by object lettersAndpointValues.
  * Words between the length of 7 and 10, will have additional bonus point of 8.
- * scoreWord returns the sum of points of input, word. 
- */ 
+ * scoreWord returns the sum of points of input, word.
+ */
 export const scoreWord = (word) => {
   const lettersAndpointValues = {
     A: 1,
@@ -123,7 +123,7 @@ export const scoreWord = (word) => {
  * The object scoreAndword containing word and maxScore is returned. In a tie logic,
  * the priority for returning obj is: words with 10 letters, fewer letters if length
  * is not 10, and the first word if length and score are the same.
- */ 
+ */
 export const highestScoreFrom = (words) => {
   const scoreAndword = {};
   let maxScore = 0;
