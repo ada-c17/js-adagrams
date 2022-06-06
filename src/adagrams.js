@@ -182,6 +182,18 @@ export const highestScoreFrom = (words) => {
       (winner.word = words[i]), (winner.score = score);
       // update the highestScore
       highestScore = score;
+      // else if the score is equal to the winner's score
+    } else if (score === highestScore) {
+      // if the winner word has 10 letters, it remains winner as the first in list
+      if (winner.word.length === 10) {
+        winner = winner;
+        // else if the new word has 10 letters (and the current winner does not), it wins
+      } else if (words[i].length === 10) {
+        (winner.word = words[i]), (winner.score = score);
+        // else if the new word is shorter than the winner word, it wins
+      } else if (words[i].length < winner.word.length) {
+        (winner.word = words[i]), (winner.score = score);
+      }
     }
   }
   return winner;
