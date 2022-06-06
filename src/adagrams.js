@@ -78,11 +78,9 @@ const shuffleLetterPool = () => {
   return poolOfLetters;
 };
 
-// Question: I first tried generating a random index, then removing that index from the letter pool
-// and adding it to my hand - but couldn't figure out how to remove array elem at index
 export const drawLetters = () => {
   let shuffledLetters = shuffleLetterPool();
-  let letterHand = [];
+  const letterHand = [];
   while (letterHand.length < 10) {
     letterHand.push(shuffledLetters.pop());
   }
@@ -91,7 +89,7 @@ export const drawLetters = () => {
 
 const buildAvailableLetters = (lettersInHand) => {
   const availableLetters = {};
-  for (let letter of lettersInHand) {
+  for (const letter of lettersInHand) {
     if (letter in availableLetters) {
       availableLetters[letter] += 1;
     } else {
@@ -107,13 +105,10 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   for (const letter of input) {
     if (letter in availableLetters) {
       availableLetters[letter] -= 1;
+      if (availableLetters[letter] < 0) {
+        return false;
+      }
     } else {
-      return false;
-    }
-  }
-
-  for (const letter in availableLetters) {
-    if (availableLetters[letter] < 0) {
       return false;
     }
   }
