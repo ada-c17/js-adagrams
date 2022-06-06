@@ -6,8 +6,6 @@ export const drawLetters = () => {
     1,
   ];
   for (let i = 0; i < 26; i++) {
-    console.log(i);
-    console.log(frequency[i]);
     for (let n = 1; n < frequency[i]; n++) {
       alphabetArray.push(alphabetArray[i]);
     }
@@ -19,76 +17,64 @@ export const drawLetters = () => {
       selection.push(rand);
     }
   }
-
-  console.log(selection);
   return selection;
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
-
-  if (input != input.toUpperCase()) {
-    input = input.toUpperCase();
-  }
-
-  console.log(input);
+  const lettersInHandCopy = [...lettersInHand];
+  input = input.toUpperCase();
   let counter = 0;
-
   for (let letter of input) {
-    if (lettersInHand.includes(letter)) {
-      lettersInHand.splice(letter,1)
+    if (lettersInHandCopy.includes(letter)) {
+      lettersInHandCopy.splice(letter, 1);
       counter++;
     }
-    console.log(counter);
   }
   return counter == input.length;
 };
 
 export const scoreWord = (word) => {
-  if (word != word.toUpperCase()) {
-    word = word.toUpperCase();
-  }
+  word = word.toUpperCase();
   let dict = {
-    1:["A","E","I","O","U","L","N","R","S","T"],
-    2:["D","G"],
-    3:["B", "C", "M", "P"],
-    4:["F", "H", "V", "W", "Y"],
+    1: ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"],
+    2: ["D", "G"],
+    3: ["B", "C", "M", "P"],
+    4: ["F", "H", "V", "W", "Y"],
     5: ["k"],
-    8:["J","X"], 10:["Q","Z"]
-  };    
+    8: ["J", "X"],
+    10: ["Q", "Z"],
+  };
   let total = 0;
   for (let letter of word) {
-    for (const [key,value] of Object.entries(dict)) {
+    for (const [key, value] of Object.entries(dict)) {
       if (value.includes(letter)) {
-      console.log(key)
-      total += parseInt(key);
+        total += parseInt(key);
       }
     }
-  } 
-  if (7 <= word.length && word.length<= 10) {
+  }
+  if (7 <= word.length && word.length <= 10) {
     total += 8;
   }
-  console.log(total);
-  return total
+  return total;
 };
-  // Implement this method for wave 3
-// };
+// Implement this method for wave 3
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
   let maxScore = {
     word: "",
-    score: 0
-  }
+    score: 0,
+  };
   let highestScore = 0;
-  for(let word of words) {
+  for (let word of words) {
     const score = scoreWord(word);
     if (score > highestScore) {
-        highestScore = score
-        maxScore.word = word;
-        maxScore.score = score;
+      highestScore = score;
+      maxScore.word = word;
+      maxScore.score = score;
     } else if (score === highestScore && maxScore.word.length !== 10) {
-      if(word.length < maxScore.word.length) {
+      if (word.length < maxScore.word.length) {
         maxScore.word = word;
       } else if (word.length === 10) {
         maxScore.word = word;
