@@ -1,4 +1,4 @@
-const LETTER_POOL = {
+const letterPool = {
   A: 9,
   B: 2,
   C: 2,
@@ -27,7 +27,7 @@ const LETTER_POOL = {
   Z: 1,
 };
 
-const LETTER_SCORES = {
+const letterScores = {
   'A': 1, 
   'B': 3, 
   'C': 3, 
@@ -68,7 +68,7 @@ export const drawLetters = () => {
 
     returns: letter_list which is a list of 10 letters
    */
-  const copyObject = {...LETTER_POOL};
+  const copyObject = {...letterPool};
 
   let letterPoolList = [];
   for (const [letter, count] of Object.entries(copyObject)){
@@ -129,7 +129,7 @@ export const scoreWord = (word) => {
     --capitalizes the word
     --checks if the word is 7 characters or longer
         --if so, adds 8 points total score
-    --for each letter, gets the associated points from LETTER_SCORES and adds it to total
+    --for each letter, gets the associated points from letterScores and adds it to total
 
     returns: integer (total)
    */
@@ -142,7 +142,7 @@ export const scoreWord = (word) => {
   }
 
   for (const letter of word){
-    total +=LETTER_SCORES[letter]
+    total +=letterScores[letter]
   }
   return total;
 };
