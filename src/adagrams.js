@@ -39,6 +39,8 @@ const makeScoreTable = () => {
   return scoreMap;
 };
 
+const scoreTable = makeScoreTable();
+
 const weightedRandomLetter = (dataset) => {
   let weights = [];
 
@@ -97,8 +99,6 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
-
-  const scoreTable = makeScoreTable();
   const addScores = (total, letter) => total + scoreTable.get(letter);
   let wordScore = Array.from(word.toUpperCase()).reduce(addScores, 0);
   if (word.length >= 7) wordScore += 8;
