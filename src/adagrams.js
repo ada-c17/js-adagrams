@@ -77,13 +77,10 @@ export const drawLetters = () => {
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
     let aCopy = [...lettersInHand]
-    // let aCopy = listCopy(lettersInHand)
-    console.log(aCopy)
+
     for (let i = input.length - 1; i >= 0; --i){
       if (aCopy.includes(input[i].toUpperCase())){
-        console.log(input[i])
         aCopy.splice(i,1)
-        console.log(aCopy)
       } else {
         return false
       }
@@ -117,14 +114,14 @@ export const highestScoreFrom = (words) => {
     } else if (scoreWord(word) === highestScore){ 
         if (word.length === 10 && winningWord.length !== 10){
           winningWord = word
-        } if (word.length < winningWord.length && winningWord.length){
+        } if (word.length < winningWord.length && winningWord.length === 10){
           winningWord !== word
         } else if (word.length < winningWord.length){
           winningWord = word
         }
     }
   } 
-  return (winningWord, highestScore)
+  return ({"word": winningWord, "score": highestScore})
 };
 
 
