@@ -40,7 +40,7 @@ class Adagrams {
     
     let hand = [];
     for (let i = 0; i < 10; i++) {
-      let random = Math.random() * letterPool.length;
+      let random = Math.random() * (letterPool.length - 1);
       random = Math.round(random);
       hand.push(letterPool[random]);
       letterPool.splice(random, 1);
