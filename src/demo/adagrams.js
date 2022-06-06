@@ -1,16 +1,7 @@
-import {
-  drawLetters,
-  usesAvailableLetters,
-  scoreWord,
-  highestScoreFrom,
-} from "adagrams";
+import { LETTER_POOL, letterValue } from "../helper";
+import Adagrams from "../adagrams";
 
-const Real = {
-  drawLetters,
-  usesAvailableLetters,
-  scoreWord,
-  highestScoreFrom,
-};
+const Real = new Adagrams(LETTER_POOL, letterValue);
 
 const Stub = {
   drawLetters() {
