@@ -120,26 +120,50 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 4
-  //def get_highest_word_score(word_list):
-  //   word_scores = {}
-  //   for word in word_list:
-  //       word_scores[word] = score_word(word)
-  //   highest_score_dict = {word:score for word, score in word_scores.items() if score == max(word_scores.values())}
-  //   if len(highest_score_dict) == 1:
-  //       return convert_dict_to_tuple(highest_score_dict)
-  //   else:
-  //       for word, score in sorted(highest_score_dict.items()):
-  //           winning_word = {}
-  //           shortest_word = min(len(x) for x in highest_score_dict.keys())
-  //           if len(word) == 10:
-  //               winning_word[word] = score
-  //               return convert_dict_to_tuple(winning_word)
-  //           elif len(word) == shortest_word:
-  //               winning_word[word] = score
-  //               return convert_dict_to_tuple(winning_word)
-  // def convert_dict_to_tuple(highest_score_dict):
-  //   highest_score_list = []
-  //   for word, score in highest_score_dict.items():
-  //       highest_score_list.append(word)
-  //       highest_score_list.append(score
+  const wordScores = {};
+
+  for (const word of words) {
+    const wordScore = scoreWord(word);
+    wordScores[word] = wordScore;
+  }
+
+  const wordsValues = Object.values(wordScores);
+  const highestScore = Math.max(...wordsValues);
+
+  const highestScoreWords = [];
+  for (const [word, score] of Object.entries(wordScores)) {
+    if (score === highestScore) {
+      highestScoreWords.push(word);
+    }
+  }
+
+  const highestScoreResult = {};
+  if (highestScoreWords.length == 1) {
+    highestScoreResult['score'] = highestScore;
+    highestScoreResult['word'] = highestScoreWords[0];
+    return highestScoreResult;
+  } else {
+    for (const word of highestScoreWords) {
+      if (word.length == 10) {
+        highestScoreResult['score'] = highestScore;
+        highestScoreResult['word'] = word;
+        return highestScoreResult;
+      }
+    }
+  }
+
+  let shortestWordLength = highestScoreWords[0].length;
+  for (const word of highestScoreWords) {
+    if (word.length < shortestWordLength) {
+      shortestWordLength = word.length;
+    }
+  }
+
+  for (const word of highestScoreWords) {
+    if (word.length == shortestWordLength) {
+      highestScoreResult['score'] = highestScore;
+      highestScoreResult['word'] = word;
+      return highestScoreResult;
+    }
+  }
 };
