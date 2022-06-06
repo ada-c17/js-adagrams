@@ -51,9 +51,58 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  const letterPoints = {
+    'A': 1, 
+    'B': 3, 
+    'C': 3, 
+    'D': 2, 
+    'E': 1, 
+    'F': 4, 
+    'G': 2, 
+    'H': 4, 
+    'I': 1, 
+    'J': 8, 
+    'K': 5, 
+    'L': 1, 
+    'M': 3, 
+    'N': 1, 
+    'O': 1, 
+    'P': 3, 
+    'Q': 10, 
+    'R': 1, 
+    'S': 1, 
+    'T': 1, 
+    'U': 1, 
+    'V': 4, 
+    'W': 4, 
+    'X': 8, 
+    'Y': 4, 
+    'Z': 10
+  };
+  let score = 0;
+  if (word.length >= 7) {
+    score += 8;
+  }
+  const casedWord = word.toUpperCase();
+  for (var i = 0; i < word.length; i++) {
+    score += letterPoints[casedWord[i]];
+  }
+return score;
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+  var winner = { word: '', score: null };
+  for (let i in words) {
+    if (scoreWord(words[i]) > winner.score) {
+      winner.word = words[i];
+      winner.score = scoreWord(words[i]);
+    } else if (scoreWord(words[i]) === winner.score && words[i].length < winner.word.length && winner.word.length < 10) {
+      winner.word = words[i];
+      winner.score = scoreWord(words[i]);
+    } else if (scoreWord(words[i]) === winner.score && words[i].length === 10 && winner.word.length < 10) {
+      winner.word = words[i];
+      winner.score = scoreWord(words[i]);
+  }
+}
+  return winner;
 };
