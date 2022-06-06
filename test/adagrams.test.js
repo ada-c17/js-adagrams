@@ -1,8 +1,8 @@
-import { LETTER_POOL, letterValue } from "helper";
+import { letterPool } from "helper";
 import Adagrams from "adagrams";
 
 describe("Adagrams", () => {
-  const game = new Adagrams(LETTER_POOL, letterValue);
+  const game = new Adagrams(letterPool);
   describe("drawLetters", () => {
     it("draws ten letters from the letter pool", () => {
       const drawn = game.drawLetters();
@@ -32,7 +32,9 @@ describe("Adagrams", () => {
         }
 
         for (let letter of drawn) {
-          expect(letter_freq[letter]).toBeLessThanOrEqual(LETTER_POOL[letter]);
+          expect(letter_freq[letter]).toBeLessThanOrEqual(
+            letterPool[letter].count
+          );
         }
       }
     });

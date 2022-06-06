@@ -1,18 +1,12 @@
-import {
-  LETTER_POOL,
-  letterValue,
-  generateLetters,
-  getRandomLetter,
-} from "helper";
+import { letterPool, generateLetters, getRandomLetter } from "helper";
 
 class Adagrams {
-  constructor(letterPool, letterValue) {
+  constructor(letterPool) {
     this.letterPool = letterPool;
-    this.letterValue = letterValue;
   }
 
   drawLetters() {
-    let availableLetters = generateLetters(LETTER_POOL);
+    let availableLetters = generateLetters(letterPool);
     let drawnLetters = [];
     for (let i = 0; i < 10; i++) {
       drawnLetters.push(getRandomLetter(availableLetters));
@@ -21,20 +15,22 @@ class Adagrams {
   }
 
   usesAvailableLetters(input, lettersInHand) {
-    for (let i = 0; i < input.length; i++) {
-      if (!lettersInHand.includes(input[i])) {
+    const word = input.toUpperCase();
+    const lettersInHandCopy = lettersInHand.slice();
+    for (const letter of word) {
+      if (!lettersInHandCopy.includes(letter)) {
         return false;
       }
-      lettersInHand.splice(input[i], 1);
+      lettersInHandCopy.splice(lettersInHandCopy.indexOf(letter), 1);
     }
     return true;
   }
 
   scoreWord(word) {
     let score = 0;
-    const upper = word.toUpperCase();
+    word = word.toUpperCase();
     for (let i = 0; i < word.length; i++) {
-      score += letterValue[upper[i]];
+      score += letterPool[word[i]].value;
     }
     if (word.length >= 7) {
       score += 8;

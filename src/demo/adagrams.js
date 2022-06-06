@@ -1,7 +1,7 @@
-import { LETTER_POOL, letterValue } from "../helper";
+import { letterPool } from "../helper";
 import Adagrams from "../adagrams";
 
-const Real = new Adagrams(LETTER_POOL, letterValue);
+const Real = new Adagrams(letterPool);
 
 const Stub = {
   drawLetters() {
