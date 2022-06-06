@@ -81,44 +81,40 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
-
-  // ensuring word is upper case 
-
-  // let upperCase = input.toUpperCase();
-
-  // for (letter in upperCase){
-    // creating a letter count for number of times letter is found in input
-    // let letterCount = 0;
-    // creating an indexing with charAt method returning character and specific index position
-    // for (let pos = 0; pos < upperCase.length; pos++){
-    //   if (upperCase.charAt(pos) == lettersInHand(letter)){
-    //     letterCount += 1;
-    //   };
-      // return letterCount;
-    // letterCounter(letter)
-    // };
-
-  // creating bank count for number of times letter is found in input
-    // let bankCount = 0;
-    // for (let pos = 0; pos < upperCase.length; pos++){
-    //   if (upperCase.charAt(pos) == letterPool(letter)){
-    //     bankCount -= 1;
-    //   };
-    //   // return bankCount;
-    // };
-
-  // letterCounter(input, lettersInHand);
-  // bankCounter(input);
-
-
-  // for (let letter in input){
-  //   if (letter in lettersInHand){
-  //     if (letterCounter <= bankCounter){
-  //       continue;
-  //     } else return false;
-  //   } return true;
-  // };
-
+  // for (const letter in input){
+  //   for (letter in lettersInHand){
+  //     // remove letter from input
+  //     input.splice(0,1);
+  //     // remove letter from letter in hand
+  //     // is size/length of input is 0, then return true
+  //     // if size/length of input is NOT zero, then return false
+  //   }
+  // } if (input.length === 0){
+  //   return true;
+  // }
+  const letterMap = new Map();
+  for (let letter of lettersInHand){
+    if (letterMap.has(letter)){
+      let currentCount = letterMap.get(letter);
+      letterMap.set(letter, ++currentCount);
+    } else {
+      letterMap.set(letter, 1);
+    };
+    
+  };
+  for (let letter of input){
+    if (!letterMap.has(letter)){
+      return false;
+    } else {
+      let currentCount = letterMap.get(letter);
+      if (currentCount == 0){
+        return false;
+      } else {
+        letterMap.set(letter, --currentCount)
+      };
+    };
+  };
+  return true;
 };
 
 
