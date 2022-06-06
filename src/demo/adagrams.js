@@ -1,7 +1,6 @@
 import Adagrams from "adagrams";
-import letterData from "letterData";
 
-const Real = new Adagrams(letterData, 10);
+const Real = new Adagrams();
 
 const Stub = {
   drawLetters() {

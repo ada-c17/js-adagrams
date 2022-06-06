@@ -31,7 +31,7 @@ const LETTER_POOL = {
 };
 
 describe("Adagrams", () => {
-  const game = new Adagrams(letterData, 10);
+  const game = new Adagrams();
 
   describe("drawLetters", () => {
     it("draws ten letters from the letter pool", () => {

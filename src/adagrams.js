@@ -1,7 +1,11 @@
+import letterData from "letterData";
+
 class Adagrams {
-  constructor(letterData, handSize) {
+  constructor() {
     this.letterData = letterData;
-    this.handSize = handSize;
+    this.handSize = 10;
+    this.bonusSize = 7;
+    this.bonusScore = 8;
   }
 
   drawLetters() {
@@ -16,13 +20,16 @@ class Adagrams {
   }
 
   usesAvailableLetters(input, lettersInHand) {
-    if (input.length > lettersInHand.length) return false;
+    const lettersInHandCopy = [...lettersInHand];
+    if (input.length > lettersInHandCopy.length) return false;
     for (const inputLetter of input) {
-      const index = lettersInHand.findIndex((letter) => letter === inputLetter);
+      const index = lettersInHandCopy.findIndex(
+        (letter) => letter === inputLetter
+      );
       if (index === -1) {
         return false;
       } else {
-        lettersInHand.splice(index, 1);
+        lettersInHandCopy.splice(index, 1);
       }
     }
     return true;
@@ -30,11 +37,11 @@ class Adagrams {
 
   scoreWord(word) {
     if (!word) return 0;
-    let score = word
+    const score = word
       .toUpperCase()
       .split("")
       .reduce((total, current) => total + this.letterData[current]["score"], 0);
-    return word.length < 7 ? score : score + 8;
+    return word.length < this.bonusSize ? score : score + this.bonusScore;
   }
 
   highestScoreFrom(words) {
