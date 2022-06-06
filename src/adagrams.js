@@ -1,5 +1,3 @@
-import { forEach, map } from "core-js/core/array";
-
 const makeLetterDataset = () => {
   const letterDataset = [
     { letter: "A", count: 9, score: 1 },
@@ -98,17 +96,20 @@ export const highestScoreFrom = (words) => {
   let highestWord = null;
   let highestScore = 0;
   const makeWinner = (word, score) => ({ word, score });
-  wordScoreMap = new Map();
+  const wordScoreMap = new Map();
   words.forEach((word) => {
     wordScoreMap.set(word, scoreWord(word));
     if (wordScoreMap.get(word) > highestScore) {
       highestWord = word;
       highestScore = wordScoreMap.get(word);
     }
-    if (highestWord.length === 10) {
-      return makeWinner(highestWord, highestScore);
-    }
   });
+  // return this early because this condition would break ties anyway
+  if (highestWord.length === 10) {
+    return makeWinner(highestWord, highestScore);
+  }
+
+  // tie breaking logic
   for (const word of words) {
     if (wordScoreMap.get(word) === highestScore && word !== highestWord) {
       if (word.length === 10 || word.length < highestWord.length) {
