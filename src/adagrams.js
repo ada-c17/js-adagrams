@@ -1,4 +1,5 @@
-const letterQuantityData = {
+// Following AirBnB's capital const rules...?
+const LETTER_QUANTITY_CHART = {
   A: 9,
   N: 6,
   B: 2,
@@ -31,7 +32,7 @@ export const drawLetters = () => {
   // Implement this method for wave 1
   // populate letterArr with the letters for fair probability
   const letterArr = [];
-  for (const [letter, quantity] of Object.entries(letterQuantityData)) {
+  for (const [letter, quantity] of Object.entries(LETTER_QUANTITY_CHART)) {
     let counter = 0;
     while (counter < quantity) {
       letterArr.push(letter);
@@ -52,11 +53,68 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  // populate lettersInHandObj with keys/values
+  const lettersInHandObj = {};
+  for (const letter of lettersInHand) {
+    if (letter in lettersInHandObj) {
+      lettersInHandObj[letter]++;
+    } else {
+      lettersInHandObj[letter] = 1;
+    }
+  }
+
+  // checks if letter of the input is in the lettersInHandObj
+  // if so, subtracts 1 from the value
+  // if not found at all, return false
+  for (const letter of input) {
+    if (letter in lettersInHandObj) {
+      lettersInHandObj[letter]--;
+    } else {
+      return false;
+    }
+  }
+
+  // checks if any of the values in lettersInHandObj less than 0
+  for (const key in lettersInHandObj) {
+    if (lettersInHandObj[key] < 0) {
+      return false;
+    }
+  }
+  return true;
+};
+
+const SCORE_CHART = {
+  1: ['A', 'I', 'E', 'O', 'U', 'L', 'N', 'R', 'S', 'T'],
+  2: ['D', 'G'],
+  3: ['B', 'C', 'M', 'P'],
+  4: ['F', 'H', 'V', 'W', 'Y'],
+  5: ['K'],
+  8: ['J', 'X'],
+  10: ['Q', 'Z'],
 };
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
+  const extraScoreChart = [7, 8, 9, 10];
+  let totalScore = 0;
+  const letterList = 0;
+
+  if (word.length === 0) {
+    return totalScore;
+  }
+
+  // letter_list = []
+  // if word == "":
+  //     return total_score
+  // for letter in word.upper():
+  //     letter_list.append(letter)
+  // for letter in letter_list:
+  //     for point, letters in score_chart.items():
+  //         if letter in letters:
+  //             total_score += point
+  // if len(word) in extra_score_chart:
+  //     total_score += 8
+  // return total_score
 };
 
 export const highestScoreFrom = (words) => {
