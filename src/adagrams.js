@@ -167,7 +167,22 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+  let highestScore = 0;
+  let winner = {
+    word: "",
+    score: 0,
+  };
+  // iterate through each word in words
+  for (let i = 0; i < words.length; i++) {
+    // get the score of the current word (words[i])
+    let score = scoreWord(words[i]);
+    // if the score is higher than the highestScore
+    if (score > highestScore) {
+      // update the winner object with word and score
+      (winner.word = words[i]), (winner.score = score);
+      // update the highestScore
+      highestScore = score;
+    }
+  }
+  return winner;
 };
-
-console.log(drawLetters());
