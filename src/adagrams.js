@@ -50,16 +50,16 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
   let lettersInHandObj = {}
 
-  for (handLetter of lettersInHand) {
-    lettersInHandObj[handLetter] = 0
+  for (let handLetter of lettersInHand) {
+    lettersInHandObj[handLetter] = 0;
   }
 
-  for (let letterKey of lettersInHandObj.keys()) {
-    lettersInHandObj[letterKey] += 1
+  for (let letterKey of Object.keys(lettersInHandObj)) {
+    lettersInHandObj[letterKey] += 1;
   }
 
   for (let letter of upperText) {
-    if (!lettersInHand.includes(letter)) {
+    if (!Object.keys(lettersInHand).includes(letter)) {
       return false;
     } else if (lettersInHandObj[letter] === 0) {
       return false;
