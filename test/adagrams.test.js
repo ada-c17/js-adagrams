@@ -70,7 +70,7 @@ describe("Adagrams", () => {
     });
   });
 
-  describe.skip("usesAvailableLetters", () => {
+  describe("usesAvailableLetters", () => {
     it("returns true if the submitted letters are valid against the drawn letters", () => {
       const drawn = ["D", "O", "G", "X", "X", "X", "X", "X", "X", "X"];
       const word = "DOG";
@@ -96,7 +96,7 @@ describe("Adagrams", () => {
     });
   });
 
-  describe.skip("scoreWord", () => {
+  describe("scoreWord", () => {
     const expectScores = (wordScores) => {
       Object.entries(wordScores).forEach(([word, score]) => {
         expect(scoreWord(word)).toBe(score);
@@ -133,7 +133,7 @@ describe("Adagrams", () => {
     });
   });
 
-  describe.skip("highestScoreFrom", () => {
+  describe("highestScoreFrom", () => {
     it("returns a hash that contains the word and score of best word in an array", () => {
       const words = ["X", "XX", "XXX", "XXXX"];
       const correct = { word: "XXXX", score: scoreWord("XXXX") };
@@ -148,7 +148,7 @@ describe("Adagrams", () => {
       throw "Complete test by adding an assertion";
     });
 
-    describe.skip("in case of tied score", () => {
+    describe("in case of tied score", () => {
       const expectTie = (words) => {
         const scores = words.map((word) => scoreWord(word));
         const highScore = scores.reduce((h, s) => (h < s ? s : h), 0);

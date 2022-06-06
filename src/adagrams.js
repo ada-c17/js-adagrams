@@ -31,20 +31,20 @@ export const drawLetters = () => {
   
   let letters = [];
 
-  for (const[key, value] of Object.entries(scoreChart)) {
-    for (let i = 0; i < value; i++) {
-      letters.push(key);
+  for (const [letter, letter_freq] of Object.entries(scoreChart)) {
+    for (let i = 0; i < letter_freq; i++) {
+      letters.push(letter);
     }
   };
-
-  let drawnLetters = [];
-
-  for (let i = 0; i < 10; i++) {
-    const randomIndex = Math.floor(Math.random() * letters.length);
-    drawnLetters.push(letters[randomIndex]);
-}
-  return drawnLetters;
-}
+  // Fisher-Yates shuffle algorithm
+  for (let i = letters.length - 1; i >= 1; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    let temp = letters[j];
+    letters[j] = letters[i];
+    letters[i] = temp;
+ };
+  return letters.slice(0, 10);
+};
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
