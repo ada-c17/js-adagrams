@@ -99,6 +99,38 @@ const LETTER_POOL = [
   "Z",
 ];
 
+const LETTER_VALUES = {
+  A: 1,
+  E: 1,
+  I: 1,
+  O: 1,
+  U: 1,
+  L: 1,
+  N: 1,
+  R: 1,
+  S: 1,
+  T: 1,
+  D: 2,
+  G: 2,
+  B: 3,
+  C: 3,
+  M: 3,
+  P: 3,
+  F: 4,
+  H: 4,
+  V: 4,
+  W: 4,
+  Y: 4,
+  K: 5,
+  J: 8,
+  X: 8,
+  Q: 10,
+  Z: 10,
+};
+
+const LONG_WORD_BONUS = 8;
+const LONG_WORD_RANGE = [7, 8, 9, 10];
+
 export const drawLetters = () => {
   // shuffle LETTER_POOL array
   const shuffled = LETTER_POOL.sort(() => 0.5 - Math.random());
@@ -121,7 +153,17 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  let score = 0;
+  let input = word.toUpperCase();
+  for (const letter of input) {
+    if (LETTER_VALUES[letter]) {
+      score += LETTER_VALUES[letter];
+    }
+  }
+  if (LONG_WORD_RANGE.includes(input.length)) {
+    score += LONG_WORD_BONUS;
+  }
+  return score;
 };
 
 export const highestScoreFrom = (words) => {
