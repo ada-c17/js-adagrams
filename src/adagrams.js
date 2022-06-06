@@ -28,18 +28,27 @@ export const makeLetterPool = () => {
     Z: 1,
   };
 
-  const arr = [];
-  for (const letter in LETTER_POOL){
-    for (let i = 0; i < LETTER_POOL[letter]; i++){
-      arr.push(letter);
+  const letter_array = [];
+  for (const letter in LETTER_POOL) {
+    for (let i = 0; i < LETTER_POOL[letter]; i++) {
+      letter_array.push(letter);
     }
   }
 
-  return arr;
-}
+  return letter_array;
+};
 
 export const drawLetters = () => {
   // Implement this method for wave 1
+  const letters = makeLetterPool();
+  const hand = [];
+
+  for (let i = 0; i < 10; i++) {
+    const num = Math.floor(Math.random()*letters.length);
+    hand.push(letters[num]);
+    letters.splice(num,1);
+  }
+  return hand;
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
