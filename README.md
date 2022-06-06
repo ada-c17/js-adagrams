@@ -110,7 +110,7 @@ Our first job is to build a hand of 10 letters. To do so, implement the function
   - Each string should contain exactly one letter
   - These represent the hand of letters that the player has drawn
 - The letters should be randomly drawn from a pool of letters
-  - This letter pool should reflect the distribution of letters as described in the table below
+  - This letter pool should reflect the distribution of letters as describe.skipd in the table below
   - There are only 2 available `C` letters, so `drawLetters` cannot ever return more than 2 `C`s
   - Since there are 12 `E`s but only 1 `Z`, it should be 12 times as likely to draw an `E` as a `Z`
 - Invoking this function should **not** change the pool of letters
@@ -143,8 +143,8 @@ Next, we need a way to check if an input word (a word a player submits) only use
 To do so, implement the function named `usesAvailableLetters` in `src/adagrams.js`. This function should have the following properties:
 
 - Has two parameters:
-  - `input`, the first parameter, describes some input word, and is a string
-  - `lettersInHand`, the second parameter, describes an array of drawn letters in a hand. You can expect this to be an array of ten strings, with each string representing a letter
+  - `input`, the first parameter, describe.skips some input word, and is a string
+  - `lettersInHand`, the second parameter, describe.skips an array of drawn letters in a hand. You can expect this to be an array of ten strings, with each string representing a letter
 - Returns either `true` or `false`
 - Returns `true` if every letter in the `input` word is available (in the right quantities) in the `lettersInHand`
 - Returns `false` if not; if there is a letter in `input` that is not present in the `lettersInHand` or has too much of compared to the `lettersInHand`
@@ -158,7 +158,7 @@ Implement the function named `scoreWord` in `src/adagrams.js`. This method shoul
 - Has one parameter: `word`, which is a string of characters
 - Returns an integer representing the number of points
 - Each letter within `word` has a point value. The number of points of each letter is summed up to represent the total score of `word`
-- Each letter's point value is described in the table below
+- Each letter's point value is describe.skipd in the table below
 - If the length of the word is 7, 8, 9, or 10, then the word gets an additional 8 points
 
 #### Score chart
@@ -194,7 +194,7 @@ Implement the function named `highestScoreFrom` in `src/adagrams.js`. This metho
 
 This Wave has 3 parts:
 
-1. Adjust the syntax for the tests for `highestScoreFrom` to run, instead of skip. To do this, find the `describe` block for the tests of `highestScoreFrom`, and change the syntax from `describe.skip` to `describe`
+1. Adjust the syntax for the tests for `highestScoreFrom` to run, instead of skip. To do this, find the `describe.skip` block for the tests of `highestScoreFrom`, and change the syntax from `describe.skip.skip` to `describe.skip`
 2. Write the pseudocode for this function, using whatever resources and references
 3. Translate the pseudocode into JavaScript, using whatever resources and references
 

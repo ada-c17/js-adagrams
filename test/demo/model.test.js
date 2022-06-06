@@ -198,7 +198,7 @@ describe('Game Model', () => {
       expect(model.currentPlayer).toBe(origPlayer + 2);
     });
 
-    describe('returns round state', () => {
+    describe.skip('returns round state', () => {
       it('roundOver', () => {
         const model = getModel();
 
@@ -271,7 +271,7 @@ describe('Game Model', () => {
       expect(model.playWord).toBeDefined();
     });
 
-    describe('for valid words', () => {
+    describe.skip('for valid words', () => {
       const getWord = (model) => {
         return model.letterBank.slice(0, 5).join('');
       };
