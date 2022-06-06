@@ -119,9 +119,20 @@ export const highestScoreFrom = (words) => {
     score: 0,
   };
   for (const word of words) {
-    if (scoreWord(word) > winner.score) {
+    let wordScore = scoreWord(word);
+    // Find highest score
+    if (wordScore > winner.score) {
       winner.word = word;
-      winner.score = scoreWord(word);
+      winner.score = wordScore;
+    }
+    // Resolve ties
+    if (wordScore === winner.score && word.length >= 10) {
+      winner.word = word;
+      winner.score = wordScore;
+      return winner;
+    } else if (wordScore === winner.score && word.length < winner.word.length) {
+      winner.word = word;
+      winner.score = wordScore;
     }
   }
   return winner;
