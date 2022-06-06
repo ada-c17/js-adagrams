@@ -121,9 +121,7 @@ describe("Adagrams", () => {
 
     it("returns a score of 0 if given an empty input", () => {
       expectScores({
-        "": 0,
-        "": 0,
-        "": 0,
+        "": 0
       });
     });
 
