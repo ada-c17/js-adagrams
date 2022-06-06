@@ -52,5 +52,3 @@ const Stub = {
     };
   },
 };
-
-export default Stub;

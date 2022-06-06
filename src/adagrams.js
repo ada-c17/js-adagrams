@@ -113,4 +113,38 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
+  //sudocode:
+  //loop over each word in the list and calculate the score using previous function
+  //create new empty dictionary and put words with scores to the dictionary
+
+  let scoredWordsDict = {};
+  for (let word = 0; word < words.length; word++) {
+    let wordScore = scoreWord(words[word]);
+    scoredWordsDict[words[word]] = wordScore;
+  }
+
+  let highestScore = 0;
+  let highestScoreWord = "";
+
+  for (const [key, value] of Object.entries(scoredWordsDict)) {
+    if (key.length >= 10) {
+      return {
+        word: key,
+        score: value,
+      };
+    } else {
+      if (value > highestScore) {
+        highestScoreWord = key;
+        highestScore = value;
+      } else if (value === highestScore) {
+        if (key.length < highestScoreWord.length) {
+          highestScoreWord = key;
+        }
+      }
+    }
+  }
+  return {
+    word: highestScoreWord,
+    score: highestScore,
+  };
 };
