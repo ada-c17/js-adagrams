@@ -85,6 +85,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
       for (let i = 0; i < lettersInHandCopy.length; i++) {
         if (lettersInHandCopy[i] === letter) {
           lettersInHandCopy.splice(i, 1);
+          break;
         }
       }
     }
