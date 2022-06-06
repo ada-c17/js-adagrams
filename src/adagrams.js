@@ -39,18 +39,44 @@ const makeScoreTable = () => {
   return scoreMap;
 };
 
+const weightedRandomLetter = (dataset) => {
+  let weights = [];
+
+  for (let i = 0; i < dataset.length; i++) {
+    weights[i] = dataset[i].count + (weights[i - 1] || 0);
+  }
+
+  let random = Math.random() * weights[weights.length - 1];
+
+  for (let i = 0; i < weights.length; i++) {
+    if (weights[i] > random) {
+      return [dataset[i].letter, i];
+    }
+  }
+};
+
 export const drawLetters = () => {
   // Implement this method for wave 1
+  // const letterDataset = makeLetterDataset();
+  // const hand = [];
+  // let i = 0;
+  // while (i < 10) {
+  //   const letterIndex = Math.floor(Math.random() * 26);
+  //   if (letterDataset[letterIndex].count > 0) {
+  //     hand.push(letterDataset[letterIndex].letter);
+  //     letterDataset[letterIndex].count -= 1;
+  //     ++i;
+  //   }
+  // }
+  // return hand;
+
+  // });
   const letterDataset = makeLetterDataset();
   const hand = [];
-  let i = 0;
-  while (i < 10) {
-    const letterIndex = Math.floor(Math.random() * 26);
-    if (letterDataset[letterIndex].count > 0) {
-      hand.push(letterDataset[letterIndex].letter);
-      letterDataset[letterIndex].count -= 1;
-      ++i;
-    }
+  for (let i = 0; i < 10; i++) {
+    const [letter, index] = weightedRandomLetter(letterDataset);
+    hand.push(letter);
+    letterDataset[index].count -= 1;
   }
   return hand;
 };
@@ -62,22 +88,11 @@ export const usesAvailableLetters = (input, lettersInHand) => {
     freqMap.set(letter, (freqMap.get(letter) || 0) + 1);
   });
 
-  // const wordMap = new Map();
   Array.from(input).forEach((letter) => {
     freqMap.set(letter, (freqMap.get(letter) || 0) - 1);
   });
 
   return Array.from(freqMap.values()).every((count) => count > -1);
-  // for (const char of Array.from(input)) {
-  // if (!handMap.has(char)) {
-  //   return false;
-  // }
-  // wordMap.set(char, (wordMap.get(char) || 0) + 1);
-  // if (wordMap.get(char) > handMap.get(char)) {
-  //   return false;
-  // }
-  // }
-  // return true;
 };
 
 export const scoreWord = (word) => {
