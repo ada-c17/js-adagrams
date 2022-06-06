@@ -1,4 +1,3 @@
-// add export after debugging for each function
 const LETTER_POOL = {
   A: 9,
   B: 2,
@@ -28,48 +27,48 @@ const LETTER_POOL = {
   Z: 1,
 };
 
-const scoreChart = {
-  "A": 1,
-  "E": 1,
-  "I": 1,
-  "O": 1,
-  "U": 1,
-  "L": 1,
-  "N": 1,
-  "R": 1,
-  "S": 1,
-  "T": 1,
-  "D": 2,
-  "G": 2,
-  "B": 3,
-  "C": 3,
-  "M": 3,
-  "P": 3,
-  "F": 4,
-  "H": 4,
-  "V": 4,
-  "W": 4,
-  "Y": 4,
-  "K": 5,
-  "J": 8,
-  "X": 8,
-  "Q": 10,
-  "Z": 10
+const SCORE_CHART = {
+  A: 1,
+  E: 1,
+  I: 1,
+  O: 1,
+  U: 1,
+  L: 1,
+  N: 1,
+  R: 1,
+  S: 1,
+  T: 1,
+  D: 2,
+  G: 2,
+  B: 3,
+  C: 3,
+  M: 3,
+  P: 3,
+  F: 4,
+  H: 4,
+  V: 4,
+  W: 4,
+  Y: 4,
+  K: 5,
+  J: 8,
+  X: 8,
+  Q: 10,
+  Z: 10
 }
 
 export const drawLetters = () => {
   let myLetterArray = [];
-  for (const key of Object.keys(LETTER_POOL)){
+  for (const key in LETTER_POOL){
     for (let i = 0; i < LETTER_POOL[key]; i++){
       myLetterArray.push(key);
     }
   }
   const lettersInHand = []
   for (let i = 0; i < 10; i++){
-    let randomLetter = myLetterArray[Math.floor(Math.random() * myLetterArray.length)];
+    const randomLetter = myLetterArray[Math.floor(Math.random() * myLetterArray.length)];
     lettersInHand.push(randomLetter);
     const index = myLetterArray.indexOf(randomLetter);
-    let removedLetter = myLetterArray.splice(index, 1);
+    myLetterArray.splice(index, 1);
   }
   return lettersInHand;
 };
@@ -84,7 +83,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
     }
   }
 
-  let inputWord = input.toUpperCase();
+  const inputWord = input.toUpperCase();
   let inputWordObj = {}
   for (let i = 0; i < inputWord.length; i++){
     if (inputWord[i] in inputWordObj){
@@ -96,7 +95,8 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   for(const key in inputWordObj){
     if (!(key in lettersInHandObj)){
       return false;
-    } else if (inputWordObj[key] > lettersInHandObj[key]){
+    }
+    if (inputWordObj[key] > lettersInHandObj[key]){
       return false;
     }
   }
@@ -105,12 +105,12 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
 export const scoreWord = (word) => {
   const playerWord = word.toUpperCase();
-  let score = 0;
   const additionalLengthCheck = [7, 8, 9, 10];
   const lengthPoints = 8;
+  let score = 0;
   for (const char of playerWord){
-    if (char in scoreChart){
-      score += scoreChart[char];
+    if (char in SCORE_CHART){
+      score += SCORE_CHART[char];
     }
   }
   if (additionalLengthCheck.indexOf(playerWord.length) !== -1){
@@ -124,31 +124,23 @@ export const highestScoreFrom = (words) => {
     return 0;
   }
 
-  let resultChart = [];
-  words.forEach((word) => {
-    const score = scoreWord(word);
-    resultChart.push(
-      {
-        'word': word,
-        'score': score
-      }
-    );
+  let resultChart = words.map(word => {
+    return {
+      word: word,
+      score: scoreWord(word)
+    };
   });
 
-  const scores = resultChart.map(object => {
-    return object.score;
-  });
+  const scores = resultChart.map(object => object.score);
   const maxScore = Math.max(...scores);
   const bestResults = resultChart.filter(object => object.score >= maxScore);
-  const length = bestResults.map(object =>{
-    return object.word.length;
-  })
-  const minLength = Math.min(...length)
-  const minLengthword = bestResults.filter(object => object.word.length === minLength);
   for (const result of bestResults){
-    if (result['word'].length === 10){
+    if (result.word.length === 10){
       return result;
     }
   }
-  return minLengthword[0];
+  const length = bestResults.map(object => object.word.length);
+  const minLength = Math.min(...length);
+  const minLengthWord = bestResults.filter(object => object.word.length === minLength);
+  return minLengthWord[0];
 };
