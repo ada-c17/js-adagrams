@@ -131,6 +131,8 @@ const LETTERSCORES = {
 export const drawLetters = () => {
   // Implement this method for wave 1
   const randNums = [];
+  // Some concern about this running indefinitely at random...
+  // like if the random number is the same number again and again
   while (randNums.length < 10) {
     let num = Math.floor(Math.random() * 98);
     if (!randNums.includes(num)) {
@@ -163,9 +165,6 @@ export const scoreWord = (word) => {
   // Implement this method for wave 3
   let score = 0;
   word = word.toUpperCase();
-  // if (!word) {
-  //   return score;
-  // }
   for (let letter of word) {
     score += LETTERSCORES[letter];
   }
@@ -176,29 +175,13 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
-  // let highestScoreWord = {
-  //   word: "",
-  //   score: 0
-  // }
-  // for word in words
-  // score word
-  // if score higher replace highestScoreWord
-  // if score equal
-  // case: len word is 10 -- replace highestScoreWord
-  // case: len highestScoreWord < 10 and len word < len highestScoreWord
-  // otherwise do nothing
-  // return highestScoreWord
   let highestScoreWord = {
     word: "",
     score: 0,
   };
   for (let word of words) {
     const score = scoreWord(word);
-    // console.log(score);
-    // console.log(highestScoreWord[score]);
     if (score > highestScoreWord["score"]) {
-      console.log("yes");
       highestScoreWord = {
         word,
         score,
@@ -214,7 +197,6 @@ export const highestScoreFrom = (words) => {
         };
       }
     }
-    // console.log(highestScoreWord);
   }
   return highestScoreWord;
 };
