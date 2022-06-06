@@ -33,9 +33,9 @@ const makeLetterDataset = () => {
 const makeScoreTable = () => {
   const letterDataset = makeLetterDataset();
   const scoreMap = new Map();
-  for (const data of letterDataset) {
+  letterDataset.forEach((data) => {
     scoreMap.set(data.letter, data.score);
-  }
+  });
   return scoreMap;
 };
 
