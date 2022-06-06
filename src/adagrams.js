@@ -57,22 +57,27 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
-  const handMap = new Map();
+  const freqMap = new Map();
   lettersInHand.forEach((letter) => {
-    handMap.set(letter, (handMap.get(letter) || 0) + 1);
+    freqMap.set(letter, (freqMap.get(letter) || 0) + 1);
   });
 
-  const wordMap = new Map();
-  for (const char of Array.from(input)) {
-    if (!handMap.has(char)) {
-      return false;
-    }
-    wordMap.set(char, (wordMap.get(char) || 0) + 1);
-    if (wordMap.get(char) > handMap.get(char)) {
-      return false;
-    }
-  }
-  return true;
+  // const wordMap = new Map();
+  Array.from(input).forEach((letter) => {
+    freqMap.set(letter, (freqMap.get(letter) || 0) - 1);
+  });
+
+  return Array.from(freqMap.values()).every((count) => count > -1);
+  // for (const char of Array.from(input)) {
+  // if (!handMap.has(char)) {
+  //   return false;
+  // }
+  // wordMap.set(char, (wordMap.get(char) || 0) + 1);
+  // if (wordMap.get(char) > handMap.get(char)) {
+  //   return false;
+  // }
+  // }
+  // return true;
 };
 
 export const scoreWord = (word) => {
