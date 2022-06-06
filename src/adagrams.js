@@ -81,13 +81,10 @@ export const scoreWord = (word) => {
   // Implement this method for wave 3
 
   const scoreTable = makeScoreTable();
-  let wordScore = 0;
-  if (!word) return wordScore;
+  const addScores = (total, letter) => total + scoreTable.get(letter);
+  let wordScore = Array.from(word.toUpperCase()).reduce(addScores, 0);
   if (word.length >= 7) wordScore += 8;
-  for (const letter of word.toUpperCase()) {
-    const score = scoreTable.get(letter);
-    wordScore += score;
-  }
+
   return wordScore;
 };
 
