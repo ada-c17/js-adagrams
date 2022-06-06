@@ -45,7 +45,6 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  
   if (word != word.toUpperCase()) {
     word = word.toUpperCase();
   }
@@ -66,15 +65,35 @@ export const scoreWord = (word) => {
       }
     }
   } 
-  if (7 <= word.lenght <= 10) {
+  if (7 <= word.length && word.length<= 10) {
     total += 8;
   }
-console.log(total);
-return total;
+  console.log(total);
+  return total
 };
   // Implement this method for wave 3
 // };
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
+  let maxScore = {
+    word: "",
+    score: 0
+  }
+  let highestScore = 0;
+  for(let word of words) {
+    const score = scoreWord(word);
+    if (score > highestScore) {
+        highestScore = score
+        maxScore.word = word;
+        maxScore.score = score;
+    } else if (score === highestScore && maxScore.word.length !== 10) {
+      if(word.length < maxScore.word.length) {
+        maxScore.word = word;
+      } else if (word.length === 10) {
+        maxScore.word = word;
+      }
+    }
+  }
+  return maxScore;
 };
