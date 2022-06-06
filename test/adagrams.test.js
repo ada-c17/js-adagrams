@@ -5,7 +5,7 @@ import {
   highestScoreFrom,
 } from "adagrams";
 
-const LETTER_POOL = {
+export const LETTER_POOL = {
   A: 9,
   B: 2,
   C: 2,
@@ -120,8 +120,11 @@ describe("Adagrams", () => {
     });
 
     it("returns a score of 0 if given an empty input", () => {
-      throw "Complete test";
-    });
+      // throw "Complete test";
+      expectScores({
+        "": 0,
+      })
+  });
 
     it("adds an extra 8 points if word is 7 or more characters long", () => {
       expectScores({
