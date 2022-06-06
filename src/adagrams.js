@@ -58,9 +58,10 @@ export const drawLetters = () => {
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
   const handMap = new Map();
-  for (const letter of lettersInHand) {
+  lettersInHand.forEach((letter) => {
     handMap.set(letter, (handMap.get(letter) || 0) + 1);
-  }
+  });
+
   const wordMap = new Map();
   for (const char of Array.from(input)) {
     if (!handMap.has(char)) {
@@ -73,9 +74,6 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   }
   return true;
 };
-
-// input = Array.from(input);
-// return input.some(lettersInHand.includes);
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
