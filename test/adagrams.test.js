@@ -96,6 +96,14 @@ describe("Adagrams", () => {
       const isValid = Adagrams.usesAvailableLetters(word, drawn);
       expect(isValid).toBe(false);
     });
+
+    it("returns false when word length greater than 10", () => {
+      const drawn = ["D", "O", "G", "X", "X", "X", "X", "X", "X", "X"];
+      const word = "GOODGOODGOOD";
+
+      const isValid = Adagrams.usesAvailableLetters(word, drawn);
+      expect(isValid).toBe(false);
+    });
   });
 
   describe("scoreWord", () => {
