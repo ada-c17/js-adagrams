@@ -103,16 +103,44 @@ export const scoreWord = (word) => {
   return score
 };
 
-// word = word.upper()
-// score = 0
-// for letter in word:
-//     score += SCORE_CHART[letter]
-
-// if len(word) > 6:
-//     score += 8
-
-// return score
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
+  let bestWordAndScore = {
+    word :'',
+    score : 0
+  };
+  // let bestScore = null;
+  for (const word of words) {
+    let score = scoreWord(word);
+  
+      if (bestWordAndScore.score === 0 || score > bestWordAndScore.score) {
+        bestWordAndScore.score = score;
+        bestWordAndScore.word=word;
+      } else if (score === bestWordAndScore.score){
+          if (word.length === 10 && bestWordAndScore.word.length !==10) {
+            bestWordAndScore.word=word;
+            bestWordAndScore.score=score;
+          } else if (word.length === 10 && bestWordAndScore.word.length ===10){
+            continue;
+          }else if (word.length >= bestWordAndScore.word.length) {
+            continue;
+          } else if (word.length < bestWordAndScore.word.length && bestWordAndScore.word.length !==10){
+            bestWordAndScore.word=word;
+            bestWordAndScore.score=score;
+          } 
+      }  
+  }
+  return bestWordAndScore
+
 };
+
+
+// let mobile = {
+//   brand: 'Samsung',
+//   model: 'Galaxy Note 9'
+// };
+ 
+// for (let key in mobile) {
+//   console.log(`${key}: ${mobile[key]}`);
+// }
