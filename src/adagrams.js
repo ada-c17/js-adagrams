@@ -122,7 +122,7 @@ class Adagrams {
     let bestWord = words.reduce((a, b) =>
       this.scoreWord(a) >= this.scoreWord(b) ? a : b
     );
-    let bestScore = this.scoreWord(bestWord);
+    const bestScore = this.scoreWord(bestWord);
 
     const bestWords = words.filter(
       (word) => this.scoreWord(word) === bestScore
@@ -134,8 +134,6 @@ class Adagrams {
       } else {
         bestWord = words.reduce((a, b) => (a.length < b.length ? a : b));
       }
-    } else {
-      bestWord = bestWords[0];
     }
 
     return {
