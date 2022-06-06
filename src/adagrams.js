@@ -102,7 +102,6 @@ class Adagrams {
   
       returns: Boolean
      */
-      console.log('The hand:', lettersInHand, '\nLetters guessed:',input)
       const copyArray = [...lettersInHand];
       let result = true
   
