@@ -180,9 +180,7 @@ class Adagrams {
       } else if (wordScore === highestScore){
         if (highestScoringWord.length === 10){
           continue
-        } else if (word.length === 10){
-          highestScoringWord = word
-        } else if (word.length < highestScoringWord.length){
+        } else if (word.length === 10 || word.length < highestScoringWord.length){
           highestScoringWord = word
         }
       }
