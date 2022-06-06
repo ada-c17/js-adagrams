@@ -148,7 +148,7 @@ describe("Adagrams", () => {
       expect(highestScoreFrom(words)).toEqual(correct);
     });
 
-    describeexit("in case of tied score", () => {
+    describe("in case of tied score", () => {
       const expectTie = (words) => {
         const scores = words.map((word) => scoreWord(word));
         const highScore = scores.reduce((h, s) => (h < s ? s : h), 0);
