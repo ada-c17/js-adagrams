@@ -114,7 +114,55 @@ export const scoreWord = (word) => {
   return score;
 };
 
-
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
+  // const scoreObject = { bestWord, highestScore };
+  let score = 0;
+  let word = "";
+  for (let eachWord of words) {
+    let totalScore = scoreWord(eachWord);
+    if (totalScore > score) {
+      score = totalScore;
+      word = eachWord;
+    }
+  }
+  const scoreObject = { score, word };
+  return scoreObject;
 };
+
+// Should look through an array of strings
+// from this array we should obtain the score for the highest scoring word
+// then we must return it as an object as the name or the word along with the score
+// for TIE
+// if we have a tie in scores then we should implement it as below:
+// - if the word with the highest score and none have 10 letters in a word,
+// then return that word and score with fewest letters
+// -if the tie of highest score has one word with 10 letters in it, then return that word and score
+// -if all word's length and scores are equal, choose the first one that appears in the array
+
+// highest_score = 0
+// best_word = ""
+
+// for word in word_list:
+//     #Use of helper function
+//     total_scored = score_word(word)
+//     if total_scored > highest_score:
+//         highest_score = total_scored
+//         best_word= word
+//     # conditionals with tie breaking logic below
+//     elif total_scored == highest_score:
+//         # Not mutable variable
+//         temp_word = best_word
+//         #From here highest rate is always the same as there is tie.
+//         if len(word) == 10:
+//             best_word = word
+//         elif len(temp_word) == 10:
+//             best_word = best_word
+//         elif len(temp_word) > len(word):
+//            best_word = word
+
+//         if len(temp_word) == len(word):
+//             best_word = word_list[0]
+// # then we will return the winning word as a tuple return tuple(best_word[0], highest_score)
+// my_tuple = (best_word, highest_score)
+// return my_tuple
