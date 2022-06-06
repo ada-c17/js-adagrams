@@ -1,4 +1,4 @@
-// Following AirBnB's capital const rules...?
+// Following AirBnB's capital const rules on naming this
 const LETTER_QUANTITY_CHART = {
   A: 9,
   N: 6,
@@ -97,26 +97,49 @@ export const scoreWord = (word) => {
   // Implement this method for wave 3
   const extraScoreChart = [7, 8, 9, 10];
   let totalScore = 0;
-  const letterList = 0;
 
-  if (word.length === 0) {
+  if (!word) {
     return totalScore;
   }
 
-  // letter_list = []
-  // if word == "":
-  //     return total_score
-  // for letter in word.upper():
-  //     letter_list.append(letter)
-  // for letter in letter_list:
-  //     for point, letters in score_chart.items():
-  //         if letter in letters:
-  //             total_score += point
-  // if len(word) in extra_score_chart:
-  //     total_score += 8
-  // return total_score
+  const scoreChartKeys = Object.keys(SCORE_CHART);
+
+  for (const letter of word) {
+    const score = scoreChartKeys.find((key) =>
+      SCORE_CHART[key].includes(letter.toUpperCase())
+    );
+    totalScore += parseInt(score);
+  }
+
+  if (extraScoreChart.includes(word.length)) {
+    totalScore += 8;
+  }
+
+  return totalScore;
 };
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 4
+  //def get_highest_word_score(word_list):
+  //   word_scores = {}
+  //   for word in word_list:
+  //       word_scores[word] = score_word(word)
+  //   highest_score_dict = {word:score for word, score in word_scores.items() if score == max(word_scores.values())}
+  //   if len(highest_score_dict) == 1:
+  //       return convert_dict_to_tuple(highest_score_dict)
+  //   else:
+  //       for word, score in sorted(highest_score_dict.items()):
+  //           winning_word = {}
+  //           shortest_word = min(len(x) for x in highest_score_dict.keys())
+  //           if len(word) == 10:
+  //               winning_word[word] = score
+  //               return convert_dict_to_tuple(winning_word)
+  //           elif len(word) == shortest_word:
+  //               winning_word[word] = score
+  //               return convert_dict_to_tuple(winning_word)
+  // def convert_dict_to_tuple(highest_score_dict):
+  //   highest_score_list = []
+  //   for word, score in highest_score_dict.items():
+  //       highest_score_list.append(word)
+  //       highest_score_list.append(score
 };
