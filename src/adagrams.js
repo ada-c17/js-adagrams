@@ -108,7 +108,16 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  let hand = lettersInHand;
+  let word = input.toUpperCase();
+  for (const letter of word) {
+    if (hand.includes(letter)) {
+      hand.splice(letter, 1);
+    } else {
+      return false;
+    }
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
