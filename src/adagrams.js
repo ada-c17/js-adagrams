@@ -44,15 +44,37 @@ export const drawLetters = () => {
   const hand = [];
 
   for (let i = 0; i < 10; i++) {
-    const num = Math.floor(Math.random()*letters.length);
+    const num = Math.floor(Math.random() * letters.length);
     hand.push(letters[num]);
-    letters.splice(num,1);
+    letters.splice(num, 1);
   }
   return hand;
 };
 
+export const frequencyMap = (string) => {
+  const frequencyMap = {};
+  for (const letter of string) {
+    if (frequencyMap[letter]) {
+      frequencyMap[letter]++;
+    } else {
+      frequencyMap[letter] = 1;
+    }
+  }
+
+  return frequencyMap;
+};
+
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
+  const inputLetterFrequency = frequencyMap(input);
+  const handLetterFrequency = frequencyMap(lettersInHand);
+
+  for (const letter in inputLetterFrequency) {
+    if (inputLetterFrequency[letter] !== handLetterFrequency[letter]) {
+      return false;
+    }
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
