@@ -104,9 +104,9 @@ class Adagrams {
   }
 
   static scoreWord(word) {
-    let score = 0;
     word = word.toUpperCase();
 
+    let score = 0;
     for (let letter of word) {
       score += this.scoreChart[letter];
     }
