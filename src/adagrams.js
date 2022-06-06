@@ -7,7 +7,22 @@ const LETTER_POOL =  {
   U: 4, V: 2, W: 2, X: 1, Y: 2,
   Z: 1
 };
-  // wave 1
+//wave 5
+export class Adagrams{
+  static drawLetters(){
+    return drawLetters();
+  };
+  static usesAvailableLetters(input, lettersInHand){
+    return usesAvailableLetters(input, lettersInHand);
+  };
+  static scoreWord(word){
+    return scoreWord(word);
+  };
+  static highestScoreFrom(words){
+    return highestScoreFrom(words);
+  };
+};
+// wave 1
 export const drawLetters = () => {
   const letterPool=[];
   for (const [key, value] of Object.entries(LETTER_POOL)){
