@@ -125,4 +125,51 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 4
+  if (words.length == 0) {
+    return {
+      word: "",
+      score: 0
+    }
+  }
+
+  let bestWords = [];
+  let highestScore = 0;
+
+  // Compare scores for different words and find the highest ones
+  
+  for (let word of words) {
+    let wordTuple = [word, scoreWord(word)];
+    if (wordTuple[1] > highestScore) {
+      bestWords = [wordTuple];
+      highestScore = wordTuple[1];
+    } else if (wordTuple[1] == highestScore) {
+      bestWords.push(wordTuple)
+    }
+  } 
+
+  // Get to single winning word
+  if (bestWords.length > 1) {
+    let shortestLengthOfWord = 10;
+    let shortestWordIndex = 0;
+    for (let i = 0; i < bestWords.length; i++){
+      if (bestWords[i][0].length === 10) {
+        return {
+          word : bestWords[i][0],
+          score : bestWords[i][1]
+        };
+      } else if (bestWords[i][0].length < shortestLengthOfWord){
+        shortestLengthOfWord = bestWords[i][0].length;
+        shortestWordIndex = i
+      }
+    }
+    return {   
+      word : bestWords[shortestWordIndex][0],
+      score : bestWords[shortestWordIndex][1]
+      };
+  }
+  
+  return {
+    word: bestWords[0][0],
+    score: bestWords[0][1]
+  };
 };
