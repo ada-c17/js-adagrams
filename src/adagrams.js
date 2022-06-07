@@ -112,7 +112,7 @@ export const scoreWord = (word) => {
     score = score + scoreChart[letter];
   }
 
-  if (word.length>=7 && word.length<=10) {
+  if (word.length >= 7 && word.length <= 10) {
     score = score + 8;
   }
   return score;
@@ -120,4 +120,27 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 4
+  const scores = []; //initialize object to map words to scores
+  //loop through array of words and calculate their scores
+  //and add them to the scores object
+  for (let i = 0; i < words.length; i++) {
+    scores.push(scoreWord(words[i]));
+  }
+  //find the highest score
+  let index = 0; //pick the first word in list as highest scoring word
+  for (let i = 1; i < words.length; i++) {
+    //if the score is greater update the index of the highest scoring word
+    //if scores are equal go through tie breaking cases
+    if (scores[i] > scores[index]) {
+      index = i;
+    } else if (scores[i] === scores[index] && words[index].length !== 10) {
+      if (words[i].length === 10) {
+        index = i;
+      } else if (words[i].length < words[index].length) {
+        index = i;
+      }
+    }
+  }
+  const highestWordScore = { word: words[index], score: scores[index] };
+  return highestWordScore;
 };
