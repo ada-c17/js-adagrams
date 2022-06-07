@@ -101,14 +101,6 @@ const getHighestDict = (wordList) => {
       highWords.push(word)
     };
   };
-
-  // for (let word of wordList) {
-  //   let score = scoreWord(word);
-  //   if (Object.keys(scoreToWordListDict).indexOf(score) === -1) {
-  //     scoreToWordListDict[score] = [];
-  //   }
-  //   scoreToWordListDict[score].push(word);
-  // };
   
   return {
     wordList:highWords,
@@ -129,6 +121,10 @@ const breakTie = (wordList) => {
     else if (word.length < smallestWordLength) {
       smallestWordLength = word.length;
       winnerWord = word;
+    } 
+    // if words are equal length choose the first word
+    else {
+      winnerWord = wordList[0];
     };
   };
 
@@ -147,14 +143,7 @@ export const highestScoreFrom = (words) => {
         winnerWord = maxWords[0];
       break;
     default:
-      for (let word of maxWords) {
-        if (word.length === 10) {
-          winnerWord = word;
-        } else {
-          winnerWord = breakTie(maxWords);
-        }
-      };
-      break;
+      winnerWord = breakTie(maxWords);
   };
 
   const winnerObj = {
