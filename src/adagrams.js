@@ -6,47 +6,43 @@ It looks to see if the letter is in the array and, if it is, it adds 1 to the re
 */
 export const countTimes = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
 
-// 
+// This function loads the winner into an object
 export const loadWinner = (word, score) => {
-  let winner = {
-    word: '',
-    score: 0
-  }
+  let winner = {};
 
   winner.word = word;
   winner.score = score;
-  return winner;
-}
-
-/*
-This function handles any tie scores
-*/
-export const tieBreaker = maxScore => {
-  let winner = {
-      word: '',
-      score: 0
-  };
   
+  return winner;
+};
+
+// This function handles any tie scores
+export const tieBreaker = maxScore => {
   let smallestWordLen = 1000;
+  let winner = {};
+  let nxtWord, winWord = '';
+  let nxtScore, winScore = 0;
   
   for (let i = 0; i < maxScore.length; i++) {
-      let nxtWord = maxScore[i][0];
-      let nxtScore = maxScore[i][1];
+      nxtWord = maxScore[i][0];
+      nxtScore = maxScore[i][1];
 
       if (nxtWord.length === 10) {
-          winner = loadWinner(nxtWord, nxtScore);
+          winWord = nxtWord;
+          winScore = nxtScore;
           break;
       } else if (nxtWord.length < smallestWordLen) {
           smallestWordLen = nxtWord.length;
-          winner = loadWinner(nxtWord, nxtScore);
+          winWord = nxtWord;
+          winScore = nxtScore;
       } else {
           continue;    
       };
   };
+
+  winner = loadWinner(winWord, winScore);
   return winner;
 };
-
-
 
 export const drawLetters = () => {
   // Implement this method for wave 1
@@ -86,6 +82,7 @@ export const drawLetters = () => {
     // Using the random math generator as the index for a random letter from the pool
     const randNum = Math.floor(Math.random() * 26);
     const char = Object.keys(letterPool)[randNum];
+
     let letterCount = clone[char];
 
     /* 
@@ -121,9 +118,13 @@ export const usesAvailableLetters = (input, lettersInHand) => {
       let rgxp = new RegExp(letter, "g");
       let letterCount = input.match(rgxp).length;
 
+      /* Check if the letter from the user hand is in 
+      the letter bank the user had to choose from */
+
       let isFound = lettersInHand.includes(letter);
       if (isFound === true) {
           let bankCount = countTimes(lettersInHand, letter);
+          // Make sure the letter isn't used more times than allowed
           if (letterCount <= bankCount) {
               continue ;
           } else {
@@ -166,54 +167,53 @@ export const scoreWord = input => {
     "X": 8, 
     "Y": 4, 
     "Z": 10 
-  }
+  };
+  let letterCount = 0;
+  let finalScore = 0;
 
   if (input === '') {
     return 0;
   }
 
-  let finalScore = 0;
   input = input.toUpperCase();
 
   for (const letter of input) {
-    let letterCount = letterVals[letter];
+    letterCount = letterVals[letter];
     finalScore += letterCount;
   };
 
   if (7 <= input.length) {
     finalScore += 8;
   };
+
   return finalScore;
   };
 
-  export const highestScoreFrom = (words) => {
-    // Implement this method for wave 4
-    let winner = {
-      word: '',
-      score: 0
-    }
-    let maxScore = [["", 0]]
-    
-    for (const word of words) {
-        let i = 0;
-        let wordScore = 0;
-        wordScore = scoreWord(word);
-        
-        if (wordScore > maxScore[i][1]) {
-            maxScore = [];
-            maxScore.push([word, wordScore]);
-        } else if (wordScore == maxScore[i][1]) {
-            maxScore.push([word, wordScore]);
-        } else {
-            continue;
-        }
-        i++;
-    };
+export const highestScoreFrom = (words) => {
+  // Implement this method for wave 4
+  let winner = {};
+  let maxScore = [["", 0]];
+  
+  for (const word of words) {
+      let i = 0;
+      let wordScore = 0;
+      wordScore = scoreWord(word);
       
-    if (maxScore.length > 1) {
-        winner = tieBreaker(maxScore)
-    } else {
-        winner = loadWinner(maxScore[0][0], maxScore[0][1]);
-    }
-    return winner;
+      if (wordScore > maxScore[i][1]) {
+          maxScore = [];
+          maxScore.push([word, wordScore]);
+      } else if (wordScore == maxScore[i][1]) {
+          maxScore.push([word, wordScore]);
+      } else {
+          continue;
+      }
+      i++;
+  };
+    
+  if (maxScore.length > 1) {
+      winner = tieBreaker(maxScore);
+  } else {
+      winner = loadWinner(maxScore[0][0], maxScore[0][1]);
+  }
+  return winner;
   };
