@@ -79,7 +79,7 @@ class Adagrams {
     // create an empty array
     let handLetters = [];
     // create a copy and using 3 dot and new set method in array so we don't get the duplicate letters
-    let letterPoolCopy = [...Adagrams.letterPool()];
+    let letterPoolCopy = [...new Set(Adagrams.letterPool())];
     // using for to print 10 array of string letters
     for (let i = 0; i < 10; i++) {
       // set the copy length to the letters
