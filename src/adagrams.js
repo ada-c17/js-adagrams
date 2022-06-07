@@ -1,5 +1,4 @@
-// Following AirBnB's capital const rules on naming this
-const LETTER_QUANTITY_CHART = {
+const DISTRIBUTION_OF_LETTERS = {
   A: 9,
   N: 6,
   B: 2,
@@ -30,42 +29,39 @@ const LETTER_QUANTITY_CHART = {
 
 export const drawLetters = () => {
   // Implement this method for wave 1
-  // populate letterArr with the letters for fair probability
-  const letterArr = [];
-  for (const [letter, quantity] of Object.entries(LETTER_QUANTITY_CHART)) {
-    let counter = 0;
-    while (counter < quantity) {
-      letterArr.push(letter);
-      counter++;
-    }
-  }
+  const lettersArr = populateLetterArray();
 
   // a loop that generates 10 random letters
   // after generating a single letter, it is added to the letterBank
-  // and deleted off the letterArr for no repeated elements
-  const letterBank = [];
+  // and deleted off the letterArr for no repeated letters
+  const lettersInHand = [];
   for (let i = 0; i < 10; i++) {
-    let letterIndex = Math.floor(Math.random() * letterArr.length);
-    letterBank.push(letterArr[letterIndex]);
-    letterArr.splice(letterIndex, 1);
+    let letterIndex = Math.floor(Math.random() * lettersArr.length);
+    lettersInHand.push(lettersArr[letterIndex]);
+    lettersArr.splice(letterIndex, 1);
   }
-  return letterBank;
+  return lettersInHand;
+};
+
+// helper function
+// populate lettersArr for fair probability
+const populateLetterArray = () => {
+  const lettersArr = [];
+  for (const [letter, quantity] of Object.entries(DISTRIBUTION_OF_LETTERS)) {
+    let counter = 0;
+    while (counter < quantity) {
+      lettersArr.push(letter);
+      counter++;
+    }
+  }
+  return lettersArr;
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // populate lettersInHandObj with keys/values
-  const lettersInHandObj = {};
-  for (const letter of lettersInHand) {
-    if (letter in lettersInHandObj) {
-      lettersInHandObj[letter]++;
-    } else {
-      lettersInHandObj[letter] = 1;
-    }
-  }
+  const lettersInHandObj = createLettersInHandObj(lettersInHand);
 
-  // checks if letter of the input is in the lettersInHandObj
-  // if so, subtracts 1 from the value
-  // if not found at all, return false
+  // checks if letter of input is in lettersInHandObj
+  // if letter in lettersInHandObj, subtracts occurrences
   for (const letter of input) {
     if (letter in lettersInHandObj) {
       lettersInHandObj[letter]--;
@@ -74,13 +70,27 @@ export const usesAvailableLetters = (input, lettersInHand) => {
     }
   }
 
-  // checks if any of the values in lettersInHandObj less than 0
+  // checks if any of the values in lettersInHandObj is less than 0
   for (const key in lettersInHandObj) {
     if (lettersInHandObj[key] < 0) {
       return false;
     }
   }
   return true;
+};
+
+// helper function
+// populate lettersInHandObj with letter as key and occurrences as values
+const createLettersInHandObj = (lettersInHand) => {
+  const lettersInHandObj = {};
+  for (const letter of lettersInHand) {
+    if (letter in lettersInHandObj) {
+      lettersInHandObj[letter]++;
+    } else {
+      lettersInHandObj[letter] = 1;
+    }
+  }
+  return lettersInHandObj;
 };
 
 const SCORE_CHART = {
@@ -93,77 +103,116 @@ const SCORE_CHART = {
   10: ['Q', 'Z'],
 };
 
+const EXTRA_SCORE_CHART = [7, 8, 9, 10];
+
 export const scoreWord = (word) => {
   // Implement this method for wave 3
-  const extraScoreChart = [7, 8, 9, 10];
   let totalScore = 0;
 
+  // guard clause for empty strings
   if (!word) {
     return totalScore;
   }
 
-  const scoreChartKeys = Object.keys(SCORE_CHART);
-
+  // calculates score for each letter
   for (const letter of word) {
-    const score = scoreChartKeys.find((key) =>
-      SCORE_CHART[key].includes(letter.toUpperCase())
-    );
-    totalScore += parseInt(score);
+    const letterScore = findLetterScore(letter.toUpperCase());
+    totalScore += parseInt(letterScore);
   }
 
-  if (extraScoreChart.includes(word.length)) {
+  // checks for word's length for extra points
+  if (EXTRA_SCORE_CHART.includes(word.length)) {
     totalScore += 8;
   }
 
   return totalScore;
 };
 
+// helper function
+// goes through SCORE_CHART to look for the key (points) based on letter
+const findLetterScore = (letter) => {
+  const scoreChartKeys = Object.keys(SCORE_CHART);
+  const letterScore = scoreChartKeys.find((point) =>
+    SCORE_CHART[point].includes(letter)
+  );
+  return letterScore;
+};
+
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 4
-  const wordScores = {};
+  const wordScores = createWordsScoreObj(words);
 
+  // finds the highest score in wordScores Object
+  const wordsValues = Object.values(wordScores);
+  const highestScore = Math.max(...wordsValues);
+
+  // find highest scored words
+  const highestScoreWords = findHighestScoreWords(wordScores, highestScore);
+
+  // return word based on highest scored word if there's only one in the array
+  // or return the word with 10-letters length
+  if (highestScoreWords.length == 1) {
+    return {
+      score: highestScore,
+      word: highestScoreWords[0],
+    };
+  } else {
+    for (const word of highestScoreWords) {
+      if (word.length == 10) {
+        return {
+          score: highestScore,
+          word: word,
+        };
+      }
+    }
+  }
+
+  // find shortest word length to use it as reference
+  let shortestWordLength = findShortestWordLength(highestScoreWords);
+
+  // return shortest word and takes care of other scenario
+  for (const word of highestScoreWords) {
+    if (word.length == shortestWordLength) {
+      return {
+        score: highestScore,
+        word: word,
+      };
+    }
+  }
+};
+
+// helper function
+// takes a array of words and returns an object
+// with words as keys and scores as values
+const createWordsScoreObj = (words) => {
+  const wordScores = {};
   for (const word of words) {
     const wordScore = scoreWord(word);
     wordScores[word] = wordScore;
   }
+  return wordScores;
+};
 
-  const wordsValues = Object.values(wordScores);
-  const highestScore = Math.max(...wordsValues);
-
+// helper function
+// find highest scored words and returns an array
+const findHighestScoreWords = (wordScores, highestScore) => {
   const highestScoreWords = [];
   for (const [word, score] of Object.entries(wordScores)) {
     if (score === highestScore) {
       highestScoreWords.push(word);
     }
   }
+  return highestScoreWords;
+};
 
-  const highestScoreResult = {};
-  if (highestScoreWords.length == 1) {
-    highestScoreResult['score'] = highestScore;
-    highestScoreResult['word'] = highestScoreWords[0];
-    return highestScoreResult;
-  } else {
-    for (const word of highestScoreWords) {
-      if (word.length == 10) {
-        highestScoreResult['score'] = highestScore;
-        highestScoreResult['word'] = word;
-        return highestScoreResult;
-      }
-    }
-  }
-
+// helper function
+// find the shortest word length
+const findShortestWordLength = (highestScoreWords) => {
   let shortestWordLength = highestScoreWords[0].length;
   for (const word of highestScoreWords) {
     if (word.length < shortestWordLength) {
       shortestWordLength = word.length;
     }
   }
-
-  for (const word of highestScoreWords) {
-    if (word.length == shortestWordLength) {
-      highestScoreResult['score'] = highestScore;
-      highestScoreResult['word'] = word;
-      return highestScoreResult;
-    }
-  }
+  return shortestWordLength;
 };
