@@ -80,47 +80,10 @@ export const drawLetters = () => {
       userHand.push(letter);
     }
   } return userHand;
-};  
-
-// const letterCounter = (input, lettersInHand) => {
-//   let upperCase = input.toUpperCase();
-//   let letterCount = 0;
-
-//   for (let letter in upperCase){
-//     for (let pos = 0; pos < upperCase.length; pos++){
-//       if (upperCase.charAt(pos) == lettersInHand(letter)){
-//         letterCount += 1;
-//       };
-//     } return letterCount;
-//   };
-// };
-
-// const bankCounter = (input, lettersInHand) => {
-//   let upperCase = input.toUpperCase();
-//   let bankCount = 0;
-//   for (let letter in upperCase){
-//     for (let pos = 0; pos < upperCase.length; pos++){
-//       if (upperCase.charAt(pos) == lettersInHand(letter)){
-//         bankCount -= 1;
-//       };
-//     } return bankCount;
-//   };
-// };
+}; 
 
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
-  // for (const letter in input){
-  //   for (letter in lettersInHand){
-  //     // remove letter from input
-  //     input.splice(0,1);
-  //     // remove letter from letter in hand
-  //     // is size/length of input is 0, then return true
-  //     // if size/length of input is NOT zero, then return false
-  //   }
-  // } if (input.length === 0){
-  //   return true;
-  // }
   const letterMap = new Map();
   for (let letter of lettersInHand){
     if (letterMap.has(letter)){
@@ -161,48 +124,14 @@ export const scoreWord = (word) => {
   if (7 <= length && length <= 10){
     finalScore += 8;
   };
-  // if (length === 0){
-  //   finalScore = 0;
-  // };
   return finalScore
 };  
 
-// const Range = (start, stop) => {
-//   //creating a range function for the tie breaker
-//   if (stop === undefined){
-//     stop = start;
-//     start = 0;
-//   };
-//   if (start > stop){
-//     return [];
-//   };
-//   return new Array(stop - start).fill(start).map((el, i) => el + i);
-//   // for (let i =0; i < input; i++) {
-//   // };
-// };
 
 export const tieBreaker = (maxScore) => {
-  // let winningPair = ['', 0];
-  // let smallestWordLen = 1000;
-
-  // for (let num of Range(maxScore.length)){
-  //   let word = maxScore[num][0];
-  //   let score = maxScore[num][1];
-  //   let length = word.length;
-  //   if (length == 10){
-  //     winningPair = [word, score]
-  //     break
-  //   } else if (length < smallestWordLen){
-  //     smallestWordLen = length;
-  //     winningPair = [word, score];
-  //   };
-  //   return winningPair
-  // }
   let tie = new Set();
   let counter = 1000;
   let length = maxScore.length;
-  // for (let i =0; i < input; i++) {
-  // };
   for (let num = 0; num < length; i++){
     if (length === 10){
       tie.add(maxScore[num]);
@@ -217,6 +146,7 @@ export const tieBreaker = (maxScore) => {
     };
   };
 };
+
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
