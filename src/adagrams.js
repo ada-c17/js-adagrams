@@ -56,22 +56,22 @@ const letterScores = {
   Z: 10,
 };
 
-const availble_letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const availbleLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 export const drawLetters = () => {
   // Implement this method for wave 1
-  let letter_pool_copy = JSON.parse(JSON.stringify(letterPool));
+  let letterPoolCopy = JSON.parse(JSON.stringify(letterPool));
   let letters = [];
   for (let i = 0; i < 10; ) {
-    let single_letter = availble_letters.charAt(
-      Math.floor(Math.random() * availble_letters.length)
+    let singleLetter = availbleLetters.charAt(
+      Math.floor(Math.random() * availbleLetters.length)
     );
     if (
-      Object.values(letter_pool_copy).includes(single_letter) > -1 &&
-      letter_pool_copy[single_letter] > 0
+      Object.values(letterPoolCopy).includes(singleLetter) > -1 &&
+      letterPoolCopy[singleLetter] > 0
     ) {
-      letter_pool_copy[single_letter] = letter_pool_copy[single_letter] - 1;
-      letters.push(single_letter);
+      letterPoolCopy[singleLetter] = letterPoolCopy[singleLetter] - 1;
+      letters.push(singleLetter);
       i++;
     }
   }
@@ -113,11 +113,11 @@ export const highestScoreFrom = (words) => {
   let currentWord = "";
 
   for (const word of words) {
-    const current_score = scoreWord(word);
-    if (current_score > maxScore) {
-      maxScore = current_score;
+    const currentScore = scoreWord(word);
+    if (currentScore > maxScore) {
+      maxScore = currentScore;
       currentWord = word;
-    } else if (current_score === maxScore) {
+    } else if (currentScore === maxScore) {
       if (word.length < currentWord.length && currentWord.length !== 10) {
         currentWord = word;
       } else if (word.length === 10 && currentWord.length !== 10) {
