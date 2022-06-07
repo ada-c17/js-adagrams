@@ -38,16 +38,15 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
 export const scoreWord = (word) => {
   let score = 0;
-  if (word.length >= 7) {
-    score += 8;
-  }
-  // (const [key, value] of Object.entries(SCORE_CHART))
   for (let char = 0; char < word.toUpperCase(); char++) {
-    if (char in SCORE_CHART) {
+    if (SCORE_CHART.includes(char)) {
       score += SCORE_CHART[char];
     }
-    return score;
   }
+  if (word >= 7 && word <= 11) {
+    score += 8;
+  }
+  return score;
 };
 
 export const highestScoreFrom = (words) => {
