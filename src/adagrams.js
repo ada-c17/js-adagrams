@@ -62,11 +62,12 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   const wordArray = input.split("");
+  const lettersInHandCopy = [...lettersInHand];
   for (let i = 0; i < wordArray.length; i++) {
-    if (lettersInHand.includes(wordArray[i]) === false) {
+    if (lettersInHandCopy.includes(wordArray[i]) === false) {
       return false;
     } else {
-      lettersInHand.splice(lettersInHand.indexOf(wordArray[i]), 1);
+      lettersInHandCopy.splice(lettersInHandCopy.indexOf(wordArray[i]), 1);
     }
   }
   return true;
@@ -101,8 +102,45 @@ export const scoreWord = (word) => {
     Y: 4,
     Z: 10,
   };
+
+  word = word.toUpperCase();
+  let wordScore = 0;
+
+  if (word.length >= 7) {
+    wordScore += 8;
+  }
+  for (let i = 0; i < word.length; i++) {
+    wordScore += scoreChart[word[i]];
+  }
+  return wordScore;
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+  const firstScore = scoreWord(words[0]);
+  const winScore = {
+    word: words[0],
+    score: firstScore,
+  };
+
+  for (let i = 1; i < words.length; i++) {
+    let scoring = scoreWord(words[i]);
+
+    if (scoring > winScore["score"]) {
+      winScore["score"] = scoring;
+      winScore["word"] = words[i];
+    } else if (scoring === winScore["score"]) {
+      if (words[i].length === 10 && winScore["word"].length < 10) {
+        winScore["score"] = scoring;
+        winScore["word"] = words[i];
+        return winScore;
+      } else if (
+        words[i].length < winScore["word"].length &&
+        winScore["word"].length != 10
+      ) {
+        winScore["score"] = scoring;
+        winScore["word"] = words[i];
+      }
+    }
+  }
+  return winScore;
 };

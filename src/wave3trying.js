@@ -1,12 +1,12 @@
-const scoreChartInfo = {
-  1: [A, E, I, O, U, L, N, R, S, T],
-  2: [D, G],
-  3: [B, C, M, P],
-  4: [F, H, V, W, Y],
-  5: [K],
-  8: [J, X],
-  10: [Q, Z],
-};
+// const scoreChartInfo = {
+//   1: [A, E, I, O, U, L, N, R, S, T],
+//   2: [D, G],
+//   3: [B, C, M, P],
+//   4: [F, H, V, W, Y],
+//   5: [K],
+//   8: [J, X],
+//   10: [Q, Z],
+// };
 
 const scoreWord = (word) => {
   const scoreChart = {
@@ -37,4 +37,17 @@ const scoreWord = (word) => {
     Y: 4,
     Z: 10,
   };
+
+  word = word.toUpperCase();
+  let wordScore = 0;
+
+  if (word.length >= 7) {
+    wordScore += 8;
+  }
+  for (let i = 0; i < word.length; i++) {
+    wordScore += scoreChart[word[i]];
+  }
+  return wordScore;
 };
+
+console.log(scoreWord(""));
