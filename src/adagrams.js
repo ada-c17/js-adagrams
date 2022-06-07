@@ -112,38 +112,38 @@ export const scoreWord = (word) => {
   };
   let score = 0;
   for (const letter of word.toUpperCase()) {
-    score = score + scoreChart[letter];
+    score += scoreChart[letter];
   }
 
   if (word.length >= 7 && word.length <= 10) {
-    score = score + 8;
+    score += 8;
   }
   return score;
 };
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 4
-  const scores = []; //initialize object to map words to scores
-  //loop through array of words and calculate their scores
-  //and add them to the scores object
-  for (let i = 0; i < words.length; i++) {
-    scores.push(scoreWord(words[i]));
-  }
-  //find the highest score
-  let index = 0; //pick the first word in list as highest scoring word
-  for (let i = 1; i < words.length; i++) {
-    //if the score is greater update the index of the highest scoring word
-    //if scores are equal go through tie breaking cases
-    if (scores[i] > scores[index]) {
-      index = i;
-    } else if (scores[i] === scores[index] && words[index].length !== 10) {
-      if (words[i].length === 10) {
-        index = i;
-      } else if (words[i].length < words[index].length) {
-        index = i;
+   //loop through array of words and calculate the score for each word
+  //if the score is greater update the index of the highest scoring word
+  //if scores are equal go through tie breaking cases
+
+  let highestWord = "";
+  let highestScore = 0;
+
+  for (const word of words) {
+    const currentWordScore = scoreWord(word);
+    if (currentWordScore > highestScore) {
+      highestWord = word;
+      highestScore = currentWordScore;
+    } else if (currentWordScore === highestScore && highestWord.length !== 10) {
+      if (word.length === 10) {
+        highestWord = word;
+      } else if (word.length < highestWord.length) {
+        highestWord = word;
       }
     }
   }
-  const highestWordScore = { word: words[index], score: scores[index] };
+
+  const highestWordScore = { word: highestWord, score: highestScore };
   return highestWordScore;
 };
