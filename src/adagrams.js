@@ -60,12 +60,12 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 4
-  const wordScores = words.map((word) => ({
+  const wordScore = words.map((word) => ({
     word: word,
     score: scoreWord(word),
   })
   );
-  let result = wordScores.reduce((before, current) => {
+  let result = wordScore.reduce((before, current) => {
     if (before.score > current.score) {
       return before;
     } else if (before.score == current.score) {
