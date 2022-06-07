@@ -110,14 +110,13 @@ export const highestScoreFrom = (words) => {
     scoresHash.push(wordObject);
   }
 
-  let best_word = scoresHash[0];
+  let best_word = scoresHash.find((x) => x.score === highest_score);
+  console.log(best_word);
   for (let scored_word of scoresHash) {
     if (scored_word.score === highest_score) {
       if (scored_word.word.length === 10) {
         return scored_word;
       } else if (scored_word.word.length < best_word.word.length) {
-        best_word = scored_word;
-      } else {
         best_word = scored_word;
       }
     }
