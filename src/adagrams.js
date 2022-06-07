@@ -119,31 +119,28 @@ export const highestScoreFrom = (words) => {
   }
 
   if (highestScoreWords.length == 1) {
-    let output = {
-      score: scoreWord(highestScoreWords[0]),
-      word: highestScoreWords[0],
-    };
-    return output;
-  } else if (highestScoreWords.length > 1) {
-    //see if any of them have 10 letters and get index of shortest
+    return highestScoreOutput(highestScoreWords, 0);
+  } else {
+    //see if any words have 10 letters --> return that word, otherwise,  get index of shortest word
     let minLen = 10;
     let minIndex = 0;
     for (let i = 0; i < highestScoreWords.length; i++) {
       if (highestScoreWords[i].length === 10) {
-        let output = {
-          score: scoreWord(highestScoreWords[i]),
-          word: highestScoreWords[i],
-        };
-        return output;
+        return highestScoreOutput(highestScoreWords, i);
       } else if (highestScoreWords[i].length < minLen) {
         minLen = highestScoreWords[i].length;
         minIndex = i;
       }
     }
-    let output = {
-      score: scoreWord(highestScoreWords[minIndex]),
-      word: highestScoreWords[minIndex],
-    };
-    return output;
+    return highestScoreOutput(highestScoreWords, minIndex);
   }
+};
+
+//helper function for highestScoreFrom, makes output
+export const highestScoreOutput = (highestScoreWords, index) => {
+  let output = {
+    score: scoreWord(highestScoreWords[index]),
+    word: highestScoreWords[index],
+  };
+  return output;
 };
