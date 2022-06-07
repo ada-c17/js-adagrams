@@ -90,17 +90,30 @@ export const scoreWord = (word) => {
 };
 
 const getHighestDict = (wordList) => {
-  let scoreToWordListDict = {};
+  let highScore = 0;
+  let highWords = []
 
   for (let word of wordList) {
-    let score = scoreWord(word);
-    if (Object.keys(scoreToWordListDict).indexOf(score) === -1) {
-      scoreToWordListDict[score] = [];
-    }
-    scoreToWordListDict[score].push(word);
+    if (scoreWord(word) > highScore) {
+      highScore = scoreWord(word);
+      highWords = [word]
+    } else if (scoreWord(word) === highScore) {
+      highWords.push(word)
+    };
   };
+
+  // for (let word of wordList) {
+  //   let score = scoreWord(word);
+  //   if (Object.keys(scoreToWordListDict).indexOf(score) === -1) {
+  //     scoreToWordListDict[score] = [];
+  //   }
+  //   scoreToWordListDict[score].push(word);
+  // };
   
-  return scoreToWordListDict;
+  return {
+    wordList:highWords,
+    score: highScore,
+  };
 };
 
 const breakTie = (wordList) => {
@@ -125,9 +138,9 @@ const breakTie = (wordList) => {
 export const highestScoreFrom = (words) => {
   const scoreToWordListDict = getHighestDict(words);
 
-  let maxScore = Math.max(...Object.keys(scoreToWordListDict));
-  let maxWords = scoreToWordListDict[maxScore];
   let winnerWord = undefined;
+  let maxScore = scoreToWordListDict['score'];
+  let maxWords = scoreToWordListDict['wordList'];
 
   switch (maxWords.length) {
     case 1:
