@@ -110,7 +110,7 @@ export const scoreWord = (word) => {
     wordScore += SCORE_DICTIONARY[letter];
   };
 
-  if (convertedWord.length > 7) {
+  if (convertedWord.length >= 7) {
     wordScore += 8;
   };
 
