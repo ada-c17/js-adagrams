@@ -39,8 +39,8 @@ export const drawLetters = () => {
     let value = letterFrequency[key];
     for (let i = 0; i < value; i++ ) {
       letterPool.push(key);
-    };
-  };
+    }
+  }
   
   // Draw 10 letters to array hand
 
@@ -52,7 +52,7 @@ export const drawLetters = () => {
     let letter = letterPool[index];
     hand.push(letter);
     letterPool.splice(index, 1);
-  };
+  }
   
   return hand;
 };
@@ -61,7 +61,17 @@ export const drawLetters = () => {
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
 
+  let lettersInHandCopy = [...lettersInHand];
 
+  for (let i = 0; i < input.length; i++) {
+    let index = lettersInHandCopy.indexOf(input[i]);
+    if (index !== -1) {
+      lettersInHandCopy.splice(index, 1);
+    } else {
+      return false;
+    }  
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
