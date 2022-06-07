@@ -31,8 +31,8 @@ export const drawLetters = () => {
   
   let letters = [];
 
-  for (const [letter, letter_freq] of Object.entries(scoreChart)) {
-    for (let i = 0; i < letter_freq; i++) {
+  for (const [letter, inputLetterFreq] of Object.entries(scoreChart)) {
+    for (let i = 0; i < inputLetterFreq; i++) {
       letters.push(letter);
     }
   };
@@ -48,6 +48,32 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
+  let inputLetterFreq = {};
+  for (const letter of input) {
+    if (letter in inputLetterFreq) {
+      inputLetterFreq[letter.toUpperCase()] += 1;
+    } else {
+      inputLetterFreq[letter.toUpperCase()] = 1;
+    }
+  };
+
+  let lettersInHandFreq = {};
+
+  for (const letter of lettersInHand) {
+    if (letter.toUpperCase() in lettersInHandFreq) {
+      lettersInHandFreq[letter.toUpperCase()] += 1;
+    } else {
+      lettersInHandFreq[letter.toUpperCase()] = 1;
+    }
+  }
+
+  for (const letter of input) {
+    // if the letter does not exist in the lettersInHand or the `input` letter frequency is greater than the letter frequency in `lettersInHand`
+    if (typeof(lettersInHandFreq[letter]) === 'undefined' || inputLetterFreq[letter.toUpperCase()] > lettersInHandFreq[letter.toUpperCase()]) {
+      return false;
+    } 
+    return true;
+    }
 };
 
 export const scoreWord = (word) => {
