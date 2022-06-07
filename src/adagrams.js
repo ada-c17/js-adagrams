@@ -1,4 +1,4 @@
-import { random } from "core-js/core/number";
+// import { random } from "core-js/core/number";
 
 const LETTER_POOL = {
   A: 9,
@@ -56,12 +56,21 @@ export const drawLetters = () => {
   } else {
       freq[randomL] = 1;
       letters.push[randomL];
-
   }
-} return letters;
+  }
+return letters;
+};
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
+  for (const letter of input) {
+    if (!lettersInHand.includes(letter.toUpperCase())) {
+      return false;
+    } else {
+      lettersInHand.splice(lettersInHand.indexOf(letter), 1);
+    }
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
