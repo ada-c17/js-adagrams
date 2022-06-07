@@ -80,6 +80,16 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
+  let score = 0;
+
+  for (const letter of word) {
+    score += letterFreqAndScore[letter.toUpperCase()][1];
+  }
+  if (word.length > 6) {
+    score += 8;
+  }
+
+  return score;
 };
 
 export const highestScoreFrom = (words) => {
