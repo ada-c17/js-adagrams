@@ -34,7 +34,7 @@ export const drawLetters = () => {
   const letterPoolWithFrequency= letterPoolArray.map(letter => letter[0].repeat(letter[1])); 
   let fullLetterPool = letterPoolWithFrequency.join('').split('');
   let letter=''
-  console.log(fullLetterPool);
+  // console.log(fullLetterPool);
   for (let i = 0; i < 10; i++) {
     letter = fullLetterPool[Math.floor(Math.random() * fullLetterPool.length)];
     letterPicked.push(letter);
