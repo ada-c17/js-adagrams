@@ -29,7 +29,7 @@ const LETTER_POOL = {
   Z: 1,
 };
 
-SCORE_CHART = {
+const SCORE_CHART = {
   A: 1,
   B: 3,
   C: 3,
@@ -93,18 +93,16 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
-  /*
-    word = word.upper()
-    points = 0
-    for letter in word:
-        points += SCORE_CHART[letter]
-
-    if len(word) >= 7:
-        points += 8
-
-    return points
-
-  */
+  // why failed the "returns a score of 0 if given an empty input" test?
+  word = word.toUpperCase();
+  let points = 0;
+  for (let letter of word) {
+    points += SCORE_CHART[letter];
+  }
+  if (word.length >= 7) {
+    points += 8;
+  }
+  return points;
 };
 
 export const highestScoreFrom = (words) => {
