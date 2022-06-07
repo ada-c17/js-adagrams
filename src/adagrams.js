@@ -1,4 +1,4 @@
-import { letterPool, scoreChart } from "constants";
+import { letterPool, scoreChart } from 'constants';
 
 // helper function to create letter pool array
 export const createLetterPool = () => {
@@ -34,7 +34,7 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (inputWord, lettersInHand) => {
   // check that each character in inputWord exists in lettersInHand
-  for (let char of inputWord) {
+  for (const char of inputWord) {
     if (!lettersInHand.includes(char)) {
       return false;
     } else {
@@ -60,7 +60,7 @@ export const scoreWord = (word) => {
   }
 
   // add points for each character in input word
-  for (let char of word) {
+  for (const char of word) {
     score += scoreChart[char.toUpperCase()];
   }
 
@@ -69,23 +69,24 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   const bestWord = {
-    word: "",
+    word: '',
     score: 0,
   };
 
   for (const word of words) {
     const wordScore = scoreWord(word);
 
-    if (wordScore > bestWord["score"]) {
-      bestWord["word"] = word;
-      bestWord["score"] = wordScore;
-    } else if (wordScore === bestWord["score"]) {
+    // compare current word score to best word score, accounting for tiebreakers
+    if (wordScore > bestWord['score']) {
+      bestWord['word'] = word;
+      bestWord['score'] = wordScore;
+    } else if (wordScore === bestWord['score']) {
       if (
-        bestWord["word"].length !== 10 &&
-        (word.length == 10 || word.length < bestWord["word"].length)
+        bestWord['word'].length !== 10 &&
+        (word.length == 10 || word.length < bestWord['word'].length)
       ) {
-        bestWord["word"] = word;
-        bestWord["score"] = wordScore;
+        bestWord['word'] = word;
+        bestWord['score'] = wordScore;
       }
     }
   }
