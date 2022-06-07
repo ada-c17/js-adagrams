@@ -115,12 +115,13 @@ export const scoreWord = (word) => {
   };
 
   let score = 0;
-  for (let i = 0; i < word.length, i++) {
-    if (i in scoreChart) {
-      score += scoreChart[i];
+
+  for (const letter of word) {
+    if (letter.toUpperCase() in scoreChart) {
+      score += scoreChart[letter.toUpperCase()];
     }
   }
-  if (word.length >= 7 && word.length <=10) {
+  if (word.length >= 7 && word.length <= 10) {
     score += 8;
   }
   return score;
