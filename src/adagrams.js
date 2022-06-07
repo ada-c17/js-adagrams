@@ -66,11 +66,14 @@ export const frequencyMap = (string) => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
-  const inputLetterFrequency = frequencyMap(input);
+  const inputLetterFrequency = frequencyMap(input.toUpperCase());
   const handLetterFrequency = frequencyMap(lettersInHand);
 
   for (const letter in inputLetterFrequency) {
-    if (inputLetterFrequency[letter] !== handLetterFrequency[letter]) {
+    if (
+      inputLetterFrequency[letter] > handLetterFrequency[letter] ||
+      !handLetterFrequency[letter]
+    ) {
       return false;
     }
   }
