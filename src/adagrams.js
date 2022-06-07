@@ -124,7 +124,6 @@ export const scoreWord = (word) => {
       score += scoreDict[upperLetter];
     }
   }
-  console.log(score);
 
   if ([7, 8, 9, 10].includes(word.length)) {
     score += 8;
@@ -133,5 +132,44 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+  // Implement this method for wave 4
+
+  // set highest score to zero
+  // set highest score word to null
+  // create loop which iterating to word list
+  // set new value currentScore with invoke scoreWord(word) function
+  // create condition when a strictly better scored word found
+  // set if statement if currentScore > highest score:
+  // highest score equal currentScore
+  // highest score word equal word
+  // create condition when tie
+  // elif currentScore equal highest score and  length of highest score word not equal 10
+  // if length of word equal 10 or len word less than length of highest score word: highest score word equal word
+  // create empty dictionary winner
+  // add to dict key highest score word, highest score and values
+  // return winner dict
+
+  let highestScore = 0;
+  let highestScoreWord = null;
+
+  for (let i = 0; i < words.length; i++) {
+    const currentScore = scoreWord(words[i]);
+
+    // when a strictly better scored word found
+    if (currentScore > highestScore) {
+      highestScore = currentScore;
+      highestScoreWord = words[i];
+    }
+    // in case of tie
+    else if (currentScore === highestScore && highestScoreWord.length !== 10) {
+      if (words[i].length === 10 || words[i].length < highestScoreWord.length) {
+        highestScoreWord = words[i];
+      }
+    }
+  }
+  const winnerDict = {};
+  winnerDict["word"] = highestScoreWord;
+  winnerDict["score"] = highestScore;
+
+  return winnerDict;
 };
