@@ -59,15 +59,17 @@ const letterScores = {
 
 export const drawLetters = () => {
   const arrayOfLetters = [];
-  for (const [letter, quantity] of Object.entries(letterPool)) {
+
+  for (let [letter, quantity] of Object.entries(letterPool)) {
     for (let i=0; i<quantity; i++) {
       arrayOfLetters.push(letter);
     }
   }
 
-  let currentHand = [];
+  const currentHand = [];
+
   for (let i=0; i<10; i++) {
-    let currentLetter = arrayOfLetters[Math.floor(Math.random() * arrayOfLetters.length)];
+    const currentLetter = arrayOfLetters[Math.floor(Math.random() * arrayOfLetters.length)];
     currentHand.push(currentLetter);
     arrayOfLetters.splice(arrayOfLetters.indexOf(currentLetter), 1);
   }
@@ -79,7 +81,7 @@ console.log(drawLetters)
 
 export const usesAvailableLetters = (input, lettersInHand) => {
  
-  let upperCaseWord = input.toUpperCase();
+  const upperCaseWord = input.toUpperCase();
   
   for (let letter of upperCaseWord) {
     if (lettersInHand.includes(letter)) {
@@ -92,18 +94,37 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  let totalScore = 0
+  let totalScore = 0;
 
-  for (let letter of word.toUpperCase()){
-    totalScore += letterScores[letter]
-  }
   if (word.length >= 7) {
     totalScore += 8
   }
-  
+
+  for (let letter of word.toUpperCase()){
+    totalScore += letterScores[letter]
+  } 
   return totalScore;
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+  let highestScore = 0;
+  let winningWord = '';
+  
+  for (let word of words) {
+    const scoreOfWord = scoreWord(word);
+
+    if(scoreOfWord > highestScore){
+      highestScore = scoreOfWord;
+      winningWord = word;
+    } else if (scoreOfWord === highestScore) {
+      if(winningWord.length === 10){
+        continue
+      } else if (word.length === 10) {
+        winningWord = word;
+      } else if (word.length < winningWord.length){
+        winningWord = word;
+      }
+    }
+  }
+  return ({"word": winningWord, "score": highestScore })
 };
