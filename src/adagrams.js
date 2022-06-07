@@ -51,8 +51,35 @@ export const drawLetters = () => {
   return tenRandomLetters;
 };
 
+// Helper function
+const getLetterCount = (sequence) => {
+  const frequencyDict = {};
+  let count = 1;
+  for (let i = 0; i < sequence.length; i++) {
+    if (!frequencyDict.hasOwnProperty(sequence[i])) {
+      frequencyDict[sequence[i]] = count;
+    } else {
+      frequencyDict[sequence[i]] += count;
+    }
+  }
+  return frequencyDict;
+};
+
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
+  const wordCountDictionary = getLetterCount(input);
+  const letterBank = getLetterCount(lettersInHand);
+
+  for (const [character, count] of Object.entries(wordCountDictionary)) {
+    console.log(`${character}: ${count}`);
+    if (
+      count > letterBank[character] ||
+      !letterBank.hasOwnProperty(character)
+    ) {
+      return false;
+    }
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
