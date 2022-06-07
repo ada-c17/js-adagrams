@@ -21,16 +21,17 @@ export const drawLetters = () => {
       [array[i], array[j]] = [array[j], array[i]];
     }
   }
-  let letterBank = letterPoolDeepCopy.slice(0, 11);
+  let letterBank = letterPoolDeepCopy.slice(0, 10);
   return letterBank;
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  for (let letters = 0; letters < input.toUpperCase(); letters++) {
-    if (lettersInHand.contains(letters)) {
-      lettersInHand.replace(letters, "");
-    } else {
+  for (let letters = 0; letters < input.length; letters++) {
+    let char = input[letters];
+    if (lettersInHand.includes(char) === false) {
       return false;
+    } else if (lettersInHand.includes(char)) {
+      lettersInHand.splice(char[letters], 1);
     }
   }
   return true;
@@ -38,12 +39,14 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
 export const scoreWord = (word) => {
   let score = 0;
-  for (let char = 0; char < word.toUpperCase(); char++) {
-    if (SCORE_CHART.includes(char)) {
-      score += SCORE_CHART[char];
+  //iterate through DOG
+  for (let char = 0; char < word.length; char++) {
+    let input = word[char];
+    if (input.toUpperCase() in SCORE_CHART) {
+      score += SCORE_CHART[input.toUpperCase()];
     }
   }
-  if (word >= 7 && word <= 11) {
+  if (word.length > 6 && word.length < 11) {
     score += 8;
   }
   return score;
@@ -73,16 +76,3 @@ export const highestScoreFrom = (words) => {
   }
   return highScoreWord, maxScore;
 };
-
-// def score_word(word):
-
-//     score = 0
-
-//     if 7 <= len(word) <= 10:
-//         score += 8
-
-//     for char in word.upper():
-//         if char in SCORE_CHART:
-//             score += SCORE_CHART[char]
-
-//     return score
