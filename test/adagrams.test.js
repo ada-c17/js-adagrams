@@ -160,7 +160,6 @@ describe("Adagrams", () => {
 
         // Expect at least two tied words
         expect(tiedWords.length).toBeGreaterThan(1);
-        
       };
 
       it("selects the word with 10 letters", () => {

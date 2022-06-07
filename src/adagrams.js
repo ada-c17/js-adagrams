@@ -72,7 +72,7 @@ export const highestScoreFrom = (words) => {
   let maxWord = "";
 
   for (let word of words) {
-    let wordScore = scoreWord(word);
+    const wordScore = scoreWord(word);
     if (wordScore > maxScore) {
       maxScore = wordScore;
       maxWord = word;
