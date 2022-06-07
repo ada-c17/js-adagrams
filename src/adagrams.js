@@ -89,6 +89,65 @@ export const scoreWord = (word) => {
   return total;
 };
 
+const getHighestDict = (wordList) => {
+  let scoreToWordListDict = {};
+
+  for (let word of wordList) {
+    let score = scoreWord(word);
+    if (Object.keys(scoreToWordListDict).indexOf(score) === -1) {
+      scoreToWordListDict[score] = [];
+    }
+    scoreToWordListDict[score].push(word);
+  };
+  
+  return scoreToWordListDict;
+};
+
+const breakTie = (wordList) => {
+  let smallestWordLength = 10;
+  let winnerWord = undefined;
+  
+  // first word found using all ten letters is best word
+  for (let word of wordList) {
+    if (word.length === 10) {
+      return word;
+    } 
+    // otherwise find the shortest word
+    else if (word.length < smallestWordLength) {
+      smallestWordLength = word.length;
+      winnerWord = word;
+    };
+  };
+
+  return winnerWord; 
+};
+
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
+  const scoreToWordListDict = getHighestDict(words);
+
+  let maxScore = Math.max(...Object.keys(scoreToWordListDict));
+  let maxWords = scoreToWordListDict[maxScore];
+  let winnerWord = undefined;
+
+  switch (maxWords.length) {
+    case 1:
+        winnerWord = maxWords[0];
+      break;
+    default:
+      for (let word of maxWords) {
+        if (word.length === 10) {
+          winnerWord = word;
+        } else {
+          winnerWord = breakTie(maxWords);
+        }
+      };
+      break;
+  };
+
+  const winnerObj = {
+    word: winnerWord,
+    score: maxScore,
+  };
+
+  return winnerObj;
 };
