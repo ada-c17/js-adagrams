@@ -1,3 +1,4 @@
+
 import _ from 'lodash';
 
 const letterQuantityDict = {
@@ -41,13 +42,38 @@ export const drawLetters = () => {
   };
 
   // Implement this method for wave 1
+  export const usesAvailableLetters =(word,lettersInHand)=>{
+  if (!word){
+    return false
+  }
+
+  let letterDict = {}
+  for (let letter of lettersInHand){
+    if (letterDict[letter]){
+      letterDict[letter] += 1;
+    }else{
+      letterDict[letter]= 1;
+    }
+  }
+  for (let letter of word){
+    if(!letterDict[letter]){
+      return false;
+    } else if (letterDict[letter]){
+      letterDict[letter]-=1
+      if (letterDict[letter]<0){
+        console.log(false)
+        return false
+      }
+    }
+  }
+  return true
+}
+
+// export const usesAvailableLetters = (input, lettersInHand) => {
+//   // Implement this method for wave 2
 
 
-export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
-
-
-};
+// };
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
@@ -76,4 +102,5 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 4
+
 };
