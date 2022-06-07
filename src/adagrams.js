@@ -94,4 +94,46 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
+  let scores = [];
+  let lowest = [];
+  const result = {
+    word: null,
+    score: null,
+  };
+
+  for (const word of words) {
+    let currentWordScore = scoreWord(word);
+
+    if (scores.length === 0) {
+      scores.push([word, currentWordScore]);
+    } else if (currentWordScore > scores[0][1]) {
+      scores = [[word, currentWordScore]];
+    } else if (currentWordScore === scores[0][1]) {
+      scores.push([word, currentWordScore]);
+    }
+  }
+
+  if (scores.length === 1) {
+    result["word"] = scores[0][0];
+    result["score"] = scores[0][1];
+    return result;
+  }
+
+  for (const [word, score] of scores) {
+    let wordLength = word.length;
+
+    if (wordLength === 10) {
+      result["word"] = word;
+      result["score"] = score;
+      return result;
+    } else if (lowest.length === 0) {
+      lowest = [word, score, wordLength];
+    } else if (wordLength < lowest[2]) {
+      lowest = [word, score, wordLength];
+    }
+  }
+
+  result["word"] = lowest[0];
+  result["score"] = lowest[1];
+  return result;
 };
