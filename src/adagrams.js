@@ -48,7 +48,7 @@ export const drawLetters = () => {
   const letterFreq = {};
   const letterKeys = Object.keys(LETTER_POOL);
 
-  for (let i = 0; i < 10; i++) {
+  while (drawn.length < 10) {
     var randomLetter =
       letterKeys[Math.floor(Math.random() * letterKeys.length)];
     if (randomLetter in letterFreq) {
