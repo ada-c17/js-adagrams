@@ -102,5 +102,46 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 4
+  let wordScores = {};
+  let ties = [];
+  for (let word of words){
+    wordScores[word]= scoreWord(word);
+ }
+ console.log(true)
+let scores = Object.values(wordScores);
+let maximum = Math.max(scores);
+for (let [key,value] of Object.entries(wordScores)){
+  if (value === maximum){
+    ties.push(key);
+  }
+}
 
-};
+// let shortestTies = ties.sort((a,b)=>a.length -b.length)
+//  if (wordScores.length ===1){
+//    return makeDict(object.keys(wordScores[0])
+//   } 
+//    else{
+//    for (let item of ties){
+//      if( item.length === 10){
+//        return makeDict(item);
+//      }else{
+//        return makeDict(object.keys(shortestTies[0]));
+//      }
+//    }
+//  }
+
+// };
+
+
+// const makeDict= (word)=>{
+//   let winningWord = {};
+//   winningWord['word']=word;
+//   winningWord['score']=scoreWord(word);
+//   return winningWord;
+
+// };
+
+
+// We first need to score the words by placing them in a dictionary 
+// then we will append the keys with the highest value to a list. 
+// To break ties, we will take the longest word as the winner. If they are the same length, we sort the list by string length and return the first one. 
