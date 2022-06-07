@@ -88,17 +88,18 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   // still working to get the demo game to allow repeated letters in subsequent words
   // think I need to use a copy of lettersInHand
   let copyLettersInHand = JSON.parse(JSON.stringify(lettersInHand));
+
   input = input.toUpperCase();
   let inputList = [];
   for (let letter of input) {
     inputList.push(letter);
   }
   for (let letter of inputList) {
-    if (lettersInHand.includes(letter)) {
+    if (copyLettersInHand.includes(letter)) {
       {
-        let index = lettersInHand.indexOf(letter);
-        //remove item from list
-        lettersInHand.splice(index, 1);
+        let index = copyLettersInHand.indexOf(letter);
+        //remove item from list: lettersInHand
+        copyLettersInHand.splice(index, 1);
       }
     } else {
       return false;
