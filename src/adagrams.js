@@ -117,6 +117,8 @@ export const highestScoreFrom = (words) => {
         return scored_word;
       } else if (scored_word.word.length < best_word.word.length) {
         best_word = scored_word;
+      } else {
+        best_word = scored_word;
       }
     }
   }
