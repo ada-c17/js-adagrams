@@ -1,7 +1,7 @@
 import { letterPool, scoreChart } from "constants";
 
 // helper function to create letter pool array
-const createLetterPool = () => {
+export const createLetterPool = () => {
   const letterPoolArray = [];
 
   for (const letter in letterPool) {
