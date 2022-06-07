@@ -57,12 +57,10 @@ export const drawLetters = () => {
   return hand;
 };
 
-
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
 
   let lettersInHandCopy = [...lettersInHand];
-
   let upperInput = input.toUpperCase();
 
   for (let i = 0; i < upperInput.length; i++) {
@@ -73,12 +71,14 @@ export const usesAvailableLetters = (input, lettersInHand) => {
       return false;
     }  
   }
+
   return true;
 };
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
 
+  // Make object that sets the letter point values
   const letterPoints = {
     'A': 1, 
     'B': 3, 
@@ -109,7 +109,6 @@ export const scoreWord = (word) => {
   };
 
   let totalScore = 0;
-  
   let upperWord = word.toUpperCase();
   
   for (let letter of upperWord) {
@@ -129,7 +128,7 @@ export const highestScoreFrom = (words) => {
     return {
       word: "",
       score: 0
-    }
+    };
   }
 
   let bestWords = [];
@@ -143,7 +142,7 @@ export const highestScoreFrom = (words) => {
       bestWords = [wordTuple];
       highestScore = wordTuple[1];
     } else if (wordTuple[1] == highestScore) {
-      bestWords.push(wordTuple)
+      bestWords.push(wordTuple);
     }
   } 
 
@@ -159,7 +158,7 @@ export const highestScoreFrom = (words) => {
         };
       } else if (bestWords[i][0].length < shortestLengthOfWord){
         shortestLengthOfWord = bestWords[i][0].length;
-        shortestWordIndex = i
+        shortestWordIndex = i;
       }
     }
     return {   
