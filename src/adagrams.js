@@ -56,18 +56,23 @@ const letterValues = {
     'Z': 10
 };
 
-let letterPoolCopy = JSON.parse(JSON.stringify(letterPool));
-let alphabet = Object.keys(letterPoolCopy);
+
 
 export const drawLetters = () => {
   // Implement this method for wave 1
 
-  let letters = [];
-  for (let i = 0; i < 10; i++) {
-    let letterDrawn = alphabet[Math.floor(Math.random() * alphabet.length)];
-    if (letterPoolCopy[letterDrawn] > 0) {
+  let letterPoolCopy = JSON.parse(JSON.stringify(letterPool));
+
+  const letters = [];
+  while (letters.length < 10) {
+    const alphabet = Object.keys(letterPool);
+    const letterDrawn = alphabet[Math.floor(Math.random() * alphabet.length)];
+    if (letterPoolCopy[letterDrawn] === 0) {
+      continue;
+    }
+    else {
       letters.push(letterDrawn);
-      letterPoolCopy[letterDrawn] -=1 ;
+      letterPoolCopy[letterDrawn] -=1;
     }
   }
   return letters;
@@ -90,15 +95,15 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 export const scoreWord = (word) => {
   // Implement this method for wave 3
 
-  const responses = word.toUpperCase();
-  const input = responses.split("");
+  const input = word.toUpperCase();
   let score = 0;
-  for (let i = 0; i < responses.length; i++) {
-    if (alphabet.includes(input[i])) {
-      score += letterValues[input[i]];
+  for (let letter of input) {
+    const alphabet = Object.keys(letterPool);
+    if (alphabet.includes(letter)) {
+      score += letterValues[letter];
     }
   }
-  if (responses.length > 6 && responses.length < 11) {
+  if (input.length > 6 && input.length < 11) {
     score += 8;
   }
   return score;
