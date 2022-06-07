@@ -92,8 +92,16 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
-};
+  let scoreSum = 0;
+  let wordUpper = word.toUpperCase();
+  for (let i = 0; i < wordUpper.length; i++) {
+      scoreSum += scoreDict[wordUpper[i]]
+    };
+      if (wordUpper.length === 7 || wordUpper.length === 8 ||wordUpper.length == 9 || wordUpper.length === 10){
+        scoreSum += 8
+      }
+      return scoreSum
+    };
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
