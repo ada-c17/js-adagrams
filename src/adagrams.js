@@ -42,9 +42,9 @@ export const drawLetters = () => {
   const hand = [];
 
   const weightedPool = [];
-  for (let data of letterDataset) {
+  letterDataset.forEach((data) => {
     weightedPool.push(...data.letter.repeat(data.count));
-  }
+  });
   const randomIndices = new Set();
   while (randomIndices.size < 10) {
     randomIndices.add(Math.floor(Math.random() * weightedPool.length));
