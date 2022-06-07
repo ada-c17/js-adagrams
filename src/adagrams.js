@@ -38,8 +38,8 @@ export const drawLetters = () => {
   while (hand.length < 10) {
     let letter = randomChoice(listOfLetters);
 
-    // if (LETTER_POOL[letter] !== 0) {
-    //   LETTER_POOL[letter] --;
+    // if (LETTER_POOL.letter !== 0) {
+    //   LETTER_POOL.letter --;
     hand.push(letter);
     // };
   };
@@ -48,7 +48,25 @@ export const drawLetters = () => {
 
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  let lettersInHandDict = {};
+
+  lettersInHand.forEach(function(letter) {
+    if (letter in lettersInHandDict) {
+      lettersInHandDict.letter ++;
+    } else {
+      lettersInHandDict.letter = 1;
+    };
+  });
+
+  for (let character in input) {
+    if (character in lettersInHandDict && lettersInHandDict.character > 0) {
+      lettersInHandDict.character --;
+      } else {
+        return false;
+      };
+    };
+
+  return true;
 };
 
 export const scoreWord = (word) => {
