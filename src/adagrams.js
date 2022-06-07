@@ -42,7 +42,8 @@ const scoreTable = makeScoreTable();
 export const drawLetters = () => {
   // Implement this method for wave 1
   // initialize variables
-  const [hand, weightedPool] = [[], []];
+  const hand = [];
+  const weightedPool = [];
 
   // make a pool of letters based on their counts
   letterDataset.forEach((data) => {
@@ -69,7 +70,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   const freqMap = new Map();
 
   // handleMap is a helper function that both builds the initial freq map
-  // and removes the inputs counts and invalid letters from the map
+  // and removes the input's counts and invalid letters from the map
   // when supplied with a parameter remove = true
   const handleMap = (letter, subtract = false) => {
     let i = 1;
@@ -104,7 +105,8 @@ export const scoreWord = (word) => {
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
   // initialize variables
-  let [highestWord, highestScore] = [null, 0];
+  let highestWord = null;
+  let highestScore = 0;
 
   // makeWinner is a helper function to return the proper datastructure
   const makeWinner = (word, score) => ({ word, score });
