@@ -35,7 +35,7 @@ const LETTER_POOL = {
   Y: 2,
   Z: 1,
 };
-
+// Solution using static method
 describe("Adagrams", () => {
   describe("drawLetters", () => {
     it("draws ten letters from the letter pool", () => {
