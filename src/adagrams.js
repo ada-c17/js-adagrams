@@ -1,5 +1,6 @@
 import {
   LETTER_POOL,
+  LETTER_SCORES
 } from "constants";
 
 export const drawLetters = () => {
@@ -51,25 +52,41 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   let lettersInHandObj = {}
 
   for (let handLetter of lettersInHand) {
-    lettersInHandObj[handLetter] = 0;
-  }
-
-  for (let letterKey of Object.keys(lettersInHandObj)) {
-    lettersInHandObj[letterKey] += 1;
-  }
-
-  for (let letter of upperText) {
-    if (!Object.keys(lettersInHand).includes(letter)) {
-      return false;
-    } else if (lettersInHandObj[letter] === 0) {
-      return false;
+    if (Object.keys(lettersInHandObj).indexOf(handLetter) === -1) {
+      lettersInHandObj[handLetter] = 1;
+    } else {
+      lettersInHandObj[handLetter] += 1;
     }
   }
+
+  for (let letterKey of upperText) {
+    if (Object.keys(lettersInHandObj).indexOf(letterKey) === -1) {
+      return false;
+    } else {lettersInHandObj[letterKey] -= 1;
+    };
+  };
+
+  for (let key of upperText) {
+    if (lettersInHandObj[key] < 0) {
+      return false;
+    };
+  };
   return true;
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  let total = 0;
+  let upperWord = word.toUpperCase();
+
+  for (let letter of upperWord) {
+    total += LETTER_SCORES[letter];
+  }
+
+  if (upperWord.length >= 7) {
+    total += 8;
+  }
+
+  return total;
 };
 
 export const highestScoreFrom = (words) => {
