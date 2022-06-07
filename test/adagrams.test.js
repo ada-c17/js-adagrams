@@ -1,11 +1,16 @@
-import {
-  drawLetters,
-  usesAvailableLetters,
-  scoreWord,
-  highestScoreFrom,
-} from "adagrams";
+// import {
+//   drawLetters,
+//   usesAvailableLetters,
+//   scoreWord,
+//   highestScoreFrom,
+// } from "adagrams";
 
-// import Adagrams from "adagrams";
+import Adagrams from "adagrams";
+const drawLetters = Adagrams.drawLetters;
+const usesAvailableLetters = Adagrams.usesAvailableLetters;
+const scoreWord = Adagrams.scoreWord;
+const highestScoreFrom = Adagrams.highestScoreFrom;
+
 
 const LETTER_POOL = {
   A: 9,
@@ -16,6 +21,7 @@ const LETTER_POOL = {
   F: 2,
   G: 3,
   H: 2,
+
   I: 9,
   J: 1,
   K: 1,
