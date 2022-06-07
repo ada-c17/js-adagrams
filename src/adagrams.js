@@ -35,7 +35,7 @@ export const drawLetters = () => {
       letterList.push(letter);
     }
   }
-  console.log(letterList);
+  // console.log(letterList);
 
   const newLetterList = [];
   const countDict = {};
@@ -186,6 +186,4 @@ export const highestScoreFrom = (words) => {
       }
     }
   }
-
-  //# If there is less than one top word, error has occured, return None
 };
