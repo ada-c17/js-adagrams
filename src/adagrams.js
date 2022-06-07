@@ -113,7 +113,15 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  const userInput = input.toUpperCase().split("");
+  for (const letter of userInput) {
+    if (lettersInHand.includes(letter)) {
+      lettersInHand.splice(letter, 1);
+    } else {
+      return false;
+    }
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
