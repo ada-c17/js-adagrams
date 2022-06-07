@@ -55,7 +55,6 @@ const letterScores = {
   Y: 4,
   Z: 10,
 };
-let LETTER_POOL_COPY = JSON.parse(JSON.stringify(LETTER_POOL));
 
 /**
  * draw hand of 10 letters, with likelihood relative
@@ -66,8 +65,8 @@ export const drawLetters = () => {
   let hand = [];
   //iterate through each object, add the letter (property) the # of times of its value in property:value pair
   // should I be doing a forEach loop instead?
-  for (let letter in LETTER_POOL_COPY) {
-    for (let i = 0; i < LETTER_POOL_COPY[letter]; i++) {
+  for (let letter in LETTER_POOL) {
+    for (let i = 0; i < LETTER_POOL[letter]; i++) {
       allLetters.push(letter);
     }
   }
@@ -86,6 +85,9 @@ export const drawLetters = () => {
  * else returns false
  */
 export const usesAvailableLetters = (input, lettersInHand) => {
+  // still working to get the demo game to allow repeated letters in subsequent words
+  // think I need to use a copy of lettersInHand
+  let copyLettersInHand = JSON.parse(JSON.stringify(lettersInHand));
   input = input.toUpperCase();
   let inputList = [];
   for (let letter of input) {
