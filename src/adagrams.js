@@ -93,7 +93,6 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
-  // why failed the "returns a score of 0 if given an empty input" test?
   word = word.toUpperCase();
   let points = 0;
   for (let letter of word) {
@@ -107,4 +106,25 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
+  let highest_word = "";
+  let highest_score = 0;
+
+  for (const word of words) {
+    let word_score = scoreWord(word);
+    let word_len = word.length;
+    let highest_word_len = highest_word.length;
+    if (word_score > highest_score) {
+      highest_word = word;
+      highest_score = word_score;
+    } else if (word_score === highest_score) {
+      if (highest_word_len === 10) {
+        continue;
+      } else if (word_len === 10) {
+        highest_word = word;
+      } else if (word_len < highest_word_len) {
+        highest_word = word;
+      }
+    }
+  }
+  return { word: highest_word, score: highest_score };
 };
