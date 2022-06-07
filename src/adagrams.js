@@ -1,5 +1,4 @@
 export const drawLetters = () => {
-  // Implement this method for wave 1
   const letterPool = [
     "A",
     "A",
@@ -125,7 +124,6 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
   const scoreChart = {
     A: 1,
     B: 3,
@@ -169,5 +167,39 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+  const wordsLen = words.length;
+  let highScore = {
+    word: "",
+    score: 0,
+  };
+
+  for (let i = 0; i < wordsLen; i++) {
+    let selectedWord = words[i];
+    // executes if current word score is higher than the current highest score
+    if (scoreWord(selectedWord) > highScore.score) {
+      highScore = {
+        word: selectedWord,
+        score: scoreWord(selectedWord),
+      };
+      // loop entered if current word score is tied with current highest score
+    } else if (scoreWord(selectedWord) === highScore.score) {
+      // in tie situation, checks if existing highest scoring word is 10 letters long & if so, keep as highest score
+      if (highScore.word.length === 10) {
+        highScore = highScore;
+        // in tie situation, if current word is 10 letters long, it is new highest scoring word
+      } else if (selectedWord.length === 10) {
+        highScore = {
+          word: selectedWord,
+          score: scoreWord(selectedWord),
+        };
+        // in tie situation, if no words are 10 letters long, shortest word wins
+      } else if (selectedWord.length < highScore.word.length) {
+        highScore = {
+          word: selectedWord,
+          score: scoreWord(selectedWord),
+        };
+      }
+    }
+  }
+  return highScore;
 };
