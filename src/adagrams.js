@@ -28,11 +28,11 @@ const letterPool = {
 };
 
 // helper function to create letter pool array
-const createLetterPool = (letterPool) => {
+const createLetterPool = () => {
   const letterPoolArray = [];
 
   for (const letter in letterPool) {
-    for (i = 0; i < letterPool[letter]; ++i) {
+    for (let i = 0; i < letterPool[letter]; ++i) {
       letterPoolArray.push(letter);
     }
   }
@@ -41,7 +41,22 @@ const createLetterPool = (letterPool) => {
 };
 
 export const drawLetters = () => {
-  // Implement this method for wave 1
+  const letterPool = createLetterPool();
+  const playerHand = [];
+  let counter = 0;
+
+  while (counter < 10) {
+    // access a letter via random index from letter pool
+    const randomIndex = Math.floor(Math.random() * (letterPool.length - 1));
+    const randomLetter = letterPool[randomIndex];
+
+    // add letter to player hand, remove letter from letter pool
+    playerHand.push(randomLetter);
+    letterPool.splice(randomIndex, randomIndex);
+    counter += 1;
+  }
+
+  return playerHand;
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
