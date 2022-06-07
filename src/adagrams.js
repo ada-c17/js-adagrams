@@ -27,6 +27,35 @@ const LETTER_POOL = {
   'Z': 1
 }
 
+const SCORE_DICTIONARY = {
+  "A": 1,
+  "E": 1,
+  "I": 1,
+  "O": 1,
+  "U": 1,
+  "L": 1,
+  "N": 1,
+  "R": 1,
+  "S": 1,
+  "T": 1,
+  "D": 2,
+  "G": 2,
+  "B": 3,
+  "C": 3,
+  "M": 3,
+  "P": 3,
+  "F": 4,
+  "H": 4,
+  "V": 4,
+  "W": 4,
+  "Y": 4,
+  "K": 5,
+  "J": 8,
+  "X": 8,
+  "Q": 10,
+  "Z": 10,
+}
+
 const randomChoice = array => {
   return array[Math.floor(array.length * Math.random())];
 };
@@ -38,8 +67,8 @@ export const drawLetters = () => {
   while (hand.length < 10) {
     let letter = randomChoice(listOfLetters);
 
-    // if (LETTER_POOL.letter !== 0) {
-    //   LETTER_POOL.letter --;
+    // if (LETTER_POOL[letter] !== 0) {
+    //   LETTER_POOL[letter] --;
     hand.push(letter);
     // };
   };
@@ -52,15 +81,15 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
   lettersInHand.forEach(function(letter) {
     if (letter in lettersInHandDict) {
-      lettersInHandDict.letter ++;
+      lettersInHandDict[letter] ++;
     } else {
-      lettersInHandDict.letter = 1;
+      lettersInHandDict[letter] = 1;
     };
   });
 
-  for (let character in input) {
-    if (character in lettersInHandDict && lettersInHandDict.character > 0) {
-      lettersInHandDict.character --;
+  for (let character of input) {
+    if (character in lettersInHandDict && lettersInHandDict[character] > 0) {
+      lettersInHandDict[character] --;
       } else {
         return false;
       };
@@ -70,7 +99,22 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  let convertedWord = word.toUpperCase()
+  let wordScore = 0;
+
+  if (convertedWord.length < 1) {
+    return wordScore;
+  };
+
+  for (let letter of convertedWord) {
+    wordScore += SCORE_DICTIONARY[letter];
+  };
+
+  if (convertedWord.length > 7) {
+    wordScore += 8;
+  };
+
+  return wordScore;
 };
 
 export const highestScoreFrom = (words) => {
