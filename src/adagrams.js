@@ -1,4 +1,4 @@
-export const LETTER_POOL = {
+const LETTER_POOL = {
   A: 9,
   B: 2,
   C: 2,
@@ -36,7 +36,6 @@ const letterScores = {
   8: ["J", "X"],
   10: ["Q", "Z"],
 };
-
 
 /**
   input: none
@@ -111,7 +110,31 @@ export const scoreWord = (word) => {
 /** 
   input: list of strings representing each word user has created
   output: returns tuple with highest scoring word and score. If tied: 
-  shortest length word is preferred, unless length is 10 char
+  shortest length word is preferred, unless length is 10 characters
 */
 export const highestScoreFrom = (words) => {
-}:
+  const playedWords = {};
+  words.forEach((word) => (playedWords[word] = scoreWord(word)));
+
+  const highestScore = Math.max(...Object.values(playedWords));
+  const bestScoreWords = [];
+  for (const [key, value] of Object.entries(playedWords)) {
+    if (value === highestScore) {
+      bestScoreWords.push(key);
+    }
+  }
+
+  if (bestScoreWords.length > 1) {
+    for (const word of bestScoreWords) {
+      if (word.length === 10) {
+        return { word: word, score: highestScore };
+      }
+    }
+    const shortestWord = bestScoreWords.reduce((a, b) => {
+      return a.length <= b.length ? a : b;
+    });
+    return { word: shortestWord, score: highestScore };
+  }
+
+  return { word: bestScoreWords[0], score: highestScore };
+};
