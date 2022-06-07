@@ -76,11 +76,11 @@ export const drawLetters = () => {
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
   const copyLettersInHand = lettersInHand.slice(0);
-  for (let i = 0; i < input.length; i++) {
-    let letter = input[i].toUpperCase();
-    if (copyLettersInHand.includes(letter)) {
-      const index = copyLettersInHand.indexOf(letter);
-      if (index > -1) {
+  for (let letter of input) {
+    let letterUpper = letter.toUpperCase();
+    if (copyLettersInHand.includes(letterUpper)) {
+      let index = copyLettersInHand.indexOf(letterUpper);
+      {
         copyLettersInHand.splice(index, 1);
       }
       console.log(copyLettersInHand);
@@ -94,14 +94,14 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 export const scoreWord = (word) => {
   let scoreSum = 0;
   let wordUpper = word.toUpperCase();
-  for (let i = 0; i < wordUpper.length; i++) {
-      scoreSum += scoreDict[wordUpper[i]]
-    };
-      if (wordUpper.length === 7 || wordUpper.length === 8 ||wordUpper.length == 9 || wordUpper.length === 10){
-        scoreSum += 8
-      }
-      return scoreSum
-    };
+  for (let letter of wordUpper) {
+    scoreSum += scoreDict[letter];
+  }
+  if (wordUpper.length >= 7 && wordUpper.length <= 10) {
+    scoreSum += 8;
+  }
+  return scoreSum;
+};
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
