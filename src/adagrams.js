@@ -10,14 +10,15 @@ const randomChoice = array => {
 export const drawLetters = () => {
   let hand = [];
   let listOfLetters = Object.keys(LETTER_POOL);
+  let copyOfLetterPool = { ...LETTER_POOL };
 
-  for (let i = 0; i < 10; i ++) {
+  while (hand.length < 10) {
     let letter = randomChoice(listOfLetters);
 
-    if (LETTER_POOL[letter] === 0) {
-      i --;
+    if (copyOfLetterPool[letter] === 0) {
+      continue;
     } else {
-      LETTER_POOL[letter] --;
+      copyOfLetterPool[letter] --;
       hand.push(letter);
     };
   };
