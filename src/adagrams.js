@@ -42,20 +42,22 @@ export const drawLetters = () => {
     let temp = letters[j];
     letters[j] = letters[i];
     letters[i] = temp;
- };
+  };
   return letters.slice(0, 10);
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
   let inputLetterFreq = {};
+
   for (const letter of input) {
-    if (letter in inputLetterFreq) {
+    if (letter.toUpperCase() in inputLetterFreq) {
       inputLetterFreq[letter.toUpperCase()] += 1;
     } else {
       inputLetterFreq[letter.toUpperCase()] = 1;
     }
   };
+
 
   let lettersInHandFreq = {};
 
@@ -65,15 +67,20 @@ export const usesAvailableLetters = (input, lettersInHand) => {
     } else {
       lettersInHandFreq[letter.toUpperCase()] = 1;
     }
-  }
+  };
 
+  
   for (const letter of input) {
-    // if the letter does not exist in the lettersInHand or the `input` letter frequency is greater than the letter frequency in `lettersInHand`
-    if (typeof(lettersInHandFreq[letter]) === 'undefined' || inputLetterFreq[letter.toUpperCase()] > lettersInHandFreq[letter.toUpperCase()]) {
+    /* If the letter does not exist in the `lettersInHandFreq` or the `input` letter 
+    frequency is greater than `lettersInHand`'s frequency, return false. Otherwise,
+    return true. */
+    if (typeof(lettersInHandFreq[letter.toUpperCase()]) === 'undefined' ||
+    inputLetterFreq[letter.toUpperCase()] > lettersInHandFreq[letter
+    .toUpperCase()]) {
       return false;
     } 
-    return true;
-    }
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
