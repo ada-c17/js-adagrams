@@ -128,23 +128,42 @@ export const scoreWord = (word) => {
 };  
 
 
+// export const tieBreaker = (maxScore) => {
+//   let tie = new Set();
+//   let counter = 1000;
+//   let length = maxScore.length;
+//   for (let num = 0; num < length; i++){
+//     if (length === 10){
+//       tie.add(maxScore[num]);
+//       return tie;
+//     } else{
+//       if (counter === length){
+//         continue;
+//       } else{
+//         counter = length;
+//         tie.add(maxScore[num]);
+//       };
+//     };
+//   };
+// };
+
 export const tieBreaker = (maxScore) => {
-  let tie = new Set();
-  let counter = 1000;
+  let tieWin = [];
+  let smallestWordLen = 10;
   let length = maxScore.length;
+
   for (let num = 0; num < length; i++){
-    if (length === 10){
-      tie.add(maxScore[num]);
-      return tie;
-    } else{
-      if (counter === length){
-        continue;
-      } else{
-        counter = length;
-        tie.add(maxScore[num]);
-      };
+    let word = maxScore[num][0];
+    let score = maxScore[num][1];
+    let wordLen = word.length;
+    if (wordLen === 10){
+      tieWin = [word,score];
+    } else if (wordLen < smallestWordLen){
+      smallestWordLen = wordLen;
+      tieWin = [word, score]
     };
   };
+  return tieWin;
 };
 
 
@@ -161,7 +180,7 @@ export const highestScoreFrom = (words) => {
     };
     if (maxScore.length > 1){
       let tie = tieBreaker(maxScore);
-      scoreMap = {'word': word, 'score': tie};
+      scoreMap = {'word': maxScore[0], 'score': tie};
     } else {
       let winnerList = [maxScore[0][0]];
       // winnerList.add(maxScore[0][0]);
