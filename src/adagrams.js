@@ -59,8 +59,21 @@ export const drawLetters = () => {
   return playerHand;
 };
 
-export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+export const usesAvailableLetters = (inputWord, lettersInHand) => {
+  // check that each character in inputWord exists in lettersInHand
+  for (let char of inputWord) {
+    if (!lettersInHand.includes(char)) {
+      return false;
+    } else {
+      // remove characters from lettersInHand to maintain accurate letter count
+      lettersInHand.splice(
+        lettersInHand.indexOf(char),
+        lettersInHand.indexOf(char)
+      );
+    }
+  }
+
+  return true;
 };
 
 export const scoreWord = (word) => {
