@@ -27,16 +27,6 @@ const LETTERS = {
   Z: 1,
 };
 
-// const SCORES = {
-//   1: ['A','E','O','U','L','N','R','S','T'],
-//   2: ['D','G'],
-//   3: ['B','C','M','P'],
-//   4: ['F','H','V','W','Y'],
-//   5: ['K'],
-//   8: ['J','X'],
-//   10: ['Q','Z'],
-// };
-
 const SCORES = {
   A: 1,
   B: 3,
@@ -98,8 +88,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
-  if (word.length < 1) {
+  if (word === "" || word === undefined) {
     return 0;
   }
   let score = 0;
@@ -115,5 +104,46 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+  //create array of all words with highest score
+  let highestScoreWords = [words[0]];
+  let highestScore = scoreWord(words[0]);
+
+  for (let i = 1; i < words.length; i++) {
+    let currentScore = scoreWord(words[i]);
+    if (currentScore > highestScore) {
+      highestScore = currentScore;
+      highestScoreWords = [words[i]];
+    } else if (currentScore === highestScore) {
+      highestScoreWords.push(words[i]);
+    }
+  }
+
+  if (highestScoreWords.length == 1) {
+    let output = {
+      score: scoreWord(highestScoreWords[0]),
+      word: highestScoreWords[0],
+    };
+    return output;
+  } else if (highestScoreWords.length > 1) {
+    //see if any of them have 10 letters and get index of shortest
+    let minLen = 10;
+    let minIndex = 0;
+    for (let i = 0; i < highestScoreWords.length; i++) {
+      if (highestScoreWords[i].length === 10) {
+        let output = {
+          score: scoreWord(highestScoreWords[i]),
+          word: highestScoreWords[i],
+        };
+        return output;
+      } else if (highestScoreWords[i].length < minLen) {
+        minLen = highestScoreWords[i].length;
+        minIndex = i;
+      }
+    }
+    let output = {
+      score: scoreWord(highestScoreWords[minIndex]),
+      word: highestScoreWords[minIndex],
+    };
+    return output;
+  }
 };
