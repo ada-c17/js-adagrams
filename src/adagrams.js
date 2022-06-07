@@ -55,15 +55,19 @@ const letterScores = {
   Y: 4,
   Z: 10,
 };
+let LETTER_POOL_COPY = JSON.parse(JSON.stringify(LETTER_POOL));
 
-// draw hand of 10 letters, with likelihood relative to that describe in LetterPool object
+/**
+ * draw hand of 10 letters, with likelihood relative
+ * to that describe in LetterPool object
+ */
 export const drawLetters = () => {
   let allLetters = [];
   let hand = [];
   //iterate through each object, add the letter (property) the # of times of its value in property:value pair
   // should I be doing a forEach loop instead?
-  for (let letter in LETTER_POOL) {
-    for (let i = 0; i < LETTER_POOL[letter]; i++) {
+  for (let letter in LETTER_POOL_COPY) {
+    for (let i = 0; i < LETTER_POOL_COPY[letter]; i++) {
       allLetters.push(letter);
     }
   }
@@ -77,32 +81,22 @@ export const drawLetters = () => {
   return hand;
 };
 
-//returns true if input letters all avail in lettersInHand; else returns false
+/**
+ * returns true if input letters all avail in lettersInHand;
+ * else returns false
+ */
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // lettersInHand = drawLetters(); //array of 10 letters
-  //make input into array of upper case strings
   input = input.toUpperCase();
   let inputList = [];
   for (let letter of input) {
     inputList.push(letter);
   }
-  // check if lettersInHand.includes(input)
   for (let letter of inputList) {
     if (lettersInHand.includes(letter)) {
       {
         let index = lettersInHand.indexOf(letter);
-
-        // why doesn't this work?
-        // let index = lettersInHand.findIndex((letter) => {
-        //   for (let i = 0; i < lettersInHand.length; i++) {
-        //     //find index of first occurance
-        //     if (letter === lettersInHand[i]) {
-        //       return i;
-        //     }
-        //     // return letter === lettersInHand[i]; //what am i doing???
-        //   }
-        // });
-        lettersInHand.splice(index, 1); //remove item from list
+        //remove item from list
+        lettersInHand.splice(index, 1);
       }
     } else {
       return false;
@@ -123,34 +117,28 @@ export const scoreWord = (word) => {
   return score;
 };
 
-// input: array of words
-// ouput: object for highest scored word: {word: 'actual word', score: points}
-// if a tie: prefer any word with 10 letters, then prefer word with fewest letters.
-// if tie of score and length, prefer whichever came first
-
+/**
+ * input: array of words;
+ *  ouput: object for highest scored word: {word: 'actual word', score: points}
+ *  if a tie: prefer any word with 10 letters, then prefer word with fewest letters.
+ * if tie of score and length, prefer whichever came first
+ */
 export const highestScoreFrom = (words) => {
-  // for word in words array, call scoreWord() func on each word
-  const scoreDict = {}; // { HELLO: 8, HI: 5, MY: 7, MYA: 8 }
+  const scoreDict = {};
   for (const word of words) {
     scoreDict[word] = scoreWord(word);
   }
-  // use Objects.value(dictName) to get list of values only.
   const scoreList = Object.values(scoreDict);
-  // find the largest value with Math.max()
   const highScore = Math.max(...scoreList);
-  // initialize an empty list to hold all words of w this score: let winningWords = [];
   let winningWords = [];
-  // find words that match the score using
   for (const [key, value] of Object.entries(scoreDict)) {
     if (value == highScore) {
       winningWords.push(key);
     }
   }
-  // declareWinner(winningWords, highScore);  //make helper function??
 
   let winningObject = {};
   let shortestWord = "thisistenn";
-  // loop through winningWords, check for length(10), then for longest length
 
   for (let word of winningWords) {
     if (word.length === 10) {
@@ -165,44 +153,6 @@ export const highestScoreFrom = (words) => {
     }
   }
   winningObject["score"] = highScore;
-  winningObject["word"] = shortestWord; //this is re-assignig to "thisistenn".
-  return winningObject;
-
-  // why doesn't my forEach loop work??
-  // winningWords.forEach((word) => {
-  //   if (word.length === 10) {
-  //     winningObject["score"] = highScore;
-  //     winningObject["word"] = word;
-  //     return winningObject;
-  //   } else {
-  //     if (word.length < shortestWord.length) {
-  //       // will find shortest word, will not replace with later words of same length
-  //       shortestWord = word;
-  //     }
-  //   }
-  // });
-  winningObject["score"] = highScore;
-  winningObject["word"] = shortestWord; //this is re-assignig to "thisistenn".
+  winningObject["word"] = shortestWord;
   return winningObject;
 };
-
-// const declareWinner = (winningWords, highScore) => {
-//   let winningObject = {};
-//   let shortestWord = "thisistenn";
-//   // loop through winningWords, check for length(10), then for longest length
-//   winningWords.forEach((word) => {
-//     if (word.length === 10) {
-//       winningObject["score"] = highScore;
-//       winningObject["word"] = word;
-//       return winningObject;
-//     } else {
-//       if (word.length < shortestWord.length) {
-//         // will find shortest word, will not replace with later words of same length
-//         shortestWord = word;
-//       }
-//     }
-//   });
-//   winningObject["score"] = highScore;
-//   winningObject["word"] = shortestWord;
-//   return winningObject;
-// };
