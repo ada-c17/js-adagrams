@@ -129,5 +129,9 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
-  const score = scoreWord(words);
+  const scores = [];
+  
+  for (let i = 0; i < words.length; i++) {
+    scores.push(scoreWord(i));
+  }
 };
