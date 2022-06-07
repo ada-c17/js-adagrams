@@ -43,7 +43,7 @@ export const drawLetters = () => {
   return letterPicked
 };
 
-
+//Wave 2
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
   const lettersInHandCopy = [...lettersInHand];
@@ -58,7 +58,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   return true;
 };
 
-
+//Wave 3
 export const scoreWord = (word) => {
   // Implement this method for wave 3
   const SCORE_CHART = {
@@ -103,18 +103,20 @@ export const scoreWord = (word) => {
   return score
 };
 
-
+//Wave 4
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+  // Implement this method for wave 4
+  // declare an object with two requested properties
   let bestWordAndScore = {
     word :'',
     score : 0
   };
-  // let bestScore = null;
+  // iteration through the list of words and find the score for each word by calling function "scoreWord"
   for (const word of words) {
     let score = scoreWord(word);
   
       if (bestWordAndScore.score === 0 || score > bestWordAndScore.score) {
+        // assinging value to object properties by comparing the words scores
         bestWordAndScore.score = score;
         bestWordAndScore.word=word;
       } else if (score === bestWordAndScore.score){
