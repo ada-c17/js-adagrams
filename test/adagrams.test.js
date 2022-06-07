@@ -5,7 +5,7 @@ import {
   highestScoreFrom,
 } from "adagrams";
 
-const LETTER_POOL = {
+export const LETTER_POOL = {
   A: 9,
   B: 2,
   C: 2,
@@ -120,8 +120,11 @@ describe("Adagrams", () => {
     });
 
     it("returns a score of 0 if given an empty input", () => {
-      throw "Complete test";
-    });
+      // throw "Complete test";
+      expectScores({
+        "": 0,
+      })
+  });
 
     it("adds an extra 8 points if word is 7 or more characters long", () => {
       expectScores({
@@ -132,8 +135,8 @@ describe("Adagrams", () => {
       });
     });
   });
-
-  describe.skip("highestScoreFrom", () => {
+// line 139
+  describe("highestScoreFrom", () => {
     it("returns a hash that contains the word and score of best word in an array", () => {
       const words = ["X", "XX", "XXX", "XXXX"];
       const correct = { word: "XXXX", score: scoreWord("XXXX") };
@@ -145,7 +148,8 @@ describe("Adagrams", () => {
       const words = ["XXX", "XXXX", "X", "XX"];
       const correct = { word: "XXXX", score: scoreWord("XXXX") };
 
-      throw "Complete test by adding an assertion";
+      // throw "Complete test by adding an assertion";
+      expect(highestScoreFrom(words)).toEqual(correct);
     });
 
     describe("in case of tied score", () => {
