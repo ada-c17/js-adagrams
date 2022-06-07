@@ -76,10 +76,7 @@ export const drawLetters = () => {
     }
   }
   return letters;
-  // console.log(text);
 };
-
-// drawLetters();
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
@@ -95,16 +92,15 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  word = word.toUpperCase()
+  word = word.toUpperCase();
   // Implement this method for wave 3
   let score = 0;
   if (word.length >= 7) {
     score = score + 8;
   }
-  // console.log(letterScores["1"][0]);
   for (const wordLetter of word) {
     if (letterScores.hasOwnProperty(wordLetter)) {
-      score = score + letterScores[wordLetter]
+      score = score + letterScores[wordLetter];
     }
   }
 
@@ -114,22 +110,20 @@ export const scoreWord = (word) => {
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
   let maxScore = 0;
+  let currentWord = "";
 
-  let currentWord = ""
   for (const word of words) {
     const current_score = scoreWord(word);
     if (current_score > maxScore) {
       maxScore = current_score;
-      currentWord = word
-
+      currentWord = word;
     } else if (current_score === maxScore) {
-        if (word.length < currentWord.length && currentWord.length !== 10) {
-        currentWord = word
+      if (word.length < currentWord.length && currentWord.length !== 10) {
+        currentWord = word;
       } else if (word.length === 10 && currentWord.length !== 10) {
-        currentWord = word
+        currentWord = word;
       }
     }
   }
-  return {word: currentWord, score: maxScore}
-  
+  return { word: currentWord, score: maxScore };
 };
