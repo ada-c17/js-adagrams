@@ -145,7 +145,6 @@ const tieBreaking = (top_words) => {
 export const highestScoreFrom = (words) => {
   const word_scores = {};
   let highestScore = 0;
-  const top_words = {};
   for (const word of words) {
     word_scores[word] = scoreWord(word);
     if (word_scores[word] > highestScore) {
@@ -154,9 +153,9 @@ export const highestScoreFrom = (words) => {
   }
 
   for (const word in word_scores) {
-    if (word_scores[word] === highestScore) {
-      top_words[word] = highestScore;
+    if (word_scores[word] !== highestScore) {
+      delete word_scores[word];
     }
   }
-  return tieBreaking(top_words);
+  return tieBreaking(word_scores);
 };
