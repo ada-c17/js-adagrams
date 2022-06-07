@@ -25,10 +25,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   const lettersInHandCopy = [...lettersInHand];
   const inputArray = Array.from(input);
 
-  if (input.length > 10 || input.length < 1) {
-    return false;
-  }
-
+  if (input.length < 1 || input.length > 10) return false;
   for (const letter of inputArray) {
     if (!lettersInHandCopy.includes(letter)) {
       return false;
@@ -49,9 +46,8 @@ export const scoreWord = (word) => {
   word = word.toUpperCase();
   const wordArray = Array.from(word);
   for (const char of wordArray) {
-    if(LETTER_SCORE[char] === undefined) {
-      return 0;
-    } else {
+    if(LETTER_SCORE[char] === undefined) return 0;
+    else {
       score += LETTER_SCORE[char];
     }
   }
@@ -64,5 +60,28 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 4
+  const wordScores = words.map((word) => ({
+    word: word,
+    score: scoreWord(word),
+  })
+  );
+  let result = wordScores.reduce((before, current) => {
+    if (before.score > current.score) {
+      return before;
+    } else if (before.score == current.score) {
+      if (before.word.length === 10) {
+        return before;
+      } else if (current.word.length === 10) {
+        return current;
+      } else if (before.word.length <= current.word.length) {
+        return before;
+      } else {
+        return current;
+      }
+    } else {
+      return current;
+    }
+  });
+  return result;
 };
 
