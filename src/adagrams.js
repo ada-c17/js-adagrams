@@ -27,7 +27,7 @@ const LETTER_POOL = {
   Z: 1,
 };
 
-// Fisher-Yates algorithm
+//Fisher-Yates algorithm
 const shuffleArray = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -107,5 +107,40 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+  let wordScores = [];
+
+  for (const word of words) {
+    const wordObject = { word: word, score: scoreWord(word) };
+    wordScores.push(wordObject);
+  }
+
+  let highestScoring = [wordScores[0]];
+  for (const word of wordScores) {
+    if (word["score"] > highestScoring[0]["score"]) {
+      highestScoring = [word];
+    } else if (word["score"] === highestScoring[0]["score"]) {
+      highestScoring.push(word);
+    }
+  }
+  //guard clause before tie-break logic. Will return winner if no tie.
+  if (highestScoring.length === 1) {
+    return highestScoring[0];
+  }
+
+  let tenLetterWords = [];
+  let fewestLetters = [highestScoring[0]];
+  for (const word of highestScoring) {
+    if (word["word"].length === 10) {
+      tenLetterWords.push(word);
+    } else if (word["word"].length < fewestLetters[0]["word"].length) {
+      fewestLetters = [word];
+    } else if (word["word"].length === fewestLetters[0]["word"].length) {
+      fewestLetters.push(word);
+    }
+  }
+
+  if (tenLetterWords.length > 0) {
+    return tenLetterWords[0];
+  }
+  return fewestLetters[0];
 };
