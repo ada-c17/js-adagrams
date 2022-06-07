@@ -167,46 +167,75 @@ export const scoreWord = (word) => {
   return finalScore
 };  
 
-const range = (start, stop) => {
-  if (start === stop) return [start];
-}
+// const Range = (start, stop) => {
+//   //creating a range function for the tie breaker
+//   if (stop === undefined){
+//     stop = start;
+//     start = 0;
+//   };
+//   if (start > stop){
+//     return [];
+//   };
+//   return new Array(stop - start).fill(start).map((el, i) => el + i);
+//   // for (let i =0; i < input; i++) {
+//   // };
+// };
 
 export const tieBreaker = (maxScore) => {
-  let winningPair = ['', 0];
-  let smallestWordLen = 1000;
+  // let winningPair = ['', 0];
+  // let smallestWordLen = 1000;
 
-  for (num of range(maxScore.length)){
-    let word = maxScore[num][0];
-    let score = maxScore[num][1];
-    let length = word.length;
-    if (length == 10){
-      winningPair = [word, score]
-      break
-    } else if (length < smallestWordLen){
-      smallestWordLen = length;
-      winningPair = [word, score];
+  // for (let num of Range(maxScore.length)){
+  //   let word = maxScore[num][0];
+  //   let score = maxScore[num][1];
+  //   let length = word.length;
+  //   if (length == 10){
+  //     winningPair = [word, score]
+  //     break
+  //   } else if (length < smallestWordLen){
+  //     smallestWordLen = length;
+  //     winningPair = [word, score];
+  //   };
+  //   return winningPair
+  // }
+  let tie = new Set();
+  let counter = 1000;
+  let length = maxScore.length;
+  // for (let i =0; i < input; i++) {
+  // };
+  for (let num = 0; num < length; i++){
+    if (length === 10){
+      tie.add(maxScore[num]);
+      return tie;
+    } else{
+      if (counter === length){
+        continue;
+      } else{
+        counter = length;
+        tie.add(maxScore[num]);
+      };
     };
-    return winningPair
-  }
+  };
 };
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
-  let maxScore = ['', 0];
-  let scoreMap = new Map();
+  let maxScore = [['', 0]];
+  let scoreMap = {};
 
   for (const word of words){
     let wordScore = scoreWord(word);
     if (wordScore > maxScore[0][1]){
-      maxScore.clear();
-      maxScore.add([word, wordScore]);
+      maxScore = [[word, wordScore]];
+      // maxScore.add([word, wordScore]);
     };
     if (maxScore.length > 1){
-      tie = tieBreaker(maxScore);
+      let tie = tieBreaker(maxScore);
+      scoreMap = {'word': word, 'score': tie};
     } else {
-      winnerList = [];
-      winnerList.add(maxScore[0][0]);
-      scoreMap = Map(winnerList);
+      let winnerList = [maxScore[0][0]];
+      // winnerList.add(maxScore[0][0]);
+      scoreMap = {'word': winnerList[0], 'score': wordScore};
     };
   };
   return scoreMap;
