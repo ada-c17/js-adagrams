@@ -3,6 +3,7 @@ import {
   usesAvailableLetters,
   scoreWord,
   highestScoreFrom,
+  createLetterPool,
 } from "adagrams";
 
 const Real = {
@@ -10,6 +11,7 @@ const Real = {
   usesAvailableLetters,
   scoreWord,
   highestScoreFrom,
+  createLetterPool,
 };
 
 const Stub = {
