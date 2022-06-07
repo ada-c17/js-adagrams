@@ -9,6 +9,7 @@ class Adagrams {
                           "M":3,"P":3,"F":4,"H":4,"V":4,"W":4,"Y":4,
                           "K":5,"J":8,"X":8,"Q":10,"Z":10};
     this.numLetters = 10;
+    this.winningNumLetters = 10;
     this.bonusScore = 8;
     this.bonusScoreSize = 7;
   }
@@ -16,7 +17,7 @@ class Adagrams {
   drawLetters() {
     let lettersArr = this.objtoArr(this.letterFreq);
     let drawnLetters = [];
-    while (drawnLetters.length < 10) {
+    while (drawnLetters.length < this.numLetters) {
       const randIndex = Math.floor(Math.random()*lettersArr.length);
       const randLetter = lettersArr.splice(lettersArr[randIndex],1)[0]; 
       drawnLetters.push(randLetter);
@@ -51,7 +52,7 @@ class Adagrams {
         maxScore = wordScore;
         maxWord = word;
       } else if (wordScore === maxScore) {
-        if ((maxWord.length !== 10 && word.length < maxWord.length) || (word.length === 10 && word.length > maxWord.length)) {
+        if ((maxWord.length !== this.winningNumLetters && word.length < maxWord.length) || (word.length === this.winningNumLetters && word.length > maxWord.length)) {
           maxWord = word;
         }
       }
