@@ -29,6 +29,35 @@ const letterPool = {
   Z: 1,
 };
 
+const letterScores = {
+  A: 1,
+  B: 3,
+  C: 3,
+  D: 2,
+  E: 1,
+  F: 4,
+  G: 2,
+  H: 4,
+  I: 1,
+  J: 8,
+  K: 5,
+  L: 1,
+  M: 3,
+  N: 1,
+  O: 1,
+  P: 3,
+  Q: 10,
+  R: 1,
+  S: 1,
+  T: 1,
+  U: 1,
+  V: 4,
+  W: 4,
+  X: 8,
+  Y: 4,
+  Z: 10,
+};
+
 const generateRandomLetter = () => {
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   return alphabet[Math.floor(Math.random() * alphabet.length)];
@@ -120,13 +149,66 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
+  let finalScore = 0;
+  const upperCase = word.toUpperCase();
+  const length = upperCase.length;
+  if (!word){
+    finalScore = 0;
+  };
+  for (let letter of upperCase){
+    finalScore += letterScores[letter];
+  };
+  if (7 <= length && length <= 10){
+    finalScore += 8;
+  };
+  // if (length === 0){
+  //   finalScore = 0;
+  // };
+  return finalScore
 };  
 
-export const tieBreaker = (maxScore) => {
+const range = (start, stop) => {
+  if (start === stop) return [start];
+}
 
+export const tieBreaker = (maxScore) => {
+  let winningPair = ['', 0];
+  let smallestWordLen = 1000;
+
+  for (num of range(maxScore.length)){
+    let word = maxScore[num][0];
+    let score = maxScore[num][1];
+    let length = word.length;
+    if (length == 10){
+      winningPair = [word, score]
+      break
+    } else if (length < smallestWordLen){
+      smallestWordLen = length;
+      winningPair = [word, score];
+    };
+    return winningPair
+  }
 };
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
+  let maxScore = ['', 0];
+  let scoreMap = new Map();
+
+  for (const word of words){
+    let wordScore = scoreWord(word);
+    if (wordScore > maxScore[0][1]){
+      maxScore.clear();
+      maxScore.add([word, wordScore]);
+    };
+    if (maxScore.length > 1){
+      tie = tieBreaker(maxScore);
+    } else {
+      winnerList = [];
+      winnerList.add(maxScore[0][0]);
+      scoreMap = Map(winnerList);
+    };
+  };
+  return scoreMap;
 };  
 
