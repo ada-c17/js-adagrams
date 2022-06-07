@@ -1,3 +1,87 @@
+class Adagrams {
+  drawLetters() {
+    let letter_pool = JSON.parse(JSON.stringify(LETTER_POOL));
+    const letters = [];
+    while (letters.length < 10) {
+      var keys = Object.keys(letter_pool);
+      let letter = keys[(keys.length * Math.random()) << 0];
+      letters.push(letter);
+
+      letter_pool[letter] -= 1;
+
+      if (letter_pool[letter] === 0) {
+        delete letter_pool[letter];
+      }
+    }
+    return letters;
+  }
+  getFrequency(anyArray) {
+    const letterFreq = {};
+    for (let i of anyArray) {
+      if (i in letterFreq) {
+        letterFreq[i] += 1;
+      } else {
+        letterFreq[i] = 1;
+      }
+    }
+    return letterFreq;
+  }
+  usesAvailableLetters(input, lettersInHand) {
+    const adagrams = new Adagrams();
+    const inputFreq = adagrams.getFrequency(input);
+    const handFreq = adagrams.getFrequency(lettersInHand);
+    let word = input.toUpperCase();
+    for (let letter of word) {
+      if (!(letter in handFreq)) {
+        return false;
+      }
+      if (inputFreq[letter] > handFreq[letter]) {
+        return false;
+      }
+    }
+    return true;
+  }
+  scoreWord(word) {
+    let theWord = word.toUpperCase();
+    let score = 0;
+    for (let letter of theWord) {
+      score += scoreDict[letter];
+    }
+    if (theWord.length >= 7 && theWord.length <= 10) {
+      score += 8;
+    }
+    return score;
+  }
+  highestScoreFrom(words) {
+    let highestScore = 0;
+    let bestWord = "";
+    for (let word of words) {
+      let totalScore = scoreWord(word);
+      if (totalScore > highestScore) {
+        highestScore = totalScore;
+        bestWord = word;
+      } else if (totalScore === highestScore) {
+        let tempWord = bestWord;
+        if (word.length === 10) {
+          bestWord = word;
+        } else if (tempWord.length === 10) {
+          bestWord = bestWord;
+        } else if (tempWord.length > word.length) {
+          bestWord = word;
+        }
+        if (tempWord.length === word.length) {
+          bestWord = tempWord;
+        }
+      }
+    }
+    var theObject = {
+      score: highestScore,
+      word: bestWord,
+    };
+    return theObject;
+  }
+}
+
 const LETTER_POOL = {
   A: 9,
   B: 2,
@@ -25,50 +109,6 @@ const LETTER_POOL = {
   X: 1,
   Y: 2,
   Z: 1,
-};
-
-export const drawLetters = () => {
-  let letter_pool = JSON.parse(JSON.stringify(LETTER_POOL));
-  const letters = [];
-  while (letters.length < 10) {
-    var keys = Object.keys(letter_pool);
-    let letter = keys[(keys.length * Math.random()) << 0];
-    letters.push(letter);
-
-    letter_pool[letter] -= 1;
-
-    if (letter_pool[letter] === 0) {
-      delete letter_pool[letter];
-    }
-  }
-  return letters;
-};
-
-const getFrequency = function (anyArray) {
-  const letterFreq = {};
-  for (let i of anyArray) {
-    if (i in letterFreq) {
-      letterFreq[i] += 1;
-    } else {
-      letterFreq[i] = 1;
-    }
-  }
-  return letterFreq;
-};
-
-export const usesAvailableLetters = (input, lettersInHand) => {
-  const inputFreq = getFrequency(input);
-  const handFreq = getFrequency(lettersInHand);
-  let word = input.toUpperCase();
-  for (let letter of word) {
-    if (!(letter in handFreq)) {
-      return false;
-    }
-    if (inputFreq[letter] > handFreq[letter]) {
-      return false;
-    }
-  }
-  return true;
 };
 
 const scoreDict = {
@@ -100,43 +140,9 @@ const scoreDict = {
   Z: 10,
 };
 
-export const scoreWord = (word) => {
-  let theWord = word.toUpperCase();
-  let score = 0;
-  for (let letter of theWord) {
-    score += scoreDict[letter];
-  }
-  if (theWord.length >= 7 && theWord.length <= 10) {
-    score += 8;
-  }
-  return score;
-};
-
-export const highestScoreFrom = (words) => {
-  let highestScore = 0;
-  let bestWord = "";
-  for (let word of words) {
-    let totalScore = scoreWord(word);
-    if (totalScore > highestScore) {
-      highestScore = totalScore;
-      bestWord = word;
-    } else if (totalScore === highestScore) {
-      let tempWord = bestWord;
-      if (word.length === 10) {
-        bestWord = word;
-      } else if (tempWord.length === 10) {
-        bestWord = bestWord;
-      } else if (tempWord.length > word.length) {
-        bestWord = word;
-      }
-      if (tempWord.length === word.length) {
-        bestWord = tempWord;
-      }
-    }
-  }
-  var theObject = {
-    score: highestScore,
-    word: bestWord,
-  };
-  return theObject;
-};
+export const {
+  drawLetters,
+  usesAvailableLetters,
+  scoreWord,
+  highestScoreFrom,
+} = new Adagrams();
