@@ -46,13 +46,22 @@ export const drawLetters = () => {
       letterPool.push(letter);
     }
   }
-
-  letterPool = shuffleArray(letterPool);
+  shuffleArray(letterPool);
   return letterPool.slice(0, 10);
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  //copying lettersInHand
+  let copyLettersInHand = [...lettersInHand];
+
+  for (const letter of input) {
+    if (!copyLettersInHand.includes(letter)) {
+      return false;
+    } else {
+      copyLettersInHand.splice(copyLettersInHand.indexOf(letter), 1);
+    }
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
