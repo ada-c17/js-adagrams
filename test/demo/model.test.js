@@ -1,14 +1,14 @@
 import Model from "demo/model";
 import Adagrams from "demo/adagrams";
 
-describe.skip("Game Model", () => {
+describe("Game Model", () => {
   const config = {
     players: ["Player A", "Player B"],
     rounds: 3,
     time: 60, // Seconds
   };
 
-  describe.skip("constructor", () => {
+  describe("constructor", () => {
     it("creates a new Model instance", () => {
       const model = new Model(config);
 
@@ -51,7 +51,7 @@ describe.skip("Game Model", () => {
     });
   });
 
-  describe.skip(".currentPlayerName()", () => {
+  describe(".currentPlayerName()", () => {
     it("is defined", () => {
       const model = new Model(config);
 
@@ -73,7 +73,7 @@ describe.skip("Game Model", () => {
     });
   });
 
-  describe.skip(".nextRound", () => {
+  describe(".nextRound", () => {
     it("is defined", () => {
       const model = new Model(config);
 
@@ -122,7 +122,7 @@ describe.skip("Game Model", () => {
       });
     });
 
-    describe.skip("returns game state", () => {
+    describe("returns game state", () => {
       it("gameOver", () => {
         const model = new Model({ ...config, rounds: 1 });
 
@@ -170,7 +170,7 @@ describe.skip("Game Model", () => {
     });
   });
 
-  describe.skip(".nextTurn", () => {
+  describe(".nextTurn", () => {
     const getModel = () => {
       const model = new Model(config);
       model.nextRound();
@@ -195,7 +195,7 @@ describe.skip("Game Model", () => {
       expect(model.currentPlayer).toBe(origPlayer + 2);
     });
 
-    describe.skip("returns round state", () => {
+    describe("returns round state", () => {
       it("roundOver", () => {
         const model = getModel();
 
@@ -250,7 +250,7 @@ describe.skip("Game Model", () => {
     });
   });
 
-  describe.skip(".playWord", () => {
+  describe(".playWord", () => {
     const getModel = () => {
       const model = new Model(config);
       model.nextRound();
@@ -268,7 +268,7 @@ describe.skip("Game Model", () => {
       expect(model.playWord).toBeDefined();
     });
 
-    describe.skip("for valid words", () => {
+    describe("for valid words", () => {
       const getWord = (model) => {
         return model.letterBank.slice(0, 5).join("");
       };
@@ -311,7 +311,7 @@ describe.skip("Game Model", () => {
       });
     });
 
-    describe.skip("for invalid words", () => {
+    describe("for invalid words", () => {
       const getWord = (model) => {
         const letter = model.letterBank[0];
         return letter.repeat(
