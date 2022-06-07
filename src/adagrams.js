@@ -27,6 +27,35 @@ const letterPool = {
   Z : 1,
 };
 
+const letterScores = {
+  A : 1,
+  B : 3,
+  C : 3,
+  D : 2,
+  E : 1,
+  F : 4,
+  G : 2,
+  H : 4,
+  I : 1,
+  J : 8,
+  K : 5,
+  L : 1,
+  M : 3,
+  N : 1,
+  O : 1,
+  P : 3,
+  Q : 10,
+  R : 1,
+  S : 1,
+  T : 1,
+  U : 1,
+  V : 4,
+  W : 4,
+  X : 8,
+  Y : 4,
+  Z : 10,
+};
+
 
 export const drawLetters = () => {
   const arrayOfLetters = [];
@@ -43,7 +72,7 @@ export const drawLetters = () => {
     arrayOfLetters.splice(arrayOfLetters.indexOf(currentLetter), 1);
   }
 
-  return currentHand
+  return currentHand;
 };
 
 console.log(drawLetters)
@@ -63,7 +92,16 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  let totalScore = 0
+
+  for (let letter of word.toUpperCase()){
+    totalScore += letterScores[letter]
+  }
+  if (word.length >= 7) {
+    totalScore += 8
+  }
+  
+  return totalScore;
 };
 
 export const highestScoreFrom = (words) => {
