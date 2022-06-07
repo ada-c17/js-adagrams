@@ -78,7 +78,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
   for (let i = 0; i < input.length; i++) {
     if (lettersInHand.includes(input[i])) {
-      let letterIndex = lettersInHand.indexOf(input[i]);
+      const letterIndex = lettersInHand.indexOf(input[i]);
       lettersInHand.splice(letterIndex, 1);
     } else {
       return false;
@@ -88,7 +88,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  if (word === "" || word === undefined) {
+  if (!word) {
     return 0;
   }
   let score = 0;
@@ -96,7 +96,7 @@ export const scoreWord = (word) => {
     score += 8;
   }
   for (let i = 0; i < word.length; i++) {
-    let letterScore = SCORES[word[i].toUpperCase()];
+    const letterScore = SCORES[word[i].toUpperCase()];
     score += letterScore;
   }
 
@@ -109,7 +109,7 @@ export const highestScoreFrom = (words) => {
   let highestScore = scoreWord(words[0]);
 
   for (let i = 1; i < words.length; i++) {
-    let currentScore = scoreWord(words[i]);
+    const currentScore = scoreWord(words[i]);
     if (currentScore > highestScore) {
       highestScore = currentScore;
       highestScoreWords = [words[i]];
@@ -138,7 +138,7 @@ export const highestScoreFrom = (words) => {
 
 //helper function for highestScoreFrom, makes output
 export const highestScoreOutput = (highestScoreWords, index) => {
-  let output = {
+  const output = {
     score: scoreWord(highestScoreWords[index]),
     word: highestScoreWords[index],
   };
