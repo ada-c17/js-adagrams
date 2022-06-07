@@ -92,50 +92,47 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   return true;
 };
 
-// export const scoreWord = (word) => {
-//   // Implement this method for wave 3
-//   let score = 0;
-//   const capWord = word.toUpperCase();
-//   if (word.length >= 7);
-//   {
-//     score = 8;
-//   }
-//   for (let letter of capWord);
-//   {
-//     score += scoreDict[letter];
-//   }
-//   return score;
-// };
+export const scoreWord = (word) => {
+  // Implement this method for wave 3
+  let score = 0;
+  // word = word.toUpperCase()
+  // this works
+  const capWord = word.toUpperCase();
+  if (capWord.length >= 7) {
+    score = 8;
+  }
+  for (let letter of capWord) {
+    // letter = Object.keys(scoreDict);
+    // console.log(scoreDict[letter]);
 
-// export const highestScoreFrom = (words) => {
-//   // Implement this method for wave 1
-//   let high_score = 0;
-//   bestWord = None;
+    // score += scoreDict.letter;
+    score += scoreDict[letter];
+  }
+  return score;
+};
 
-//   for (word of words){
-//     let score = ???????????
-//     if (score > highScore){
-//       highScore = score
-//       bestWord = word
-//     }else if (score ==highScore){
-
-//     }
-//   }
-
-// };
-
-// def score_word(word):
-//     score = 0
-//     word = word.upper()
-//     score_dict = {"A":1, "E":1, "I":1, "O":1, "U":1, "L":1, "N":1, "R":1, "S":1, "T":1,\
-//          "D":2, "G":2, "B":3, "C":3, "M":3, "P":3, "F":4, "H":4, "V":4, "W":4, "Y":4, \
-//              "K": 5, "J":8, "X":8, "Q":10, "Z":10}
-//     if len(word) >= 7:
-//         score = 8
-//     for letter in word:
-//         score_dict.keys() == letter
-//         score += score_dict.get(letter)
-//     return score
+export const highestScoreFrom = (words) => {
+  // Implement this method for wave 1
+  let highScore = 0;
+  let bestWord = null;
+  // const capWord = words.toUpperCase();
+  for (let word of words) {
+    let score = scoreWord(word);
+    if (score > highScore) {
+      highScore = score;
+      bestWord = word;
+    } else if (score == highScore) {
+      if (word.length >= 10 && word.length != bestWord.length) {
+        highScore = score;
+        bestWord = word;
+      } else if (word.length < bestWord.length && bestWord.length != 10) {
+        highScore = score;
+        bestWord = word;
+      }
+    }
+  }
+  return { word: bestWord, score: highScore };
+};
 
 // def get_highest_word_score(word_list):
 //     high_score = 0
