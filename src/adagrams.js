@@ -51,23 +51,25 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
-//   let totalScore = 0;
-//   if (word === ""){
-//     return totalScore
-//   }
-//   let word = word.isUpperCase()
-//   let wordList = word.split('');
-//   for (letter of wordList){
-//     for (let [key, value] in Object.entries(scoreChart)){
-//       if (letter in value){
-//         totalScore += key;
-//       }
-//     }
-//   }
-//   if(word.length in extraScoreChart){
-//     totalScore += 8;
-//   }
-//   return totalScore
+    if (!word){
+    return 0
+  }
+  let totalScore = 0;
+  let wordUpp = word.toUpperCase();
+  let wordList = wordUpp.split('');
+  for (let letter of wordList){
+    for (let [key, value] of Object.entries(scoreChart)){
+      // console.log(typeof key)
+      if (value.includes(letter)=== true){
+        totalScore += parseInt(key);
+      }
+    }
+  }
+
+  if (extraScoreChart.includes(word.length)){
+    totalScore += 8;
+  }
+  return totalScore;
 };
 
 
