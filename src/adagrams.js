@@ -42,6 +42,7 @@ export const drawLetters = () => {
 
   let numLetters = 0;
   while (numLetters < 10) {
+    // ri = random number anywhere from zero and to len(list)-1
     let ri = Math.floor(Math.random() * letterList.length);
     let letter = letterList[ri];
     if (letter in countDict) {
