@@ -60,16 +60,17 @@ let letterScore = {
 // makePool function will turn the object into an arrayPool
 const makePool = () => {
   let arrayPool = [];
+  
   for (let elem in letterPool){
     let freq = letterPool[elem];
-  while (freq > 0) {arrayPool.push(elem);
-                  freq -= 1;}}
+    while (freq > 0) {arrayPool.push(elem);
+          freq -= 1;}}
+  
   let arrayPoolCopy = []
-
- for (let i = 0; i < arrayPool.length; i++) {
+  for (let i = 0; i < arrayPool.length; i++) {
   arrayPoolCopy[i] = arrayPool[i];
 }
- return arrayPoolCopy
+  return arrayPoolCopy
 }
 
 
@@ -79,23 +80,24 @@ export const drawLetters = () => {
   let arrayPoolCopy = makePool();
   let drawn = []; 
   while (drawn.length < 10){
-    let RandomLetter = arrayPoolCopy[Math.floor(Math.random() * arrayPoolCopy.length)];
-    drawn.push(RandomLetter);
-    arrayPoolCopy.splice(arrayPoolCopy.indexOf(RandomLetter),1);
+     let RandomLetter = arrayPoolCopy[Math.floor(Math.random() * arrayPoolCopy.length)];
+     drawn.push(RandomLetter);
+     arrayPoolCopy.splice(arrayPoolCopy.indexOf(RandomLetter),1);
   } 
   return drawn
 }
 
 
 // wave 2=>Check to see if every letter in input word is in the list of strings named(lettersIndrawn)in right quantities,returns True if everyletter is available.
+
 export const usesAvailableLetters = (input, lettersIndrawn) => { 
-  for (let i = 0 ; i<input.length; i++) 
-  {if (!lettersIndrawn.includes(input[i]))
-  {return false;
-  }
-  else{ lettersIndrawn.splice(lettersIndrawn.indexOf(input[i]),1); }
+   for (let i = 0 ; i<input.length; i++) 
+    {if (!lettersIndrawn.includes(input[i]))
+      {return false;
+      }
+    else{ lettersIndrawn.splice(lettersIndrawn.indexOf(input[i]),1); }
 };
-return true;
+   return true;
 }
 
 
@@ -106,12 +108,12 @@ export const scoreWord = (word) => {
   let score=0;
   let wordLength=word.length
   if (!word){
-   return 0
+    return 0
   }
   word=word.toUpperCase();
   for(let letter of word){score+=letterScore[letter];}
-  if (wordLength > 6 && wordLength < 11){
-    score += 8;}
+     if (wordLength > 6 && wordLength < 11){
+     score += 8;}
   return score
    
   }
