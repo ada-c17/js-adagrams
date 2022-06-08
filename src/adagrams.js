@@ -102,12 +102,8 @@ class Adagrams {
       return result
   };
   scoreWord (word) {
-    let total = 0;
     word = word.toUpperCase();
-  
-    if (word.length >= 7){
-      total += 8;
-    }
+    let total = word.length >= 7 ? 8 : 0;
   
     for (const letter of word){
       total +=this.letterScores[letter]
