@@ -98,9 +98,6 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
 export const scoreWord = (word) => {
   let score = 0;
-  if (word == "") {
-    return 0;
-  }
 
   for (const letter of word) {
     score += score_chart[letter.toUpperCase()]
@@ -131,7 +128,7 @@ export const highestScoreFrom = (words) => {
   let winner = { "word": winning_word, "score": max_score };
 
   for (let item of score_list) {
-    if (item["score"] === max_score && item["word"].length == 10) {
+    if (item["score"] === max_score && item["word"].length === 10) {
       winner = item;
       return winner;
     } else if (item["score"] === max_score && item["word"].length < winning_word.length) {
