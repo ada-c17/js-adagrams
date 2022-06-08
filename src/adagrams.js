@@ -94,3 +94,20 @@ export const usesAvailableLetters = (input, lettersInHand) => {
     return flag
   }
 };
+
+
+export const scoreWord = (word) => {
+  let score = 0
+  if (word == "") {
+    return 0
+  }
+
+  for (const letter of word) {
+    score += score_chart[letter.toUpperCase()]
+  }
+  if (word.length >= 7) {
+    score += 8
+  }
+  return score
+};
+
