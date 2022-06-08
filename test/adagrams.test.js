@@ -5,6 +5,7 @@
 //   highestScoreFrom,
 // } from "adagrams";
 import Adagrams from "../src/adagrams";
+const Real = Adagrams;
 
 const LETTER_POOL = {
   A: 9,
