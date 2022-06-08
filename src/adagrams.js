@@ -54,25 +54,45 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   let maxScore = 0;
-  let highScoreWord = 0;
+  let highScoreWord = "";
 
-  for (let word = 0; word < words; word++) {
-    let wordScore = scoreWord(word);
+  for (let word = 0; word < words.length; word++) {
+    let input = words[word];
+    let wordScore = scoreWord(input);
     if (wordScore > maxScore) {
       maxScore = wordScore;
-      highScoreWord = word;
+      highScoreWord = input;
     } else if (wordScore === maxScore) {
-      wordLen = word.length;
-      highScoreWordLen = highScoreWord.length;
+      let wordLen = input.length;
+      let highScoreWordLen = highScoreWord.length;
       {
         if (
           highScoreWordLen !== 10 &&
           (wordLen === 10 || wordLen < highScoreWordLen)
         ) {
-          highScoreWord = word;
+          highScoreWord = input;
         }
       }
     }
   }
-  return highScoreWord, maxScore;
+  return { score: maxScore, word: highScoreWord };
 };
+// def get_highest_word_score(word_list):
+//     max_score = 0
+//     high_score_word = None
+
+//     for word in word_list:
+//         word_score = score_word(word)
+//         if word_score > max_score:
+//             max_score = word_score
+//             high_score_word = word
+//         elif word_score == max_score:
+//             word_len = len(word)
+//             high_score_word_len = len(high_score_word)
+//             # if the high score word length is not 10 AND current word length is 10 OR
+//             # if high score word length is not 10 AND current word length is less than high score word length
+//             # current word is the highest scoring word
+//             if high_score_word_len != 10 and (word_len == 10 or word_len < high_score_word_len):
+//                 high_score_word = word
+
+//     return (high_score_word, max_score)
