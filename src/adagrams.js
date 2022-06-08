@@ -59,8 +59,12 @@ export const drawLetters = () => {
 
 
   let playerHand = [];
+  let alphabet = "";
+  for (const [key, value] of Object.entries(LETTER_POOL)) {
+    alphabet += key.repeat(value);
+  }
+
   while (playerHand.length < 10) {
-    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     let randomCharacter = alphabet[Math.floor(Math.random() * alphabet.length)];
 
     if (LETTER_POOL[randomCharacter] === 0) {
@@ -68,6 +72,7 @@ export const drawLetters = () => {
     } else {
       playerHand.push(randomCharacter);
       LETTER_POOL[randomCharacter] -= 1;
+      alphabet.replace(randomCharacter, '');
     }
   }
   return playerHand;
@@ -83,6 +88,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
       boolSet.add(true);
       const index = listOfLetters.indexOf(char);
       listOfLetters.splice(index, 1);
+
     } else {
       boolSet.add(false);
     }
