@@ -139,7 +139,6 @@ export const tieBreaker = (maxScore) => {
     let score = maxScore[num][1];
     let wordLen = word.length;
     if (wordLen === 10){
-      // tieWin = [word,score];
       return [word,score];
     } else if (wordLen < smallestWordLen){
       smallestWordLen = wordLen;
@@ -151,7 +150,7 @@ export const tieBreaker = (maxScore) => {
 
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 1
+  // Implement this method for wave 4
   let maxScore = [['', 0]];
   let scoreMap = {};
 
