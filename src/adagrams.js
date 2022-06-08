@@ -1,3 +1,4 @@
+
 const score_chart = {
   'A': 1,
   'B': 3,
@@ -73,27 +74,27 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-
   let listOfLetters = lettersInHand.slice();
   let yourString = input.toUpperCase();
-  let flag = true;
-  while (flag == true) {
-    for (const char of yourString) {
-      if (listOfLetters.includes(char)) {
-        flag = true;
-        const index = listOfLetters.indexOf(char);
-        if (index > -1) {
-          listOfLetters.splice(index, 1);
-        }
-      }
-      else {
-        flag = false;
-        break;
-      }
+  let boolSet = new Set();
+
+  for (const char of yourString) {
+    if (listOfLetters.includes(char)) {
+      boolSet.add(true);
+      const index = listOfLetters.indexOf(char);
+      listOfLetters.splice(index, 1);
+    } else {
+      boolSet.add(false);
     }
-    return flag;
+  }
+
+  if (boolSet.has(false)) {
+    return false;
+  } else {
+    return true
   }
 };
+
 
 
 export const scoreWord = (word) => {
