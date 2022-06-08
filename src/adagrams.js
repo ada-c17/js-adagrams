@@ -65,7 +65,7 @@ export const drawLetters = () => {
     if (LETTER_POOL[randomCharacter] === 0) {
       continue;
     } else {
-      playerHand.push(randomCharacter)
+      playerHand.push(randomCharacter);
       LETTER_POOL[randomCharacter] -= 1;
     }
   }
@@ -75,72 +75,66 @@ export const drawLetters = () => {
 export const usesAvailableLetters = (input, lettersInHand) => {
 
   let listOfLetters = lettersInHand.slice();
-  let yourString = input.toUpperCase()
-  let flag = true
+  let yourString = input.toUpperCase();
+  let flag = true;
   while (flag == true) {
     for (const char of yourString) {
       if (listOfLetters.includes(char)) {
-        flag = true
+        flag = true;
         const index = listOfLetters.indexOf(char);
         if (index > -1) {
           listOfLetters.splice(index, 1);
         }
       }
       else {
-        flag = false
+        flag = false;
         break;
       }
     }
-    return flag
+    return flag;
   }
 };
 
 
 export const scoreWord = (word) => {
-  let score = 0
+  let score = 0;
   if (word == "") {
-    return 0
+    return 0;
   }
 
   for (const letter of word) {
     score += score_chart[letter.toUpperCase()]
+  } if (word.length >= 7) {
+    score += 8;
   }
-  if (word.length >= 7) {
-    score += 8
-  }
-  return score
+  return score;
 };
 
 
 export const highestScoreFrom = (words) => {
 
-  let score_list = []
-  let max_score = 0
-  let winning_word = ""
+  let score_list = [];
+  let max_score = 0;
+  let winning_word = "";
   for (let i = 0; i < words.length; i++) {
-    let score = scoreWord(words[i])
-
-    let results = {}
-    results["score"] = score
-    results["word"] = words[i]
-    score_list.push(results)
+    let score = scoreWord(words[i]);
+    let results = {};
+    results["score"] = score;
+    results["word"] = words[i];
+    score_list.push(results);
 
     if (score > max_score) {
-      max_score = score
-      winning_word = words[i]
+      max_score = score;
+      winning_word = words[i];
     }
   }
   let winner = { "word": winning_word, "score": max_score };
-
-
 
   for (let item of score_list) {
     if (item["score"] === max_score && item["word"].length == 10) {
       winner = item;
       return winner;
-    }
-
-    else if (item["score"] === max_score && item["word"].length < winning_word.length) {
+    } else if (item["score"] === max_score && item["word"].length < winning_word.length) {
       winner = item;
     }
   }
