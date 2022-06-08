@@ -70,12 +70,11 @@ class Adagrams {
 
     returns: letter_list which is a list of 10 letters
    */
-  const copyObject = {...this.letterPool};
 
   let letterPoolList = [];
-  for (const [letter, count] of Object.entries(copyObject)){
+  for (const [letter, count] of Object.entries(this.letterPool)){
     const subArray = Array(count).fill(letter);
-    letterPoolList = letterPoolList.concat(subArray);
+    letterPoolList.push(...subArray);
   }
   
   const letterArray = [];
@@ -88,29 +87,13 @@ class Adagrams {
   return letterArray;
   };
   usesAvailableLetters (input, lettersInHand) {
-    /**
-      parameters:
-      --a string (word)
-      --a list (letter_bank) of 10 letters
-  
-      this function checks if user word's letters are in our letter bank by:
-      --makes a copy of letter_bank
-      --for each character of the word, capitalizes it and checks to see if it is in the letter_bank copy
-          --if the character is in the letter_bank copy, then we remove that character from the letter_bank copy 
-          --if not, return False
-      --return True indicating all letters in our word were in the letter_bank list
-  
-      returns: Boolean
-     */
-      const copyArray = [...lettersInHand];
       let result = true
-  
       const lettersInHandObject = {}
-      copyArray.forEach(letter => lettersInHandObject[letter] = (lettersInHandObject[letter] || 0) + 1);
+      lettersInHand.forEach(letter => lettersInHandObject[letter] = (lettersInHandObject[letter] || 0) + 1);
   
       for(let character of input){
         character = character.toUpperCase();
-        if (character in lettersInHandObject && lettersInHandObject[character] > 0){
+        if (lettersInHandObject[character] > 0){
           lettersInHandObject[character]--;
         }else{
           result = false;
@@ -119,20 +102,6 @@ class Adagrams {
       return result
   };
   scoreWord (word) {
-    /**
-        parameters:
-      --string (word)
-  
-      this function scores the user word by:
-      --sets a running total variable to 0
-      --capitalizes the word
-      --checks if the word is 7 characters or longer
-          --if so, adds 8 points total score
-      --for each letter, gets the associated points from letterScores and adds it to total
-  
-      returns: integer (total)
-     */
-  
     let total = 0;
     word = word.toUpperCase();
   
