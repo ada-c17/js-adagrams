@@ -56,14 +56,15 @@ export const drawLetters = () => {
     'Y': 2,
     'Z': 1
   };
-
-
+  // create a string that holds all the avaliable letters - including probability
   let playerHand = [];
   let alphabet = "";
   for (const [key, value] of Object.entries(LETTER_POOL)) {
     alphabet += key.repeat(value);
   }
 
+  // create 10 letters for the player hand
+  // subtract the letter from avaliable letters
   while (playerHand.length < 10) {
     let randomCharacter = alphabet[Math.floor(Math.random() * alphabet.length)];
 
@@ -78,22 +79,26 @@ export const drawLetters = () => {
   return playerHand;
 };
 
+
 export const usesAvailableLetters = (input, lettersInHand) => {
+  //function returns True if all letters in input are in lettersInHand
+
   let listOfLetters = lettersInHand.slice();
   let yourString = input.toUpperCase();
   let boolSet = new Set();
-
+  //if letter is in lettersInHand, true is added to the set
   for (const char of yourString) {
     if (listOfLetters.includes(char)) {
       boolSet.add(true);
       const index = listOfLetters.indexOf(char);
       listOfLetters.splice(index, 1);
-
+      // if letter is NOT in lettersInHand, false is added to the set 
     } else {
       boolSet.add(false);
     }
   }
 
+  // determine if there is invalid letter or not by checking if false exist
   if (boolSet.has(false)) {
     return false;
   } else {
@@ -104,6 +109,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
 
 export const scoreWord = (word) => {
+  //calculates each score for each letter 
   let score = 0;
 
   for (const letter of word) {
