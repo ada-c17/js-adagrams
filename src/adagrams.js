@@ -100,7 +100,7 @@ class Adagrams {
       }
     }
     return tenLetters;
-  }
+  };
 
   static usesAvailableLetters = (input, lettersInHand) => {
     // Implement this method for wave 2
@@ -112,7 +112,7 @@ class Adagrams {
           lettersInHand.filter((el) => el === val).length
     );
     return isValid;
-  }
+  };
 
   static scoreWord = (word) => {
     // Implement this method for wave 3
@@ -131,7 +131,7 @@ class Adagrams {
       }
     }
     return totalPoints;
-  }
+  };
 
   static highestScoreFrom = (words) => {
     // Implement this method for wave 4
@@ -161,7 +161,7 @@ class Adagrams {
     }
 
     return { word: maxWord, score: highestScore };
-  }
+  };
 }
 
 export default Adagrams;
