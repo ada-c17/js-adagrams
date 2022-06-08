@@ -72,4 +72,25 @@ export const drawLetters = () => {
   return playerHand;
 };
 
+export const usesAvailableLetters = (input, lettersInHand) => {
 
+  let listOfLetters = lettersInHand.slice();
+  let yourString = input.toUpperCase()
+  let flag = true
+  while (flag == true) {
+    for (const char of yourString) {
+      if (listOfLetters.includes(char)) {
+        flag = true
+        const index = listOfLetters.indexOf(char);
+        if (index > -1) {
+          listOfLetters.splice(index, 1);
+        }
+      }
+      else {
+        flag = false
+        break;
+      }
+    }
+    return flag
+  }
+};
