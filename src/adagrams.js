@@ -75,21 +75,26 @@ export const usesAvailableLetters = (input, lettersInHand) => {
     const guessedLetters = Array.from(input);
     let booleanList = [];
     const letterCountGuessedLetters = guessedLetters.reduce((obj, letter) => {
-        const count = obj[letter] || 0;
-        return {...obj, [letter]: count + 1 };
+        //counts the number of letters in the input
+        const count = obj[letter] || 0; //if the letter is not in the object, it will be set to 0
+        return {...obj, [letter]: count + 1 }; //adds the letter to the object
     }, {});
     const letterCountLettersInHand = lettersInHand.reduce((obj, letter) => {
-        const count = obj[letter] || 0;
-        return {...obj, [letter]: count + 1 };
+        //counts the number of letters in the hand
+        const count = obj[letter] || 0; //if the letter is not in the object, it will be set to 0
+        return {...obj, [letter]: count + 1 }; //adds the letter to the object
     }, {});
     for (const [letter, count] of Object.entries(letterCountGuessedLetters)) {
+        //checks if the letter is in the hand
         if (count <= letterCountLettersInHand[letter]) {
+            //if the letter is in the hand, true or false will be added to the boolean list
             booleanList.push(true);
         } else {
             booleanList.push(false);
         }
     }
     if (booleanList.every(Boolean)) {
+        //if all the booleans are true, return true
         return true;
     } else {
         return false;
@@ -109,12 +114,16 @@ export const scoreWord = (word) => {
     word = word.toUpperCase();
     let score = 0;
     if (word === '') {
+        //if word is empty, return 0
         return score;
     }
     for (const letter of word) {
+        //for each letter in word
         for (const [points, letters] of Object.entries(scoreChart)) {
+            //for each letter in scoreChart
             if (letters.includes(letter)) {
-                score += parseInt(points);
+                //if letter is in scoreChart
+                score += parseInt(points); //add points to score
             }
         }
     }
@@ -132,7 +141,7 @@ export const highestScoreFrom = (words) => {
     }
     const getMaxScore = (object) => {
         return Object.keys(object).filter((x) => {
-            return object[x] == Math.max.apply(null, Object.values(object));
+            return object[x] == Math.max.apply(null, Object.values(object)); // get the max value
         });
     };
     const highestScoringWords = getMaxScore(scores);
@@ -152,9 +161,10 @@ export const highestScoreFrom = (words) => {
                 }
             }
             if (tenLongWordCount > 1) {
+                // if there are more than one 10-letter words, return the first one
                 return { word: tenLongWords[0], score: scoreWord(tenLongWords[0]) };
             } else {
-                return { word: longestWord, score: scoreWord(longestWord) };
+                return { word: longestWord, score: scoreWord(longestWord) }; //
             }
         } else {
             // get shortest word
@@ -164,6 +174,7 @@ export const highestScoreFrom = (words) => {
             return { word: shortestWord, score: scoreWord(shortestWord) };
         }
     } else {
+        // if there is only one word, return it
         return {
             word: highestScoringWords[0],
             score: scoreWord(highestScoringWords[0]),
