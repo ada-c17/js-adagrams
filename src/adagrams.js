@@ -1,4 +1,31 @@
-const ALPHABET = ["A", "B","C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+const ALPHABET = [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
+];
 
 const LETTER_POOL = {
   A: 9,
@@ -58,77 +85,83 @@ const SCORE_CHART = {
   Z: 10,
 };
 
-export const drawLetters = () => {
-  // Implement this method for wave 1
-  const tenLetters = [];
-	let letterPoolCopy = {...LETTER_POOL}
-	while (tenLetters.length < 10) {
-		let randomLetter = ALPHABET[Math.floor(Math.random() * ALPHABET.length)];
-		for (let [letter, count] of Object.entries(letterPoolCopy)) {
-		if (randomLetter === letter && count !== 0) {
-				letterPoolCopy [randomLetter] -= 1;
-				tenLetters.push(randomLetter);
-			}
-		}
-	}
-	return tenLetters;
-};
-
-export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
-  const userInput = input.toUpperCase().split("");
-  const isValid = userInput.every((val) =>
-      lettersInHand.includes(val) &&
-      userInput.filter((el) => el === val).length <=
-        lettersInHand.filter((el) => el === val).length
-  );
-  return isValid;
-};
-
-export const scoreWord = (word) => {
-  // Implement this method for wave 3
-  let totalPoints = 0;
-
-  const wordList = word.toUpperCase().split("");
-
-  if (wordList.length >= 7) {
-    totalPoints += 8;
-  }
-
-  wordList.forEach(sumUpPoints);
-  function sumUpPoints(item) {
-    if (item in SCORE_CHART) {
-      totalPoints += SCORE_CHART[item];
+class Adagrams {
+  static drawLetters = () => {
+    // Implement this method for wave 1
+    const tenLetters = [];
+    let letterPoolCopy = { ...LETTER_POOL };
+    while (tenLetters.length < 10) {
+      let randomLetter = ALPHABET[Math.floor(Math.random() * ALPHABET.length)];
+      for (let [letter, count] of Object.entries(letterPoolCopy)) {
+        if (randomLetter === letter && count !== 0) {
+          letterPoolCopy[randomLetter] -= 1;
+          tenLetters.push(randomLetter);
+        }
+      }
     }
+    return tenLetters;
   }
 
-  return totalPoints;
-};
+  static usesAvailableLetters = (input, lettersInHand) => {
+    // Implement this method for wave 2
+    const userInput = input.toUpperCase().split("");
+    const isValid = userInput.every(
+      (val) =>
+        lettersInHand.includes(val) &&
+        userInput.filter((el) => el === val).length <=
+          lettersInHand.filter((el) => el === val).length
+    );
+    return isValid;
+  }
 
-export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
-  const wordsPoints = {};
-  const tiedWords = [];
-  let maxWord = "";
+  static scoreWord = (word) => {
+    // Implement this method for wave 3
+    let totalPoints = 0;
 
-  words.forEach((element) => {
-    wordsPoints[element] = scoreWord(element);
-  });
+    const wordList = word.toUpperCase().split("");
 
-  const highestScore = Math.max(...Object.values(wordsPoints));
-  for (var word in wordsPoints) {
-    if (wordsPoints[word] === highestScore) {
-      tiedWords.push(word);
+    if (wordList.length >= 7) {
+      totalPoints += 8;
     }
-  }
 
-  for (let word of tiedWords) {
-    if (word.length === 10) {
-      maxWord = word;
-      break;
+    wordList.forEach(sumUpPoints);
+    function sumUpPoints(item) {
+      if (item in SCORE_CHART) {
+        totalPoints += SCORE_CHART[item];
+      }
     }
-    maxWord = tiedWords.sort((word1, word2) => word1.length - word2.length)[0];
+    return totalPoints;
   }
 
-  return { word: maxWord, score: highestScore };
-};
+  static highestScoreFrom = (words) => {
+    // Implement this method for wave 4
+    const wordsPoints = {};
+    const tiedWords = [];
+    let maxWord = "";
+
+    words.forEach((element) => {
+      wordsPoints[element] = Adagrams.scoreWord(element);
+    });
+
+    const highestScore = Math.max(...Object.values(wordsPoints));
+    for (var word in wordsPoints) {
+      if (wordsPoints[word] === highestScore) {
+        tiedWords.push(word);
+      }
+    }
+
+    for (let word of tiedWords) {
+      if (word.length === 10) {
+        maxWord = word;
+        break;
+      }
+      maxWord = tiedWords.sort(
+        (word1, word2) => word1.length - word2.length
+      )[0];
+    }
+
+    return { word: maxWord, score: highestScore };
+  }
+}
+
+export default Adagrams;
