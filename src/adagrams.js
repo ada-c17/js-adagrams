@@ -1,6 +1,33 @@
-const LETTER_POOL = [
-  "A", "A", "A", "A", "A", "A", "A", "A", "A", "B", "B", "C","C", "D", "D", "D",
-  "D", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "F", "F","G", "G", "G", "H", "H", "I", "I", "I", "I", "I", "I", "I", "I", "I", "J", "K", "L", "L", "L", "L", "M", "M", "N", "N", "N", "N", "N", "N", "O", "O", "O", "O", "O", "O", "O", "O", "P", "P", "Q", "R", "R", "R", "R", "R", "R", "S", "S", "S", "S", "T", "T", "T", "T", "T", "T", "U", "U", "U", "U", "V", "V", "W", "W", "X", "Y", "Y", "Z"];
+const ALPHABET = ["A", "B","C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+
+const LETTER_POOL = {
+  A: 9,
+  B: 2,
+  C: 2,
+  D: 4,
+  E: 12,
+  F: 2,
+  G: 3,
+  H: 2,
+  I: 9,
+  J: 1,
+  K: 1,
+  L: 4,
+  M: 2,
+  N: 6,
+  O: 8,
+  P: 2,
+  Q: 1,
+  R: 6,
+  S: 4,
+  T: 6,
+  U: 4,
+  V: 2,
+  W: 2,
+  X: 1,
+  Y: 2,
+  Z: 1,
+};
 
 const SCORE_CHART = {
   A: 1,
@@ -34,15 +61,16 @@ const SCORE_CHART = {
 export const drawLetters = () => {
   // Implement this method for wave 1
   const tenLetters = [];
-	const uniqueIndex = [];
-  while(tenLetters.length < 10) {
-		let index = Math.floor((Math.random()*LETTER_POOL.length));
-		if (!uniqueIndex.includes(index)) {
-			uniqueIndex.push(index);
-			const letter = LETTER_POOL[index];
-			tenLetters.push(letter);
+	let letterPoolCopy = {...LETTER_POOL}
+	while (tenLetters.length < 10) {
+		let randomLetter = ALPHABET[Math.floor(Math.random() * ALPHABET.length)];
+		for (let [letter, count] of Object.entries(letterPoolCopy)) {
+		if (randomLetter === letter && count !== 0) {
+				letterPoolCopy [randomLetter] -= 1;
+				tenLetters.push(randomLetter);
+			}
 		}
-  }
+	}
 	return tenLetters;
 };
 
