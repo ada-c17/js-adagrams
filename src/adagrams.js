@@ -58,6 +58,7 @@ const letterScores = {
   Z: 10,
 };
 
+
 const generateRandomLetter = () => {
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   return alphabet[Math.floor(Math.random() * alphabet.length)];
@@ -128,25 +129,6 @@ export const scoreWord = (word) => {
 };  
 
 
-// export const tieBreaker = (maxScore) => {
-//   let tie = new Set();
-//   let counter = 1000;
-//   let length = maxScore.length;
-//   for (let num = 0; num < length; i++){
-//     if (length === 10){
-//       tie.add(maxScore[num]);
-//       return tie;
-//     } else{
-//       if (counter === length){
-//         continue;
-//       } else{
-//         counter = length;
-//         tie.add(maxScore[num]);
-//       };
-//     };
-//   };
-// };
-
 export const tieBreaker = (maxScore) => {
   let tieWin = [];
   let smallestWordLen = 10;
@@ -185,8 +167,6 @@ export const highestScoreFrom = (words) => {
     let tie = tieBreaker(maxScore);
     scoreMap = {'word': tie[0], 'score': tie[1]};
   } else {
-    // let winnerList = [maxScore[0][0]];
-    // winnerList.add(maxScore[0][0]);
     scoreMap = {'word': maxScore[0][0], 'score': maxScore[0][1]};
   };
   return scoreMap;
