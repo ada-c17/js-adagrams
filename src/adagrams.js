@@ -124,7 +124,7 @@ export const scoreWord = (word) => {
 
 
   export const highestScoreFrom = (words) => { 
-  let highestWordObject = { word: None, score: 0 };
+  let highestWordObject = { word: "", score: 0 };
   for (let word in words) {
     if (scoreWord(words[word]) > highestWordObject.score) {
       highestWordObject.word = words[word];
