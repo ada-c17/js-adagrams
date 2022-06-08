@@ -111,3 +111,43 @@ export const scoreWord = (word) => {
   return score
 };
 
+
+export const highestScoreFrom = (words) => {
+
+  let score_list = []
+  let max_score = 0
+  let winning_word = ""
+  for (let i = 0; i < words.length; i++) {
+    let score = scoreWord(words[i])
+
+    let results = {}
+    results["score"] = score
+    results["word"] = words[i]
+    score_list.push(results)
+
+    if (score > max_score) {
+      max_score = score
+      winning_word = words[i]
+    }
+  }
+  let winner = { "word": winning_word, "score": max_score };
+
+
+
+  for (let item of score_list) {
+    if (item["score"] === max_score && item["word"].length == 10) {
+      winner = item;
+      return winner;
+    }
+
+    else if (item["score"] === max_score && item["word"].length < winning_word.length) {
+      winner = item;
+    }
+  }
+  return winner;
+};
+
+
+
+
+
