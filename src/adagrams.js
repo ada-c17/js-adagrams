@@ -37,6 +37,7 @@ export const drawLetters = () => {
     }
   };
   // Fisher-Yates shuffle algorithm
+  // https://masteringjs.io/tutorials/fundamentals/shuffle#:~:text=To%20properly%20shuffle%20an%20array%20in%20JavaScript%2C%20use,random%20element%20in%20the%20array%20as%20shown%20below.
   for (let i = letters.length - 1; i >= 1; i--) {
     let j = Math.floor(Math.random() * (i + 1));
     let temp = letters[j];
@@ -78,7 +79,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
     inputLetterFreq[letter.toUpperCase()] > lettersInHandFreq[letter
     .toUpperCase()]) {
       return false;
-    } 
+    }
   }
   return true;
 };
