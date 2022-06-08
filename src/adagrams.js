@@ -48,7 +48,7 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
-  let checkList = lettersInHand;
+  let checkList = [...lettersInHand];
   input = input.toUpperCase();
   for (let l = 0; input.length > l; l++) {
     if (!checkList.includes(input[l])) {
