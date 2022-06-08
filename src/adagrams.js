@@ -84,44 +84,45 @@ export const drawLetters = () => {
 export const usesAvailableLetters = (input, lettersIndrawn) => { 
   for (let i=0 ; i<input.length; i++) 
   {if (!lettersIndrawn.includes(input[i]))
-  {return false}
+  {return false;
+  }
   else{ lettersIndrawn.splice(lettersIndrawn.indexOf(input[i]),1) }
 };
-return true;}
+return true;
+}
 
 // Wave 3=>for each word given which is a string of characters, returns an integer which is the number of points of each letter(on the basis of the score chart and words with length 7/8/9/10 has 8 more points)
 export const scoreWord = (word) => {
-  const correctWord=word.toUpperCase();
   let score=0;
-  
-  if (correctWord.length > 6 && correctWord.length < 11){
+  let wordLength=word.length
+  if (!word){
+   return 0
+  }
+  word=word.toUpperCase();
+  for(let letter of word){score+=letterScore[letter];}
+  if (wordLength > 6 && wordLength < 11){
     score+=8}
-  for(let i=0; i<correctWord.length;i++){score+=letterScore[correctWord[i]];}
+  
   return score
    
   }
   // wave 4=> calculate which word in words(which is the only parameter of this function) has the highest score. Returns an object with the highest scoring word and its points. In the case of tie these are the rules:
   // 1- the word which is ten letters long wins 2- If there is no such word,shortest word will win 3-If no such words again, first word will win
 export const highestScoreFrom = (words) => { 
-  let highestWords=[]
-  let shortestWord=highestWords[0]
-  let highestWord=words[0];
-  for (const word of words){
-    if (scoreWord(word)>highestWord){
-      let highestWord=word}}
-  for (const word of words){
-    if (scoreWord(word)==scoreWord(highestWord)){
-      highestWords.push(word)
-    }
-  for (const word of highestWords){ if (word.length<shortestWord){
-    let shortestWord=word
-  }}
-    for (const word of highestWords){
-      if (word.length===10){let highestWord=word}
-      else { let highestWord=shortestWord}
-    }
+  let highestWordObject = { word: None, score: 0 };
+  for (let word in words) {
+    if (scoreWord(words[word]) > highestWordObject.score) {
+      highestWordObject.word = words[word];
+      highestWordObject.score = scoreWord(words[word]);
+    } 
+    else if (scoreWord(words[word]) === highestWordObject.score && words[word].length < highestWordObject.word.length && highestWordObject.word.length < 10) {
+      highestWordObject.word = words[word];
+      highestWordObject.score = scoreWord(words[word]);
+    } 
+    else if (scoreWord(words[word]) === highestWordObject.score && words[word].length === 10 && highestWordObject.word.length < 10) {
+      highestWordObject.word = words[word];
+      highestWordObject.score = scoreWord(words[word]);
   }
-    let highestWordObject={'word':highestWord,'score':scoreWord(highestWord)}
-  return highestWordObject
+}
+  return highestWordObject;}
 
-};
