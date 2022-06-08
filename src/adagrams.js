@@ -54,44 +54,54 @@ let letterScore = {
   'Y': 4, 
   'Z': 10
 }
+
+
+
 // makePool function will turn the object into an arrayPool
-const makePool=()=>{
-  let arrayPool=[];
+const makePool = () => {
+  let arrayPool = [];
   for (let elem in letterPool){
-    let freq=letterPool[elem];
-  while (freq>0){arrayPool.push(elem);
-                  freq-=1;}}
-  let arrayPoolCopy=[]
+    let freq = letterPool[elem];
+  while (freq > 0) {arrayPool.push(elem);
+                  freq -= 1;}}
+  let arrayPoolCopy = []
 
  for (let i = 0; i < arrayPool.length; i++) {
   arrayPoolCopy[i] = arrayPool[i];
 }
  return arrayPoolCopy
 }
+
+
 // Wave 1=>Build a hand of ten letters which are letters randomly taken from arrayPool
 
 export const drawLetters = () => {
   let arrayPoolCopy = makePool();
-  let drawn=[]; 
-  while (drawn.length<10){
+  let drawn = []; 
+  while (drawn.length < 10){
     let RandomLetter = arrayPoolCopy[Math.floor(Math.random() * arrayPoolCopy.length)];
     drawn.push(RandomLetter);
     arrayPoolCopy.splice(arrayPoolCopy.indexOf(RandomLetter),1);
   } 
   return drawn
 }
+
+
 // wave 2=>Check to see if every letter in input word is in the list of strings named(lettersIndrawn)in right quantities,returns True if everyletter is available.
 export const usesAvailableLetters = (input, lettersIndrawn) => { 
-  for (let i=0 ; i<input.length; i++) 
+  for (let i = 0 ; i<input.length; i++) 
   {if (!lettersIndrawn.includes(input[i]))
   {return false;
   }
-  else{ lettersIndrawn.splice(lettersIndrawn.indexOf(input[i]),1) }
+  else{ lettersIndrawn.splice(lettersIndrawn.indexOf(input[i]),1); }
 };
 return true;
 }
 
+
+
 // Wave 3=>for each word given which is a string of characters, returns an integer which is the number of points of each letter(on the basis of the score chart and words with length 7/8/9/10 has 8 more points)
+
 export const scoreWord = (word) => {
   let score=0;
   let wordLength=word.length
@@ -101,14 +111,17 @@ export const scoreWord = (word) => {
   word=word.toUpperCase();
   for(let letter of word){score+=letterScore[letter];}
   if (wordLength > 6 && wordLength < 11){
-    score+=8}
-  
+    score += 8;}
   return score
    
   }
+  
+  
   // wave 4=> calculate which word in words(which is the only parameter of this function) has the highest score. Returns an object with the highest scoring word and its points. In the case of tie these are the rules:
   // 1- the word which is ten letters long wins 2- If there is no such word,shortest word will win 3-If no such words again, first word will win
-export const highestScoreFrom = (words) => { 
+
+
+  export const highestScoreFrom = (words) => { 
   let highestWordObject = { word: None, score: 0 };
   for (let word in words) {
     if (scoreWord(words[word]) > highestWordObject.score) {
