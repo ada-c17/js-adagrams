@@ -158,7 +158,7 @@ export const highestScoreFrom = (words) => {
 
   let max_score = 0;
 
-  for (let i = 1; word_scores.length; i -= 2) {
+  for (let i = word_scores.length; word_scores.length; i -= 2) {
     if (word_scores[i] > max_score) {
       max_score = word_scores[i];
     }
