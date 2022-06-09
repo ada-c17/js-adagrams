@@ -132,11 +132,19 @@ export const highestScoreFrom = (words) => {
   const word_scores = [];
   /* 
   1) For loop through each word in `words`
-  2) An object is pushed to `word_scores`--the key is a string of the word and the value is a number representing the word's score
-  3) Initalize a variable `max_score` where the first object's score as the max value
+
+  2) An object is pushed to `word_scores`--the key is a string of the word and 
+  the value is a number representing the word's score
+
+  3) Initalize a variable `max_score` where the first object's score is the max 
+  value. Initialize an array called `ties` that hold 
+
   4) Loop through `word_scores`
+
+  5) If the word's score is greater than or equal to the `max_score`, 
   */
-  for (const word of words) {
-    word_scores.push({word: scoreWord(word)})
+
+  for (let i = 0; i < words.lengthk; i++) {
+    word_scores.push({words[i]: scoreWord(words[i])})
   }
 };
