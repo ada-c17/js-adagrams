@@ -41,7 +41,7 @@ export const drawLetters = () => {
       // console.log("key:", key);
     }
   }
-  console.log("allLetters:", allLetters);
+  // console.log("allLetters:", allLetters);
   let indexie = [];
   // let n = 0;
   while (indexie.length < 10) {
@@ -64,6 +64,29 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
+  // input is a string of letters.
+  // lettersInHand is an array of letters.
+  // this seems a bit long. Maybe I can use another method to count letter in ...
+  // or maybe I can make another function to do this.
+  const lettersArray = lettersInHand;
+  for (let letter of input) {
+    let inputCount = 0;
+    let handCount = 0;
+    for (let i = 0; i < input.length; i++) {
+      if (input[i] === letter) {
+        inputCount++;
+      }
+    }
+    for (let i = 0; i < lettersInHand.length; i++) {
+      if (lettersInHand[i] === letter) {
+        handCount++;
+      }
+    }
+    if (!lettersInHand.includes(letter) || inputCount > handCount) {
+      return false;
+    }
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
