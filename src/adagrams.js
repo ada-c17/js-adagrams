@@ -1,3 +1,5 @@
+import { indexOf } from "core-js/core/array";
+
 export const drawLetters = () => {
   // Implement this method for wave 1
   const scoreChart = {
@@ -129,26 +131,41 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
-  const word_scores = [];
-  
-  // I want words_scores = [{X: 8}, {XX: 16}, {XXX: 24}, {XXXX: 32}]
-  // or word_scores = ['X', 8, 'XX', 16, 'XXX', 24, 'XXXX', 32]
-
-  for (let i = 0; i < words.length; i++) {
-    word_scores.push({[words[i]]: scoreWord(words[i])})
-  }
 
   /* 
   1) For loop through each word in `words`
 
-  2) An object is pushed to `word_scores`--the key is a string of the word and 
-  the value is a number representing the word's score
+  2) An string that represents the word and a number representing the score is pushed to `word_scores`
 
   3) Initalize a variable `max_score` where the first object's score is the max 
   value. Initialize an array called `ties` that hold 
 
-  4) Loop through `word_scores`
+  4) Loop through `word_scores` from the end to the beginnning with a step of -2.
 
-  5) If the word's score is greater than or equal to the `max_score`, 
+  5) If the `word_score[i]` is is greater than or equal to the `max_score`, reassign `max_score` to `word_scores[i]`.
   */
+
+  const word_scores = [];
+  
+  // words_scores can be like this = [{X: 8}, {XX: 16}, {XXX: 24}, {XXXX: 32}]
+  // or maybe this = ['X', 8, 'XX', 16, 'XXX', 24, 'XXXX', 32]
+
+  for (let i = 0; i < words.length; i++) {
+    // word_scores.push({[words[i]]: scoreWord(words[i])})
+    word_scores.push(words[i])
+    word_scores.push(scoreWord(words[i]))
+  }
+
+  let max_score = 0;
+
+  for (let i = 1; word_scores.length; i -= 2) {
+    if (word_scores[i] > max_score) {
+      max_score = word_scores[i];
+    }
+  }
+
+  return {
+    word: word_scores[indexOf(max_score) - 1], 
+    score: max_score
+  };
 };
