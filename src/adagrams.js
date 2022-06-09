@@ -158,14 +158,15 @@ export const highestScoreFrom = (words) => {
 
   let max_score = 0;
 
-  for (let i = word_scores.length; word_scores.length; i -= 2) {
+  // something is up with my condition here
+  for (let i = word_scores.length; i < word_scores.length; i -= 2) {
     if (word_scores[i + 1] > max_score) {
       max_score = word_scores[i + 1];
     }
   }
 
   return {
-    word: word_scores[indexOf(max_score) - 1], 
+    word: word_scores.indexOf(max_score) - 1, 
     score: max_score
   };
 };
