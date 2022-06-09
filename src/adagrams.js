@@ -130,6 +130,14 @@ export const scoreWord = (word) => {
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
   const word_scores = [];
+  
+  // I want words_scores = [{X: 8}, {XX: 16}, {XXX: 24}, {XXXX: 32}]
+  // or word_scores = ['X', 8, 'XX', 16, 'XXX', 24, 'XXXX', 32]
+
+  for (let i = 0; i < words.length; i++) {
+    word_scores.push({[words[i]]: scoreWord(words[i])})
+  }
+
   /* 
   1) For loop through each word in `words`
 
@@ -143,8 +151,4 @@ export const highestScoreFrom = (words) => {
 
   5) If the word's score is greater than or equal to the `max_score`, 
   */
-
-  for (let i = 0; i < words.lengthk; i++) {
-    word_scores.push({words[i]: scoreWord(words[i])})
-  }
 };
