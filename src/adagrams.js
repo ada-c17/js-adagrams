@@ -1,5 +1,3 @@
-import { indexOf } from "core-js/core/array";
-
 export const drawLetters = () => {
   // Implement this method for wave 1
   const scoreChart = {
@@ -143,6 +141,8 @@ export const highestScoreFrom = (words) => {
   4) Loop through `word_scores` from the end to the beginnning with a step of -2.
 
   5) If the `word_score[i]` is is greater than or equal to the `max_score`, reassign `max_score` to `word_scores[i]`.
+
+  6) Return an object. The first property has the key word, the value is the index position of `max_score` - 1. The second property has a the key of score and a value of `max_score`.
   */
 
   const word_scores = [];
