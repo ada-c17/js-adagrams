@@ -119,6 +119,17 @@ export const scoreWord = (word) => {
     Q: 10,
     Z: 10,
   };
+  let score = 0;
+  if (word.length > 0) {
+    const wordUppercase = word.toUpperCase();
+    for (let i = 0; i < wordUppercase.length; i++) {
+      score += scoreChart[wordUppercase[i]];
+    }
+    if (word.length > 6) {
+      score += 8;
+    }
+  }
+  return score;
 };
 
 export const highestScoreFrom = (words) => {
