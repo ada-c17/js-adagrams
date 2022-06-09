@@ -129,7 +129,7 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
-
+  // tests for this loop run eternally in vscode
   /* 
   1) For loop through each word in `words`
 
@@ -144,11 +144,11 @@ export const highestScoreFrom = (words) => {
 
   6) Return an object. The first property has the key word, the value is the index position of `max_score` - 1. The second property has a the key of score and a value of `max_score`.
   */
+  
+  // // words_scores can be like this = [{X: 8}, {XX: 16}, {XXX: 24}, {XXXX: 32}]
+  // // or maybe this = ['X', 8, 'XX', 16, 'XXX', 24, 'XXXX', 32]
 
   const word_scores = [];
-  
-  // words_scores can be like this = [{X: 8}, {XX: 16}, {XXX: 24}, {XXXX: 32}]
-  // or maybe this = ['X', 8, 'XX', 16, 'XXX', 24, 'XXXX', 32]
 
   for (let i = 0; i < words.length; i++) {
     // word_scores.push({[words[i]]: scoreWord(words[i])})
@@ -159,8 +159,8 @@ export const highestScoreFrom = (words) => {
   let max_score = 0;
 
   for (let i = word_scores.length; word_scores.length; i -= 2) {
-    if (word_scores[i] > max_score) {
-      max_score = word_scores[i];
+    if (word_scores[i + 1] > max_score) {
+      max_score = word_scores[i + 1];
     }
   }
 
