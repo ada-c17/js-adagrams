@@ -36,6 +36,7 @@ export const drawLetters = () => {
       letters.push(letter);
     }
   };
+  // not able to create a shuffling algo myself
   // Fisher-Yates shuffle algorithm
   // https://masteringjs.io/tutorials/fundamentals/shuffle#:~:text=To%20properly%20shuffle%20an%20array%20in%20JavaScript%2C%20use,random%20element%20in%20the%20array%20as%20shown%20below.
   for (let i = letters.length - 1; i >= 1; i--) {
@@ -59,7 +60,6 @@ export const usesAvailableLetters = (input, lettersInHand) => {
     }
   };
 
-
   let lettersInHandFreq = {};
 
   for (const letter of lettersInHand) {
@@ -70,7 +70,6 @@ export const usesAvailableLetters = (input, lettersInHand) => {
     }
   };
 
-  
   for (const letter of input) {
     /* If the letter does not exist in the `lettersInHandFreq` or the `input` letter 
     frequency is greater than `lettersInHand`'s frequency, return false. Otherwise,
@@ -130,9 +129,14 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
-  const scores = [];
-  
-  for (let i = 0; i < words.length; i++) {
-    scores.push(scoreWord(i));
+  const word_scores = [];
+  /* 
+  1) For loop through each word in `words`
+  2) An object is pushed to `word_scores`--the key is a string of the word and the value is a number representing the word's score
+  3) Initalize a variable `max_score` where the first object's score as the max value
+  4) Loop through `word_scores`
+  */
+  for (const word of words) {
+    word_scores.push({word: scoreWord(word)})
   }
 };
