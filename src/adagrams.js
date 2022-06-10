@@ -51,7 +51,6 @@ export const drawLetters = () => {
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
   let inputLetterFreq = {};
-
   for (const letter of input) {
     if (letter.toUpperCase() in inputLetterFreq) {
       inputLetterFreq[letter.toUpperCase()] += 1;
@@ -61,7 +60,6 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   };
 
   let lettersInHandFreq = {};
-
   for (const letter of lettersInHand) {
     if (letter.toUpperCase() in lettersInHandFreq) {
       lettersInHandFreq[letter.toUpperCase()] += 1;
@@ -115,12 +113,12 @@ export const scoreWord = (word) => {
   };
 
   let score = 0;
-
   for (const letter of word) {
     if (letter.toUpperCase() in scoreChart) {
       score += scoreChart[letter.toUpperCase()];
     }
   }
+
   if (word.length >= 7 && word.length <= 10) {
     score += 8;
   }
@@ -129,9 +127,6 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
-  // tests for this loop run eternally in vscode
-  // // or maybe this = ['X', 8, 'XX', 16, 'XXXX', 32, 'XXXX', 32]
-
   const wordScores = [];
   for (let i = 0; i < words.length; i++) {
     wordScores.push(words[i])
@@ -162,9 +157,8 @@ export const highestScoreFrom = (words) => {
       }
     }
   }
-  
   return {
     word: winningWord,
-    score: 
+    score: scoreWord(winningWord)
   };
 };
