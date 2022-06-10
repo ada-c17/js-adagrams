@@ -134,20 +134,6 @@ export const scoreWord = (word) => {
 
 export const getIndexTieBreak = (highestScoringWords) => {
   // Break ties from highestScoreFrom
-  // if (word.length === 10) {
-  //   if (highestScoringWords[0].length === 10) {
-  //     console.log(
-  //       highestScoringWords[0],
-  //       "highestScoringWords[0].length equals 10: ",
-  //       highestScoringWords[0].length
-  //     );
-  //     break;
-  //   } else {
-  //     highestScoringWords = [word];
-  //   }
-  // } else if (word.length < highestScoringWords[0].length) {
-  //   highestScoringWords = [word];
-  // }
   let highestIndex = 0;
   for (let i = 0; i < highestScoringWords.length; i++) {
     if (highestScoringWords[i].length === 10) {
@@ -158,12 +144,6 @@ export const getIndexTieBreak = (highestScoringWords) => {
       highestIndex = i;
     }
   }
-  console.log(
-    "highestScoringWords tie list: ",
-    highestScoringWords,
-    "highestIndex: ",
-    highestIndex
-  );
   return highestIndex;
 };
 
