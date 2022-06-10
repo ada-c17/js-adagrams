@@ -120,7 +120,7 @@ export const scoreWord = (word) => {
     Z: 10,
   };
   let score = 0;
-  if (word.length > 0) {
+  if (word.length > 0 && typeof word === "string") {
     const wordUppercase = word.toUpperCase();
     for (let i = 0; i < wordUppercase.length; i++) {
       score += scoreChart[wordUppercase[i]];
@@ -132,6 +132,57 @@ export const scoreWord = (word) => {
   return score;
 };
 
+export const getIndexTieBreak = (highestScoringWords) => {
+  // Break ties from highestScoreFrom
+  // if (word.length === 10) {
+  //   if (highestScoringWords[0].length === 10) {
+  //     console.log(
+  //       highestScoringWords[0],
+  //       "highestScoringWords[0].length equals 10: ",
+  //       highestScoringWords[0].length
+  //     );
+  //     break;
+  //   } else {
+  //     highestScoringWords = [word];
+  //   }
+  // } else if (word.length < highestScoringWords[0].length) {
+  //   highestScoringWords = [word];
+  // }
+  let highestIndex = 0;
+  for (let i = 0; i < highestScoringWords.length; i++) {
+    if (highestScoringWords[i].length === 10) {
+      return i;
+    } else if (
+      highestScoringWords[i].length < highestScoringWords[highestIndex].length
+    ) {
+      highestIndex = i;
+    }
+  }
+  console.log(
+    "highestScoringWords tie list: ",
+    highestScoringWords,
+    "highestIndex: ",
+    highestIndex
+  );
+  return highestIndex;
+};
+
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
+  let highestScoringWords = [];
+  let highScore = 0;
+  let highScoreIndex = 0;
+  for (let word of words) {
+    let score = scoreWord(word);
+    if (score > highScore) {
+      highestScoringWords = [word];
+      highScore = score;
+    } else if (score === highScore) {
+      highestScoringWords.push(word);
+    }
+  }
+  if (highestScoringWords.length > 1) {
+    highScoreIndex = getIndexTieBreak(highestScoringWords);
+  }
+  return { word: highestScoringWords[highScoreIndex], score: highScore };
 };
