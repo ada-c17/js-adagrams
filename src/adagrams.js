@@ -127,23 +127,26 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
+
+  // create an array that holds each word and its score, respectively
+  // for example if `words` is ['X', 'XX', 'XXX', 'XXXX'], `wordScores` should be...
+  // ["X", 8, "XX", 16, "XXX", 24, "XXXX", 32]
   const wordScores = [];
   for (let i = 0; i < words.length; i++) {
     wordScores.push(words[i])
     wordScores.push(scoreWord(words[i]))
   }
 
+  // find the max score in `wordScores`
   let maxScore = 0;
-  let maxWords = [];
   for (let i = wordScores.length - 1; i >= 1; i -= 2) {
     if (wordScores[i] > maxScore) {
       maxScore = wordScores[i];
-      maxWords.push(wordScores[i - 1]);
-    }
-    if (wordScores[i] === maxScore) {
-      maxWords.push(wordScores[i - 1]);
+      // maxWords.push(wordScores[i - 1]);
     }
   }
+
+  
 
   let winningWord = '';
   if (maxWords.length > 1) {
