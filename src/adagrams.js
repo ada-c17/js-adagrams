@@ -130,63 +130,41 @@ export const scoreWord = (word) => {
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
   // tests for this loop run eternally in vscode
-  /* 
-  1) For loop through each word in `words`
-
-  2) An string that represents the word and a number representing the score is pushed to `word_scores`
-
-  3) Initalize a variable `max_score` where the first object's score is the max 
-  value. Initialize an array called `ties` that hold 
-
-  4) Loop through `word_scores` from the end to the beginnning with a step of -2.
-
-  5) If the `word_score[i]` is is greater than or equal to the `max_score`, reassign `max_score` to `word_scores[i]`.
-
-  6) Return an object. The first property has the key word, the value is the index position of `max_score` - 1. The second property has a the key of score and a value of `max_score`.
-  */
-  
-  // // words_scores can be like this = [{X: 8}, {XX: 16}, {XXX: 24}, {XXXX: 32}]
   // // or maybe this = ['X', 8, 'XX', 16, 'XXXX', 32, 'XXXX', 32]
 
-  const word_scores = [];
-
+  const wordScores = [];
   for (let i = 0; i < words.length; i++) {
-    // word_scores.push({[words[i]]: scoreWord(words[i])})
-    word_scores.push(words[i])
-    word_scores.push(scoreWord(words[i]))
+    wordScores.push(words[i])
+    wordScores.push(scoreWord(words[i]))
   }
 
-  let max_score = 0;
-  let max_words = [];
-
-  // something is up with my condition here
-  for (let i = word_scores.length - 1; i >= 1; i -= 2) {
-    if (word_scores[i] > max_score) {
-      max_score = word_scores[i];
-      max_words.push(word_scores[i - 1]);
+  let maxScore = 0;
+  let maxWords = [];
+  for (let i = wordScores.length - 1; i >= 1; i -= 2) {
+    if (wordScores[i] > maxScore) {
+      maxScore = wordScores[i];
+      maxWords.push(wordScores[i - 1]);
     }
-
-    if (word_scores[i] === max_score) {
-      max_words.push(word_scores[i - 1]);
+    if (wordScores[i] === maxScore) {
+      maxWords.push(wordScores[i - 1]);
     }
   }
 
-  let tie_breaking_word = '';
-  if (max_words.length > 1) {
-    for (const word of max_words) {
+  let winningWord = '';
+  if (maxWords.length > 1) {
+    for (const word of maxWords) {
       if (word.length >= 10) {
-        tie_breaking_word = word;
+        winningWord = word;
         break;
       }
-      if (word.length < tie_breaking_word.length || !(tie_breaking_word.length)) {
-        tie_breaking_word = word;
+      if (word.length < winningWord.length || !(winningWord.length)) {
+        winningWord = word;
       }
     }
   }
   
-
   return {
-    word:
+    word: winningWord,
     score: 
   };
 };
