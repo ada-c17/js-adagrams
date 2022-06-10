@@ -146,7 +146,7 @@ export const highestScoreFrom = (words) => {
   */
   
   // // words_scores can be like this = [{X: 8}, {XX: 16}, {XXX: 24}, {XXXX: 32}]
-  // // or maybe this = ['X', 8, 'XX', 16, 'XXX', 24, 'XXXX', 32]
+  // // or maybe this = ['X', 8, 'XX', 16, 'XXXX', 32, 'XXXX', 32]
 
   const word_scores = [];
 
@@ -157,16 +157,36 @@ export const highestScoreFrom = (words) => {
   }
 
   let max_score = 0;
+  let max_words = [];
 
   // something is up with my condition here
-  for (let i = word_scores.length; i < word_scores.length; i -= 2) {
-    if (word_scores[i + 1] > max_score) {
-      max_score = word_scores[i + 1];
+  for (let i = word_scores.length - 1; i >= 1; i -= 2) {
+    if (word_scores[i] > max_score) {
+      max_score = word_scores[i];
+      max_words.push(word_scores[i - 1]);
+    }
+
+    if (word_scores[i] === max_score) {
+      max_words.push(word_scores[i - 1]);
     }
   }
 
+  let tie_breaking_word = '';
+  if (max_words.length > 1) {
+    for (const word of max_words) {
+      if (word.length >= 10) {
+        tie_breaking_word = word;
+        break;
+      }
+      if (word.length < tie_breaking_word.length || !(tie_breaking_word.length)) {
+        tie_breaking_word = word;
+      }
+    }
+  }
+  
+
   return {
-    word: word_scores.indexOf(max_score) - 1, 
-    score: max_score
+    word:
+    score: 
   };
 };
