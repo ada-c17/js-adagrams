@@ -57,23 +57,12 @@ export const drawLetters = () => {
 };
 
 // Helper functions for counting instances
-const countArray = (array, value) => {
+
+const countIterable = (iterable, value) => {
   let count = 0;
 
-  array.forEach((item) => {
-    if (item === value) {
-      count++;
-    }
-  });
-
-  return count;
-};
-
-const countString = (string, value) => {
-  let count = 0;
-
-  for (let i = 0; i < string.length; i++) {
-    if (string[i] === value) {
+  for (let i = 0; i < iterable.length; i++) {
+    if (iterable[i] === value) {
       count++;
     }
   }
@@ -82,14 +71,41 @@ const countString = (string, value) => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  const upperInput = input.toUpperCase();
-  const letters = new Set(upperInput);
+  // const upperInput = input.toUpperCase();
+  // const letters = new Set(upperInput);
 
-  for (let letter of letters) {
-    const inputCount = countString(upperInput, letter);
-    const handCount = countArray(lettersInHand, letter);
+  // for (let letter of letters) {
+  //   const inputCount = countIterable(upperInput, letter);
+  //   const handCount = countIterable(lettersInHand, letter);
+  //   if (handCount < inputCount) {
+  //     return false;
+  //   }
+  // }
 
-    if (handCount < inputCount) {
+  let handMap = {};
+  let inputMap = {};
+  for (let letter of lettersInHand) {
+    const upperLetter = letter.toUpperCase();
+    if (upperLetter in handMap) {
+      handMap[upperLetter] += 1;
+    } else {
+      handMap[upperLetter] = 1;
+    }
+  }
+
+  for (let letter of input) {
+    const upperLetter = letter.toUpperCase();
+    if (upperLetter in inputMap) {
+      inputMap[upperLetter] += 1;
+    } else {
+      inputMap[upperLetter] = 1;
+    }
+  }
+
+  for (let letter in inputMap) {
+    if (!letter in handMap) {
+      return false;
+    } else if (inputMap[letter] !== handMap[letter]) {
       return false;
     }
   }
