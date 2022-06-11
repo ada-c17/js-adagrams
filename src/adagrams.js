@@ -128,50 +128,44 @@ export const scoreWord = (word) => {
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
 
-  // create an array that holds each word and its score, respectively
-  // for example if `words` is ['X', 'XX', 'XXX', 'XXXX'], `wordScores` should be...
-  // ["X", 8, "XX", 16, "XXX", 24, "XXXX", 32]
-
   const wordScores = [];
   for (let i = 0; i < words.length; i++) {
     wordScores.push(words[i])
     wordScores.push(scoreWord(words[i]))
   }
 
-  // find the max score in `wordScores`
   let maxScore = 0;
-  for (let i = wordScores.length - 1; i >= 1; i -= 2) {
+  for (let i = 1; i < wordScores.length; i += 2) {
     if (wordScores[i] > maxScore) {
       maxScore = wordScores[i];
     }
   }
 
-  // find the words with a score that equals `maxScore`
   let tieScoreWords = [];
-  for (let i = wordScores.length - 1; i >= 1; i -= 2) {
+  for (let i = 1; i < wordScores.length; i += 2) {
     if (wordScores[i] === maxScore) {
       tieScoreWords.push(wordScores[i - 1]);
     }
   }
 
-  /* 
-  Loop through the words in `tieScoreWords`
-  
-  */
   let winningWord = '';
   if (tieScoreWords.length > 1) {
     for (const word of tieScoreWords) {
+      if (word.length < winningWord.length || !(winningWord.length)) {
+        winningWord = word;
+      }
       if (word.length >= 10) {
         winningWord = word;
         break;
       }
-      if (word.length < winningWord.length || !(winningWord.length)) {
-        winningWord = word;
-      }
     }
   }
+  else {
+    winningWord = tieScoreWords[0];
+  }
+
   return {
     word: winningWord,
-    score: scoreWord(winningWord)
+    score: maxScore
   };
 };
