@@ -1,6 +1,6 @@
 export const drawLetters = () => {
   // Implement this method for wave 1
-  const scoreChart = {
+  const availableLetters = {
     A: 9,
     B: 2,
     C: 2,
@@ -31,7 +31,7 @@ export const drawLetters = () => {
   
   let letters = [];
 
-  for (const [letter, inputLetterFreq] of Object.entries(scoreChart)) {
+  for (const [letter, inputLetterFreq] of Object.entries(availableLetters)) {
     for (let i = 0; i < inputLetterFreq; i++) {
       letters.push(letter);
     }
@@ -83,7 +83,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
-  const scoreChart = {
+  const availableLetters = {
     A: 1,
     B: 3,
     C: 3,
@@ -114,8 +114,8 @@ export const scoreWord = (word) => {
 
   let score = 0;
   for (const letter of word) {
-    if (letter.toUpperCase() in scoreChart) {
-      score += scoreChart[letter.toUpperCase()];
+    if (letter.toUpperCase() in availableLetters) {
+      score += availableLetters[letter.toUpperCase()];
     }
   }
 
