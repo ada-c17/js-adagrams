@@ -1,3 +1,5 @@
+// import { set } from "core-js/core/dict";
+
 export const drawLetters = () => {
   // Implement this method for wave 1
   const LETTERPOOL = {
@@ -45,6 +47,28 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
+  let availableLetters = [...lettersInHand];
+  if (input.length > lettersInHand.length) {
+    return false;
+  } 
+  let upperCaseInput = input.toUpperCase();
+  let inputSet = new Set(upperCaseInput);
+  let handSet = new Set(lettersInHand);
+
+  const extraLetters = (inputSet - handSet);
+  if (extraLetters.length > 0) {
+    return false;
+  }
+
+  for (let letter in upperCaseInput) {
+    if (availableLetters.includes(upperCaseInput[letter]) === false) {
+      return false
+    } else {
+      let letterIndex = availableLetters.indexOf(upperCaseInput[letter]);
+      availableLetters.splice(letterIndex, 1);
+    }
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
