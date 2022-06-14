@@ -120,4 +120,63 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
+  // ****old python adagrams code(for reference)****
+  //   score_list = []
+  //   tuple_list = []
+  //   for word in word_list:
+  //       word_tuple = word, score_word(word)
+  //       tuple_list.append(word_tuple)
+  //       score_list.append(score_word(word))
+
+  //   # finding max score
+  //   max_score = max(score_list)
+  //   max_index_list = [i for i, score in enumerate(score_list) \
+  //       if score == max_score]
+
+  //   if len(max_index_list) == 1:
+  //       return tuple_list[max_index_list[0]]
+  //   else:
+  //       small_word_length = 10
+  //       for word, score in tuple_list:
+  //           if score == max_score:
+  //               if len(word) == 10:
+  //                   return word, score
+  //               else:
+  //                   if len(word) < small_word_length:
+  //                       small_word_length = len(word)
+  //       for word, score in tuple_list:
+  //           if small_word_length == len(word):
+  //               return word, score
+  // ****old python adagrams code******
+
+  // input: words--array of strings
+  // output: single object, winning word: { word : "word", score: 0 }
+  //    --where 0 is score of word
+
+  // if tie: if one word has 10 letters, return that word. else:
+  //    if all words whose score = max are of equal length:
+  //      return word that comes first out of the words list
+  //   else: 
+  //      return word with shortest length
+
+  // HERE'S THE PLAN (maybe):
+  // create winningWord object just to have it and return it.
+  // create empty list to store words with winning scores
+  // initialize variable to hold max score
+  // loop through input list (forEach?) and apply wordScore() to each.
+  // initialize variable to hold currentScore (possibly not needed but
+  //    hard to visualize rn)
+  // within the above forEach loop if (currentScore > maxScore) {
+  //     maxScore = currentScore;
+  // }
+  // loop again through words. (forEach again? there's deffo a better way to do this)
+  //    if wordScore(word) === MaxScore, winningWordList.push(word)
+  // if winningWordList.length === 0, winningWord[word] = wordScore(word).
+  //  else loop through winningWordList. 
+  //  if a word has 10 letters, return word.
+  //  else if each length is equal, return word at index that comes first. 
+  //  else return min of winningWordList.
+  let winningWord = {};
+
+  return winningWord;
 };
