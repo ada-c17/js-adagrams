@@ -70,42 +70,27 @@ const countIterable = (iterable, value) => {
   return count;
 };
 
+const createMapOfCounts = (iterable) => {
+  let iterableMap = {};
+  for (let letter of iterable) {
+    const upperLetter = letter.toUpperCase();
+    if (upperLetter in iterableMap) {
+      iterableMap[upperLetter] += 1;
+    } else {
+      iterableMap[upperLetter] = 1;
+    }
+  }
+  return iterableMap;
+};
+
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // const upperInput = input.toUpperCase();
-  // const letters = new Set(upperInput);
-
-  // for (let letter of letters) {
-  //   const inputCount = countIterable(upperInput, letter);
-  //   const handCount = countIterable(lettersInHand, letter);
-  //   if (handCount < inputCount) {
-  //     return false;
-  //   }
-  // }
-
-  let handMap = {};
-  let inputMap = {};
-  for (let letter of lettersInHand) {
-    const upperLetter = letter.toUpperCase();
-    if (upperLetter in handMap) {
-      handMap[upperLetter] += 1;
-    } else {
-      handMap[upperLetter] = 1;
-    }
-  }
-
-  for (let letter of input) {
-    const upperLetter = letter.toUpperCase();
-    if (upperLetter in inputMap) {
-      inputMap[upperLetter] += 1;
-    } else {
-      inputMap[upperLetter] = 1;
-    }
-  }
+  const handMap = createMapOfCounts(lettersInHand);
+  const inputMap = createMapOfCounts(input);
 
   for (let letter in inputMap) {
-    if (!letter in handMap) {
+    if (!(letter in handMap)) {
       return false;
-    } else if (inputMap[letter] !== handMap[letter]) {
+    } else if (inputMap[letter] > handMap[letter]) {
       return false;
     }
   }
