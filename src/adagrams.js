@@ -125,33 +125,33 @@ export const scoreWord = (word) => {
 export const highestScoreFrom = (words) => {
 
     const n = words.length;
-    let winner = {
+    let high_score = {
         word: "",
         score: 0,
     };
 
     for (let i = 0; i < n; i++) {
-        if (scoreWord(words[i]) > winner.score) {
-            winner = {
+        if (scoreWord(words[i]) > high_score.score) {
+            high_score = {
                 word: words[i],
                 score: scoreWord(words[i]),
             };
             //tie
-        } else if (scoreWord(words[i]) === winner.score) {
-            if (winner.word.length === 10) {
-                winner = winner;
+        } else if (scoreWord(words[i]) === high_score.score) {
+            if (high_score.word.length === 10) {
+                high_score = high_score;
             } else if (words[i].length === 10) {
-                winner = {
+                high_score = {
                     word: words[i],
                     score: scoreWord(words[i]),
                 };
-            } else if (words[i].length < winner.word.length) {
-                winner = {
+            } else if (words[i].length < high_score.word.length) {
+                high_score = {
                     word: words[i],
                     score: scoreWord(words[i]),
                 };
             }
         }
     }
-    return winner;
+    return high_score
 };
