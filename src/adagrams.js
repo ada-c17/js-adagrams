@@ -89,10 +89,11 @@ class Adagrams {
   static drawLetters = () => {
     // Implement this method for wave 1
     const tenLetters = [];
-    let letterPoolCopy = { ...LETTER_POOL };
+    const letterPoolCopy = { ...LETTER_POOL };
     while (tenLetters.length < 10) {
-      let randomLetter = ALPHABET[Math.floor(Math.random() * ALPHABET.length)];
-      for (let [letter, count] of Object.entries(letterPoolCopy)) {
+      const randomLetter =
+        ALPHABET[Math.floor(Math.random() * ALPHABET.length)];
+      for (const [letter, count] of Object.entries(letterPoolCopy)) {
         if (randomLetter === letter && count !== 0) {
           letterPoolCopy[randomLetter] -= 1;
           tenLetters.push(randomLetter);
@@ -124,12 +125,12 @@ class Adagrams {
       totalPoints += 8;
     }
 
-    wordList.forEach(sumUpPoints);
-    function sumUpPoints(item) {
+    wordList.forEach((item) => {
       if (item in SCORE_CHART) {
         totalPoints += SCORE_CHART[item];
       }
-    }
+    });
+
     return totalPoints;
   };
 
@@ -144,13 +145,13 @@ class Adagrams {
     });
 
     const highestScore = Math.max(...Object.values(wordsPoints));
-    for (var word in wordsPoints) {
+    for (const word in wordsPoints) {
       if (wordsPoints[word] === highestScore) {
         tiedWords.push(word);
       }
     }
 
-    for (let word of tiedWords) {
+    for (const word of tiedWords) {
       if (word.length === 10) {
         maxWord = word;
         break;
