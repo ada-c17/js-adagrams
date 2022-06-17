@@ -61,7 +61,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
       return false;
     }
   } return true;
-};
+}
 
 export const scoreWord = (word) => {
   word = word.toUpperCase();
@@ -77,30 +77,35 @@ export const scoreWord = (word) => {
     score += 8;
   }
   return score;
-};
+}
 
 
 export const highestScoreFrom = (words) => {
-//     #make a dictionary of all the scores
-//     scores = {}
-//     for word in word_list:
-//         scored_word = score_word(word)
-//         scores[word] = scored_word
-//     #find the highest scoring word and score
-//     highest_scoring_word = max(scores, key=scores.get)
-//     highest_score = max(scores.values())
-//     #make a list of the winning words
-//     winning_words = []
-//     for word, score in scores.items():
-//         if score == highest_score:
-//             winning_words.append(word)
-//     #if there's more than one word, in the list, tiebreaker time
-//     if len(winning_words) > 1:
-//         for word in winning_words:
-//             if len(word) == 10:
-//                 return (word, highest_score)
-//         return (min(winning_words, key=len), highest_score)
-//     #else just return the highest scoring word
-//     else:
-//         return (highest_scoring_word, highest_score)
-};
+  // create empty object and add words with scores using previous function
+  let scores = {};
+  for (let word of words) {
+    let scoredWord = scoreWord(word);
+    scores[word] = scoredWord;
+  };
+  // find highest score within the object
+  const highestScore = Math.max(...Object.values(scores));
+  // create array adding words in case there are words with same score
+  let tyingWords = [];
+  for (const word in scores) {
+    if(scores[word] === highestScore) {
+      tyingWords.push(word);
+    }
+  }
+  /* set winning word to first word in tyingwords array
+  if only one word in array then will be returned as the winning word */
+  let winningWord = tyingWords[0];
+  // iterate and check tying words array for words for words of length 10
+  for (const word of tyingWords) {
+    if(word.length === 10) {
+      return {word: word, score: highestScore}
+    } else if(word.length < winningWord.length) {
+      winningWord = word;
+    }
+  }
+  return {word: winningWord, score: highestScore} 
+}
