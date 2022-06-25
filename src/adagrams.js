@@ -100,7 +100,6 @@ export const highestScoreFrom = (words) => {
           topScoringWords.push(words[i]);
       }
   }
-  console.log(topScoringWords)
   if (longestWord.length === 10){ 
     return {"score": maxScore,"word":longestWord}
   } else {
