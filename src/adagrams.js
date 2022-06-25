@@ -48,7 +48,6 @@ export const usesAvailableLetters = (input,lettersInHand) => {
   const lettersInHandCopy = [...lettersInHand];
   let result = true;
   // const word = input.toUpperCase()
-  // for (const letter of input.toUpperCase()){
   for (const char of input){
     if (lettersInHandCopy.includes(char)===true){
       const index = lettersInHandCopy.indexOf(char);
@@ -65,8 +64,6 @@ export const usesAvailableLetters = (input,lettersInHand) => {
 export const scoreWord = (word) => {
   // Implement this method for wave 3
   let score = 0;
-  console.log(word);
-  console.log('hello');
   if (word.length == 0){
     score = 0;
     console.log(word.length);
@@ -97,20 +94,21 @@ export const highestScoreFrom = (words) => {
           longestWord = word;
         }
   }
-  console.log(longestWord);
-  maxScore = Math.max(scores);
-  console.log(maxScore);
+  let maxScore = Math.max(...scores);
   // makes list of all words with the top score
   for (let i = 0; i < scores.length; i++){
-      if (scores[i] === max_score){
+      if (scores[i] === maxScore){
           topScoringWords.push(words[i]);
       }
   }
+  console.log(topScoringWords)
   if (longestWord.length === 10){
-      return [longestWord, maxScore]
+    console.log(maxScore,longestWord);  
+    return {"score": maxScore,"word":longestWord}
   } else {
       // finds shortest word with top score
-      let topWord = Math.min(topScoringWords.length);
-      return [topWord, maxScore]
+      let topWord = topScoringWords.reduce((a,b) => a.length <= b.length ? a:b);
+      console.log(topWord,maxScore)
+      return {"score": maxScore, "word":topWord}
   }
 };
