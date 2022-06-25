@@ -30,75 +30,87 @@ const availableLetters = {
 export const drawLetters = () => {
   // Implement this method for wave 1
   let letterHand = [];
-  // const collect = require('collect.js');
-  // const data = collect(picked_letter);
-
   while (letterHand.length < 10){
         // picked_letter = Math.floor(Math.random(Object.keys(available_letters)));
         const randomIndex = Math.floor(Math.random()*26);
         const letterList = Object.keys(availableLetters);
         const picked_letter=letterList[randomIndex];
-        // picked_letter = Math.floor(Math.random(availableLetters.keys())*26)
-        // check that letter hasn't exceeded available letter count
-        // [....].reduce((total,x) => (x==2 ? total+1 : total), 0)
-        let elementCount = letterHand.reduce((total,x) => (x==picked_letter ? total+1 : total) ,0);
-        while (letterHand.length < 10){
-          if (elementCount < availableLetters[picked_letter][0]){
+        const elementCount = letterHand.reduce((total,x) => (x==picked_letter ? total+1 : total) ,0);
+        if (elementCount < availableLetters[picked_letter][0]){
               letterHand.push(picked_letter);
           }
-        }
+    }
     return letterHand  
-  }
 };
 
-export const usesAvailableLetters = (input, lettersInHand) => {
+export const usesAvailableLetters = (input,lettersInHand) => {
   // Implement this method for wave 2
   const lettersInHandCopy = [...lettersInHand];
-  const word = input.toUpperCase
-    for (let letter of word){
-        if (letter in letter_bank_copy)
-            letter_bank_copy.remove(letter);
-        else
-            return false
-    return true
+  let result = true;
+  // const word = input.toUpperCase()
+  // for (const letter of input.toUpperCase()){
+  for (const char of input){
+    if (lettersInHandCopy.includes(char)===true){
+      const index = lettersInHandCopy.indexOf(char);
+      lettersInHandCopy.splice(index,1);
+      result = true;
+    } else {
+      result = false;
+      return result;
     }
-  };
+  }
+  return result 
+};
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
-  score = 0
-
-  for (letter in word.toUpperCase())
-      score += availableLetters[letter][1];
-  
-  if (word.length >= 7)
+  let score = 0;
+  console.log(word);
+  console.log('hello');
+  if (word.length == 0){
+    score = 0;
+    console.log(word.length);
+    return score;
+  }
+  for (const letter of word.toUpperCase()){
+    score += availableLetters[letter][1];
+  }
+  if (word.length >= 7 && word.length <= 10) {
       score += 8;
-  
+  }
   return score
 };
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 1
   let scores = []
-  let top_scoring_words = []
+  let topScoringWords = []
+  let lgth = 0;
+  let longestWord;
 
-  for (word in word_list)
-      word_score = score_word(word);
-      scores.push(word_score);
-  
-  max_score = max(scores)
-
+  for (let word of words){
+      let wordScore = scoreWord(word);
+      scores.push(wordScore);
+// Loop to find the longest word
+        if (word.length > lgth){
+          lgth = word.length;
+          longestWord = word;
+        }
+  }
+  console.log(longestWord);
+  maxScore = Math.max(scores);
+  console.log(maxScore);
   // makes list of all words with the top score
-  for (i in range(len(scores)))
-      if (scores[i] === max_score)
-          top_scoring_words.push(word_list[i]);
-
-  let longest_word = Math.max(top_scoring_words, key=len)
-  
-  if (longest_word.length == 10)
-      return [longest_word, max_score]
-  else
+  for (let i = 0; i < scores.length; i++){
+      if (scores[i] === max_score){
+          topScoringWords.push(words[i]);
+      }
+  }
+  if (longestWord.length === 10){
+      return [longestWord, maxScore]
+  } else {
       // finds shortest word with top score
-      top_word = Math.min(top_scoring_words, key=len);
-      return [top_word, max_score]
+      let topWord = Math.min(topScoringWords.length);
+      return [topWord, maxScore]
+  }
 };
