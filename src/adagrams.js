@@ -66,7 +66,6 @@ export const scoreWord = (word) => {
   let score = 0;
   if (word.length == 0){
     score = 0;
-    console.log(word.length);
     return score;
   }
   for (const letter of word.toUpperCase()){
@@ -102,13 +101,11 @@ export const highestScoreFrom = (words) => {
       }
   }
   console.log(topScoringWords)
-  if (longestWord.length === 10){
-    console.log(maxScore,longestWord);  
+  if (longestWord.length === 10){ 
     return {"score": maxScore,"word":longestWord}
   } else {
       // finds shortest word with top score
       let topWord = topScoringWords.reduce((a,b) => a.length <= b.length ? a:b);
-      console.log(topWord,maxScore)
       return {"score": maxScore, "word":topWord}
   }
 };
