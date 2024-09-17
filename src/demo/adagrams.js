@@ -1,47 +1,37 @@
-import {
-  drawLetters,
-  usesAvailableLetters,
-  scoreWord,
-  highestScoreFrom,
-} from "adagrams";
+import Adagrams from "../adagrams";
 
-const Real = {
-  drawLetters,
-  usesAvailableLetters,
-  scoreWord,
-  highestScoreFrom,
-};
+const game = new Adagrams();
 
 const Stub = {
   drawLetters() {
     const defaultLetters = ["H", "E", "L", "L", "O", "W", "O", "R", "L", "D"];
 
-    if (typeof Real.drawLetters === "function") {
-      return Real.drawLetters() || defaultLetters;
+    if (typeof game.drawLetters === "function") {
+      return game.drawLetters() || defaultLetters;
     }
 
     return defaultLetters;
   },
 
   usesAvailableLetters(input, lettersInHand) {
-    if (typeof Real.usesAvailableLetters === "function") {
-      return Real.usesAvailableLetters(input, lettersInHand);
+    if (typeof game.usesAvailableLetters === "function") {
+      return game.usesAvailableLetters(input, lettersInHand);
     }
 
     return true;
   },
 
   scoreWord(word) {
-    if (typeof Real.scoreWord === "function") {
-      return Real.scoreWord(word);
+    if (typeof game.scoreWord === "function") {
+      return game.scoreWord(word);
     }
 
     return -1;
   },
 
   highestScoreFrom(words) {
-    if (typeof Real.highestScoreFrom === "function") {
-      return Real.highestScoreFrom(words);
+    if (typeof game.highestScoreFrom === "function") {
+      return game.highestScoreFrom(words);
     }
 
     if (words.length < 1) return null;
